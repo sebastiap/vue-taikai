@@ -1,10 +1,10 @@
 # vue-taikai
 
-# ![WebApp](https://iharsh234.github.io/WebApp/images/demo/demo_landing.JPG)
+# ![WebApp](https://www.fayerwayer.com/resizer/nLOUNkJxSJesU5gLLGTz3vzAYQI=/800x0/filters:format(jpg):quality(70)/cloudfront-us-east-1.images.arcpublishing.com/metroworldnews/I5V3NPJ4NVG2HNATNW5PJEI2JE.jpg)
 <table>
 <tr>
 <td>
-  A webapp using Vue to display history of stock growth in a given period of time. It helps predict the growth of stocks from the  charts of stock performace in any period of time. It helps to judge stocks, with the principle of momentum investing, which returns 1% per month on average.
+  A webapp using Vue to show a concept game based on the popular franchise Dragon Ball Super.
 </td>
 </tr>
 </table>
@@ -35,27 +35,23 @@ Want to contribute? Great!
 
 ## Built with 
 
-- [jQuery - Ajax](http://www.w3schools.com/jquery/jquery_ref_ajax.asp) - jQuery simplifies HTML document traversing, event handling, animating, and Ajax interactions for rapid web development.
-- [Google Chart API](https://developers.google.com/chart/interactive/docs/quick_start) - Free , Rich Gallery , Customizable and Cross-browser compatible.
-- [Bootstrap](http://getbootstrap.com/) - Extensive list of components and  Bundled Javascript plugins.
+- [Vue](https://es.vuejs.org/v2/cookbook/) - Vue is a JavaScript framework that facilitates the UI (user interface) development of websites and single-page applications. A progressive JavaScript framework, Vue makes creating user interfaces simpler and more enjoyable.
+- [Vite](https://vitejs.dev/guide/) - Vite aims to address the slow feedback loop of multiple js layers by leveraging new advancements in the ecosystem: the availability of native ES modules in the browser, and the rise of JavaScript tools written in compile-to-native languages.
+- [Docker](https://es.vuejs.org/v2/cookbook/dockerize-vuejs-app) - Extensive list of components and  Bundled Javascript plugins.
 
 
 ## To-do
-
+ * Add Logic
+ * Improve Visuals
+ * Promote the site
 
 ## Team
 
-[![Harsh Vijay](https://avatars1.githubusercontent.com/u/12688534?v=3&s=144)](https://github.com/iharsh234)  | [![Quandl.com](https://github.com/iharsh234/WebApp/blob/master/images/quandl.jpg)](https://www.quandl.com/)
----|---
-[Harsh Vijay ](https://github.com/iharsh234) |[Quandl](https://www.quandl.com)
-
-## [License](https://github.com/iharsh234/WebApp/blob/master/LICENSE.md)
-
-MIT © [Harsh Vijay ](https://github.com/iharsh234)
+[![Sebastian Picardi](https://avatars.githubusercontent.com/u/36540321?v=4)](https://github.com/sebastiap)  
 
 ## Recommended IDE Setup
 
-[VSCode](https://code.visualstudio.com/) + [Volar](https://marketplace.visualstudio.com/items?itemName=Vue.volar) (and disable Vetur) + [TypeScript Vue Plugin (Volar)](https://marketplace.visualstudio.com/items?itemName=Vue.vscode-typescript-vue-plugin).
+[VSCode](https://code.visualstudio.com/) + [Volar](https://marketplace.visualstudio.com/items?itemName=Vue.volar) (and disable Vetur) + [Auto Close Tag](https://marketplace.visualstudio.com/items?itemName=Autoclosetag).
 
 ## Customize configuration
 
