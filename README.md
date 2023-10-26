@@ -28,6 +28,12 @@ Here is a working live demo :
 
 ## [Usage](https://iharsh234.github.io/WebApp/) 
 
+### Color Palette
+ * https://coolors.co/659157-f7ffe0-faa43d-55a8fd-e05263
+
+### Other Tools
+ * https://doodlenerd.com/html-control/css-dropdown-generator
+
 ### Development
 Want to contribute? Great!
 
@@ -48,6 +54,7 @@ Want to contribute? Great!
 ## Team
 
 [![Sebastian Picardi](https://avatars.githubusercontent.com/u/36540321?v=4)](https://github.com/sebastiap)  
+Sebastian Picardi
 
 ## Recommended IDE Setup
 
@@ -74,4 +81,3 @@ npm run dev
 ```sh
 npm run build
 ```
-# vue-taikai
