@@ -3,7 +3,7 @@
     <div class="item item-1"></div>
     <div class="item item-3">
       <div id="personaje">
-        
+        <div class="invisible">  {{ auracolor.auracolor }}</div>
       </div>
       <div class="ficha">
         <select class="selectProta" name="pj" id="pj" v-model="pjactual">
@@ -11,15 +11,13 @@
             {{item.nombre}}
         </option>
         </select>
-        <div class="nombre">
+        <div class="fichaDatos">
           <div class="ficha-item">  {{ pjactual.nombre }}</div>
-          <div class="ficha-item">  {{ pjactual.raza }}</div>
-          <div class="ficha-item">  {{ pjactual.ki }}</div>
-          <div class="ficha-item">  {{ formaactual.modo }}</div>
-          <!-- {{ formaactual.aura }} -->
-          <div class="ficha-item">  {{ auracolor }}</div>
+          <div class="ficha-item">  Raza: {{ pjactual.raza }}</div>
+          <div class="ficha-item">  Ki: {{ pjactual.ki }}</div>
+          <!-- <div class="ficha-item">  {{ formaactual.modo }}</div> -->
                    <!-- <img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRfCQVP-lxNewrbhT5y2M0RdAHRg-aFxdSrpQ&usqp=CAU" alt=""> -->
-          <div class="ficha-item">  Poder Actual : {{ poderactual }}</div>
+          <div class="ficha-item">  Poder Actual : {{ this.poderactual }}</div>
         </div>
         Forma
         <select class="selectProta" name="forma" id="forma" v-model="formaactual">
@@ -37,7 +35,8 @@
           <div className="protadata">
 
           <h3>{{ imgenemigo }}</h3>
-          
+          ENEMIGO ACTUAL
+          <p>Nivel de Pelea: {enemigo.id}</p>
           <!-- <select name="select"  id='pjselect' 
           onChange={handleChange}
           // defaultValue={{ label: "Cambiar Personaje", value: 0 }}
@@ -47,7 +46,7 @@
             {personajes.map(pj => <option key={pj.id} value={JSON.stringify(pj)}>{pj.nombre}</option> )}
           </select>
         
-          <p>Nivel de Pelea: {enemigo.id}</p>
+
           <p>Forma Actual: {formaProta}</p>
           <div className="formas">
             
@@ -79,7 +78,7 @@
         Goku asesta el primer golpe. Su rival, Raspberry , apenas puede mantenerse en pie. Zeno-Sama comienza a aburrirse, por lo que Goku considera cambiar de forma para hacer la batalla mas interesante.
 
       </div>
-      <div class="marginator">AHHHH</div>
+      <!-- <div class="marginator">AHHHH</div> -->
     </section>
   </template>
   
@@ -143,7 +142,7 @@
 
   #dialogo {
    margin-left: 2rem;
-   width: 100%; 
+   width: 95%; 
    height: 10rem; 
    background: whitesmoke;
    -moz-border-radius: 10px; 
@@ -177,16 +176,17 @@
 
   .ficha{
     display: flex;
+    align-items: center;
     justify-content: space-around;
     flex-direction: row;
     width: 50rem;
   }
-  .nombre{
+  .fichaDatos{
     background-color:#55a8fd;
     height: 8rem;
     width: 20rem;
     display: flex;
-    justify-content: flex-start;
+    justify-content: space-around;
     flex-direction: column;
   }
 
@@ -205,7 +205,8 @@
    width: 8rem;
    height: 8rem;
    margin-left: 1rem;
-   background-image: url("/chibigoku.png");
+   background-image:  v-bind("imagenProta");
+   /* background-image: url("/chibigoku.png"); */
    background-size: cover;
    -moz-border-radius: 50%; 
    -webkit-border-radius: 50%; 
@@ -214,10 +215,15 @@
     display: flex;
     align-items: center;
     justify-content: center;
-    border-color: v-bind('auracolor');
+    border-color: v-bind("auracolor");
     /* border-color: v-bind('auracolor'); */
-    border-width: 0.1rem;
+    border-width: 0.3rem;
     border-style: solid;
+    transition: all 1s ease-out;
+  }
+
+  .invisible{
+    z-index: -99;
   }
 .selectProta {
     height: 3rem;
@@ -515,7 +521,14 @@ export default {
     return {
       personajes: personajes,
       formas:formas,
-      pjactual:personajes[0],
+      pjactual:		{
+		  id: 90,
+		  nombre: 'Goku',
+		  raza:'saiyajin',
+		  ki:'divino',
+		  img:"https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRfCQVP-lxNewrbhT5y2M0RdAHRg-aFxdSrpQ&usqp=CAU",
+		  vivo: true
+		},
       formaactual:		{
 		  id: 1,
 		  modo: 'Base',
@@ -524,7 +537,8 @@ export default {
 		  aura:"white",
 		  user: 'TODOS' 
 		},
-      auracolor:"white"
+      auracolor:"white",
+      imagenProta:url("/chibigoku.png"),
       // options: personajes.map(pj => <option key={pj.id} value={JSON.stringify(pj)}>{pj.nombre}</option> )
     }
   },
@@ -552,16 +566,18 @@ export default {
     auracolor(){
       this.auracolor = this.formaactual.aura;
       return {"auracolor":this.formaactual.aura}
-    }
-    // poderactual() {
-    //   if this.pjactual == undefined {
-    //     return 1
-    //   }
-    //   else{
-    //     return pjactual * formaactual;
-    //   }
+    },
+    poderactual() {
+      let pjactual = this.pjactual;
+      if (pjactual === undefined) {
+        return 1
+      }
+      else{
+        this.imagenProta = "/4stardb.png";
+        return pjactual.id * this.formaactual.id;
+      }
 
-    // }
+    }
   }
 }
 </script>
