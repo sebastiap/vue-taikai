@@ -31,6 +31,7 @@
       </div>
       <div id="zeno" v-bind:style="{ backgroundImage: 'url(' + imagenZeno + ')' }" ></div>
     </div>
+    <div>{{ this.puntaje }}</div>
   <div class="contenedor">
         <aside className="sidebar">
 			    <h3>PELEAR</h3>
@@ -69,7 +70,7 @@
           </div>
         </div>
         <div className="widget-1">
-          <h3>EMPUJAR</h3>
+          <h3><button v-on:click="luchar(this.poderactual,poderEnemy,null, $event)">EMPUJAR</button></h3>
         </div>
         <div className="widget-2">
           <h3>HUIR</h3>
@@ -573,7 +574,7 @@ export default {
 		  ki:'divino',
 		  img:"https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRfCQVP-lxNewrbhT5y2M0RdAHRg-aFxdSrpQ&usqp=CAU",
 		  vivo: true
-		},
+		  },
       formaactual:		{
 		  id: 1,
 		  modo: 'Base',
@@ -586,8 +587,9 @@ export default {
       imagenProta:"/img/characters/enemies/Enemy2.jpg",
       imagenEnemy:"/img/characters/enemies/Enemy3.jpg",
       imagenZeno:"/img/characters/Zeno/Zeno5.jpg",
-      poderEnemy: 9000
-      // options: personajes.map(pj => <option key={pj.id} value={JSON.stringify(pj)}>{pj.nombre}</option> )
+      poderEnemy: 9000,
+      puntaje:0,
+      // luchar:Luchar
     }
   },
 
@@ -626,7 +628,19 @@ export default {
       }
 
     }
+  },
+  methods: {
+    luchar: function (p1,p2,t, event) {
+    // now we have access to the native event
+    event.preventDefault();
+    if (p1 >p2) {
+      this.puntaje +=1;
+    }
+    else{
+      this.puntaje -=1;
+    }
   }
+}
 }
 </script>
   

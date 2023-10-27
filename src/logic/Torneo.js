@@ -42,7 +42,7 @@ export var	personajes = [
 		{
 		  id: 1000,
 		  nombre: 'Broly',
-		  raza:'Lsaiyajin',
+		  raza:'saiyajin',
 		  ki:'normal',
 		  img:"https://www.fayerwayer.com/resizer/JF98KL_YjVWzm4Zn9Vn5iVs_h8Q=/1440x810/filters:format(jpg):quality(70)/cloudfront-us-east-1.images.arcpublishing.com/metroworldnews/WZ3RB3VKQZAHPLQKZWA5TZPDZE.jpg",
 		  vivo: true
@@ -184,29 +184,35 @@ export var	options= [
 		  }
 		  ];
 
-export function Luchar() { 
+export function Luchar(poderProta,poderEnemigo) { 
 			this.logtorneo = this.logtorneo + "\n" +  this.lineacomando;
-			if (this.tecnica !== 'Ninguna') { //PUNTOS EXTRAS POR HABILIDAD
-			this.puntaje = this.puntaje + 50;
-				if (this.tecnica === 'MAFUBA') {
-				this.options[4].usos--;
-				}
-				else if (this.tecnica === 'PARALISIS') {
-				this.options[2].usos--;
-				}
-				else if (this.tecnica === 'TAIYOKEN') {
-				this.options[0].usos--;
-				}
-				else if (this.tecnica === 'EXPLOSION') {
-				this.options[3].usos--;
-				}
-				else if (this.tecnica === 'KAME') { // VER SI LO HAGO POR PJ
-				this.options[5].usos--;
-				}
-				else if (this.tecnica === 'ESCUDO') { // VER SI LO HAGO POR PJ
-				this.options[1].usos--;
-				}
+			if (poderProta > poderEnemigo) {
+				return 1;
 			}
+			else{
+				return 0;
+			}
+			// if (this.tecnica !== 'Ninguna') { //PUNTOS EXTRAS POR HABILIDAD
+			// this.puntaje = this.puntaje + 50;
+			// 	if (this.tecnica === 'MAFUBA') {
+			// 	this.options[4].usos--;
+			// 	}
+			// 	else if (this.tecnica === 'PARALISIS') {
+			// 	this.options[2].usos--;
+			// 	}
+			// 	else if (this.tecnica === 'TAIYOKEN') {
+			// 	this.options[0].usos--;
+			// 	}
+			// 	else if (this.tecnica === 'EXPLOSION') {
+			// 	this.options[3].usos--;
+			// 	}
+			// 	else if (this.tecnica === 'KAME') { // VER SI LO HAGO POR PJ
+			// 	this.options[5].usos--;
+			// 	}
+			// 	else if (this.tecnica === 'ESCUDO') { // VER SI LO HAGO POR PJ
+			// 	this.options[1].usos--;
+			// 	}
+			// }
 			  if (this.resultado === 'Victoria') {
 				this.puntaje = this.puntaje + 100;
 			  }
