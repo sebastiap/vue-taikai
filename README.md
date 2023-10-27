@@ -64,6 +64,12 @@ Sebastian Picardi
 
 See [Vite Configuration Reference](https://vitejs.dev/config/).
 
+## Problem Solved
+
+* How do I add CSS animations when updating a value with vue.js? 
+Used by poderactual
+https://stackoverflow.com/questions/42537359/how-do-i-add-css-animations-when-updating-a-value-with-vue-js
+
 ## Project Setup
 
 ```sh

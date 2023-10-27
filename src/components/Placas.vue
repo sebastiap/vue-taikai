@@ -2,7 +2,7 @@
   <section class="placa">
     <div class="item item-1"></div>
     <div class="item item-3">
-      <div id="personaje">
+      <div id="personaje" v-bind:style="{ backgroundImage: 'url(' + imagenProta + ')' }" >
         <div class="invisible">  {{ auracolor.auracolor }}</div>
       </div>
       <div class="ficha">
@@ -16,8 +16,11 @@
           <div class="ficha-item">  Raza: {{ pjactual.raza }}</div>
           <div class="ficha-item">  Ki: {{ pjactual.ki }}</div>
           <!-- <div class="ficha-item">  {{ formaactual.modo }}</div> -->
-                   <!-- <img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRfCQVP-lxNewrbhT5y2M0RdAHRg-aFxdSrpQ&usqp=CAU" alt=""> -->
-          <div class="ficha-item">  Poder Actual : {{ this.poderactual }}</div>
+        <transition name="slide-fade" mode="out-in">
+              <div class="ficha-item poder" :key="this.poderactual">
+                Poder Actual : {{ this.poderactual }} 
+              </div>
+      </transition>
         </div>
         Forma
         <select class="selectProta" name="forma" id="forma" v-model="formaactual">
@@ -26,17 +29,21 @@
           </option>
         </select>
       </div>
+      <div id="zeno" v-bind:style="{ backgroundImage: 'url(' + imagenZeno + ')' }" ></div>
     </div>
   <div class="contenedor">
         <aside className="sidebar">
 			    <h3>PELEAR</h3>
 		    </aside>
         <div className="enemigo">
-          <div className="protadata">
+          <div className="enemydata">
 
           <h3>{{ imgenemigo }}</h3>
-          ENEMIGO ACTUAL
-          <p>Nivel de Pelea: {enemigo.id}</p>
+          <p> ENEMIGO ACTUAL</p>
+          <p>Nivel de Pelea: {{poderEnemy}}</p>
+          <!-- <img src="/chibigoku.png" alt=""> -->
+          <img v-bind:src="imagenEnemy" alt="">
+          
           <!-- <select name="select"  id='pjselect' 
           onChange={handleChange}
           // defaultValue={{ label: "Cambiar Personaje", value: 0 }}
@@ -122,8 +129,8 @@
     position: fixed;
     height: 8rem;
     width: 8rem;
-    top:-4.5rem;
-    right: -4rem;
+    top:-3rem;
+    right: -3rem;
     z-index: 10;
     -webkit-clip-path: circle(33%);
     clip-path: circle(33%);
@@ -188,6 +195,30 @@
     display: flex;
     justify-content: space-around;
     flex-direction: column;
+    transition: all 1s ease-out;
+  }
+
+    .slide-fade-enter-active {
+    transition: all .3s ease;
+    font-weight:normal;
+    color: white;
+  }
+
+  .slide-fade-leave-active {
+    transition: all .8s cubic-bezier(1.0, 0.5, 0.8, 1.0);
+    color:gold;
+  }
+
+  .slide-fade-enter,
+  .slide-fade-leave-to {
+    transform: translateY(-10px);
+    font-weight:normal;
+    opacity: 0;
+  }
+
+  .poder{
+    color: v-bind("auracolor");
+    font-weight: bold;
   }
 
   .item-4{
@@ -205,18 +236,15 @@
    width: 8rem;
    height: 8rem;
    margin-left: 1rem;
-   background-image:  v-bind("imagenProta");
-   /* background-image: url("/chibigoku.png"); */
+   background-image: v-bind("imagenProta");
    background-size: cover;
    -moz-border-radius: 50%; 
    -webkit-border-radius: 50%; 
     border-radius: 50%;
-    /* background-color: orange; */
     display: flex;
     align-items: center;
     justify-content: center;
     border-color: v-bind("auracolor");
-    /* border-color: v-bind('auracolor'); */
     border-width: 0.3rem;
     border-style: solid;
     transition: all 1s ease-out;
@@ -225,6 +253,15 @@
   .invisible{
     z-index: -99;
   }
+
+  #zeno{
+   width: 16rem;
+   height: 8rem;
+   margin-left: 1rem;
+   background-image: v-bind("imagenZeno");
+   background-size:cover;
+  }
+
 .selectProta {
     height: 3rem;
     position: relative;
@@ -506,6 +543,14 @@ margin:0.5%;
 			}
 }
 
+.enemydata{
+  display: flex;
+  width: 100%;
+  flex-direction: row-reverse;
+  /* align-items: cen; */
+  justify-content: space-around;
+}
+
 
 
 
@@ -538,7 +583,10 @@ export default {
 		  user: 'TODOS' 
 		},
       auracolor:"white",
-      imagenProta:url("/chibigoku.png"),
+      imagenProta:"/img/characters/enemies/Enemy2.jpg",
+      imagenEnemy:"/img/characters/enemies/Enemy3.jpg",
+      imagenZeno:"/img/characters/Zeno/Zeno5.jpg",
+      poderEnemy: 9000
       // options: personajes.map(pj => <option key={pj.id} value={JSON.stringify(pj)}>{pj.nombre}</option> )
     }
   },
@@ -573,7 +621,7 @@ export default {
         return 1
       }
       else{
-        this.imagenProta = "/4stardb.png";
+        this.imagenProta = "/img/characters/enemies/Enemy4.jpg";
         return pjactual.id * this.formaactual.id;
       }
 
