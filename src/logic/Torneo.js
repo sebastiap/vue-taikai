@@ -72,7 +72,7 @@ export var	personajes = [
 		  raza:'libre',
 		  ki:'NO',
 		  aura:"red",
-		  user: 'Goku'
+		  user: 'TODOS'
 		},
 		{
 		  id: 50,

@@ -51,6 +51,12 @@ Want to contribute? Great!
  * Improve Visuals
  * Promote the site
 
+### Game Content
+ * Apply Techniques
+ * More variation in random
+ * Energy Bar
+ * ZenoState
+
 ## Team
 
 [![Sebastian Picardi](https://avatars.githubusercontent.com/u/36540321?v=4)](https://github.com/sebastiap)  

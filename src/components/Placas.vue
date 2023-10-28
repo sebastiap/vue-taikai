@@ -75,7 +75,7 @@
         <div className="widget-2">
           <h3>HUIR</h3>
         </div>
-
+{{ this.estadoZeno }}
       </div>
         <!-- <div class="item item-4">4</div>
         <div class="item item-5">5</div>
@@ -586,9 +586,12 @@ export default {
       auracolor:"white",
       imagenProta:"/img/characters/enemies/Enemy2.jpg",
       imagenEnemy:"/img/characters/enemies/Enemy3.jpg",
-      imagenZeno:"/img/characters/Zeno/Zeno5.jpg",
       poderEnemy: 9000,
+      tecnicaActual:null,
+      energiaActual:1000,
       puntaje:0,
+      estadoZeno:3,
+      imagenZeno:"/img/characters/Zeno/Zeno3.jpg",
       // luchar:Luchar
     }
   },
@@ -603,13 +606,14 @@ export default {
       }
       var posiblesformas = formas.filter((forma) => forma.raza == this.pjactual.raza);
       var formaspublicas = formas.filter((forma) => forma.raza == "libre");
+      var formaspersonales = formas.filter((forma) => forma.user == this.pjactual.nombre);
       // const result = words.filter((word) => word.length > 6);
       console.log(this.pjactual.raza);
       // console.log(pjactual.raza);
       console.log(posiblesformas);
       console.log(formaspublicas);
       this.formaactual = formaspublicas[0];
-      var todaslasformas = formaspublicas.concat(posiblesformas);
+      var todaslasformas = formaspublicas.concat(posiblesformas,formaspersonales);
       console.log(todaslasformas);
       return todaslasformas;
     },
@@ -635,11 +639,23 @@ export default {
     event.preventDefault();
     if (p1 >p2) {
       this.puntaje +=1;
+      this.poderEnemy = Math.round((Math.random(10000) * 100) *  (Math.random(10000) * 1000));
+      this.manageZeno(-1);
+      this.manageEnemy();
     }
     else{
       this.puntaje -=1;
+      this.manageZeno(1);
     }
-  }
+  },manageEnemy: function() {
+    this.imagenEnemy = "/img/characters/enemies/Enemy6.jpg"
+    },
+    manageZeno: function(mod) {
+      if (this.estadoZeno <= 5 && this.estadoZeno > 0){
+        this.imagenZeno = `/img/characters/Zeno/Zeno${this.estadoZeno + mod}.jpg`;
+        this.estadoZeno += mod;
+      }
+    }
 }
 }
 </script>
