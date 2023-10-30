@@ -45,17 +45,39 @@ Want to contribute? Great!
 - [Vite](https://vitejs.dev/guide/) - Vite aims to address the slow feedback loop of multiple js layers by leveraging new advancements in the ecosystem: the availability of native ES modules in the browser, and the rise of JavaScript tools written in compile-to-native languages.
 - [Docker](https://es.vuejs.org/v2/cookbook/dockerize-vuejs-app) - Extensive list of components and  Bundled Javascript plugins.
 
+### Vue Tools Used
+- v-on directive to listen to DOM events. Used to call methods.
+- v-bind directive for style variables.
+- v-model directive to select characters and forms.
 
 ## To-do
  * Add Logic
  * Improve Visuals
  * Promote the site
 
-### Game Content
+### Add Logic - Game Content
+ * Game Intro
  * Apply Techniques
  * More variation in random
  * Energy Bar
- * ZenoState
+ * Improve ZenoState 
+ * run away method
+ * empujar method
+ * Show Points
+ * Blackout Game Over
+
+### Improve Visuals - Visual Content to add
+ * Blackout Effect
+ * Friends surprise comic square
+ * Show beautiful score
+ * All in one page
+ * Diferent resolution
+
+### Promote the site 
+* youtube comments
+* Make a twitter
+* Add to Gamer portfolio
+
 
 ## Team
 

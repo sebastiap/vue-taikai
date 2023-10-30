@@ -31,10 +31,10 @@
       </div>
       <div id="zeno" v-bind:style="{ backgroundImage: 'url(' + imagenZeno + ')' }" ></div>
     </div>
-    <div>{{ this.puntaje }}</div>
+    <div>TU PUNTAJE ACTUAL ES DE {{ this.puntaje }} PUNTOS</div>
   <div class="contenedor">
         <aside className="sidebar">
-			    <h3>PELEAR</h3>
+			    <h3><button v-on:click="luchar(this.poderactual,poderEnemy,null, $event)">LUCHAR</button></h3>
 		    </aside>
         <div className="enemigo">
           <div className="enemydata">
@@ -42,7 +42,7 @@
           <h3>{{ imgenemigo }}</h3>
           <p> ENEMIGO ACTUAL</p>
           <p>Nivel de Pelea: {{poderEnemy}}</p>
-          <!-- <img src="/chibigoku.png" alt=""> -->
+          Estado Zeno: {{ this.estadoZeno }}
           <img v-bind:src="imagenEnemy" alt="">
           
           <!-- <select name="select"  id='pjselect' 
@@ -70,18 +70,12 @@
           </div>
         </div>
         <div className="widget-1">
-          <h3><button v-on:click="luchar(this.poderactual,poderEnemy,null, $event)">EMPUJAR</button></h3>
+          <h3><button v-on:click="empujar(this.poderactual,poderEnemy,null, $event)">EMPUJAR</button></h3>
         </div>
         <div className="widget-2">
-          <h3>HUIR</h3>
+          <h3><button v-on:click="huir(this.poderactual,poderEnemy,null, $event)">HUIR</button></h3>
         </div>
-{{ this.estadoZeno }}
       </div>
-        <!-- <div class="item item-4">4</div>
-        <div class="item item-5">5</div>
-        <div class="item item-6">6</div>
-        <div class="item item-7">7</div>
-        <div class="item item-8">8</div> -->
       <div class="item item-2" id="dialogo">El participante Goku esquiva el primer golpe. Se transforma en Super Saiyayin! Golpea a su rival.
         Goku asesta el primer golpe. Su rival, Raspberry , apenas puede mantenerse en pie. Zeno-Sama comienza a aburrirse, por lo que Goku considera cambiar de forma para hacer la batalla mas interesante.
 
@@ -651,7 +645,7 @@ export default {
     this.imagenEnemy = "/img/characters/enemies/Enemy6.jpg"
     },
     manageZeno: function(mod) {
-      if (this.estadoZeno <= 5 && this.estadoZeno > 0){
+      if (this.estadoZeno < 5 && this.estadoZeno > 1){
         this.imagenZeno = `/img/characters/Zeno/Zeno${this.estadoZeno + mod}.jpg`;
         this.estadoZeno += mod;
       }
