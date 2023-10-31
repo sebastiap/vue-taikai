@@ -43,6 +43,7 @@
           <p> ENEMIGO ACTUAL</p>
           <p>Nivel de Pelea: {{poderEnemy}}</p>
           Estado Zeno: {{ this.estadoZeno }}
+          Diferencia de Poder: {{ this.diferenciadepoder }}
           <img v-bind:src="imagenEnemy" alt="">
           
           <!-- <select name="select"  id='pjselect' 
@@ -561,6 +562,7 @@ export default {
     return {
       personajes: personajes,
       formas:formas,
+      tecnicas:tecnicas,
       pjactual:		{
 		  id: 90,
 		  nombre: 'Goku',
@@ -600,16 +602,33 @@ export default {
       }
       var posiblesformas = formas.filter((forma) => forma.raza == this.pjactual.raza);
       var formaspublicas = formas.filter((forma) => forma.raza == "libre");
+      var formasdivinas = formas.filter((forma) => forma.ki == "divino");
       var formaspersonales = formas.filter((forma) => forma.user == this.pjactual.nombre);
       // const result = words.filter((word) => word.length > 6);
       console.log(this.pjactual.raza);
       // console.log(pjactual.raza);
+      var otrasformas = [];
+      if (this.pjactual.ki == "divino"){
+        otrasformas = otrasformas.concat(formasdivinas);
+      }
       console.log(posiblesformas);
       console.log(formaspublicas);
       this.formaactual = formaspublicas[0];
-      var todaslasformas = formaspublicas.concat(posiblesformas,formaspersonales);
+      var todaslasformas = formaspublicas.concat(posiblesformas,formaspersonales,otrasformas);
       console.log(todaslasformas);
       return todaslasformas;
+    },
+    tecnicaspj(){
+      if (pjactual === undefined) {
+        var pjactual = "saiyan";
+      }
+      // var posiblestecnicas = tecnicas.filter((tecnica) => tecnica.raza == this.pjactual.raza);
+      var tecnicaspublicas = formas.filter((tecnica) => tecnica.pj == "TODOS");
+      var tecnicaspersonales = tecnicas.filter((tecnica) => tecnica.pj == this.pjactual.nombre);
+
+      this.formaactual = formaspublicas[0];
+      var tecnicas_pj = tecnicaspublicas.concat(tecnicaspersonales);
+      return tecnicas_pj;
     },
     auracolor(){
       this.auracolor = this.formaactual.aura;
@@ -625,10 +644,59 @@ export default {
         return pjactual.id * this.formaactual.id;
       }
 
+    },
+    diferenciadepoder(){
+      return this.poderactual/this.poderEnemy;
     }
   },
   methods: {
     luchar: function (p1,p2,t, event) {
+    // El jugador gana puntos dependiendo la diferencia de poder entre el personaje actual y el enemigo que aparece
+    // Si hay muchisima diferencia de poder y matas al rival, Zeno se enoja y mata al jugador.
+    event.preventDefault();
+    // if (p1 >p2 * 10000) {
+    if (this.diferenciadepoder > 20) {
+      // Si hay mas de 10000 veces la diferencia, Zeno se calienta
+      this.puntaje -=300;
+      this.poderEnemy = Math.round((Math.random(10000) * 100) *  (Math.random(10000) * 1000));
+      this.manageZeno(1);
+      this.manageEnemy();
+    }
+    else if (this.diferenciadepoder > 10) {
+      // Si hay mas de 1000 veces la diferencia, a Zeno no le gusta pero te da un punto
+      this.puntaje +=1;
+      this.poderEnemy = Math.round((Math.random(10000) * 100) *  (Math.random(10000) * 1000));
+      // this.manageZeno(-1);
+      this.manageEnemy();
+    }
+    else if (this.diferenciadepoder > 5){
+      // Si hay mas de 10 veces la diferencia, a Zeno le gusta y te da 10 puntos
+      this.puntaje +=10;
+      this.manageZeno(-1);
+      this.poderEnemy = Math.round((Math.random(10000) * 100) *  (Math.random(10000) * 1000));
+      this.manageEnemy();
+    }
+    else if (p1 >=p2){
+      // Si esta parejoy lo vences, a Zeno le encanta y te da 100 puntos
+      this.puntaje +=100;
+      this.manageZeno(-1);
+      this.poderEnemy = Math.round((Math.random(10000) * 100) *  (Math.random(10000) * 1000));
+      this.manageEnemy();
+    }
+    else if (this.diferenciadepoder > 0.5){
+       // Si esta parejo y perdes, a Zeno le emociona y te da 50 puntos aunque pierdas
+      this.puntaje +=50;
+      this.manageZeno(-1);
+      // this.poderEnemy = Math.round((Math.random(10000) * 100) *  (Math.random(10000) * 1000));
+      // this.manageProta();
+    }
+    else{
+      // Si perdes la pelea, Zeno se enoja y te resta 10 puntos
+      this.puntaje -=10;
+      this.manageZeno(1);
+    }
+  },
+     empujar: function (p1,p2,t, event) {
     // now we have access to the native event
     event.preventDefault();
     if (p1 >p2) {
@@ -641,11 +709,27 @@ export default {
       this.puntaje -=1;
       this.manageZeno(1);
     }
-  },manageEnemy: function() {
+  },
+      huir: function (p1,p2,t, event) {
+    // now we have access to the native event
+    event.preventDefault();
+    if (p1 >p2) {
+      this.puntaje +=1;
+      this.poderEnemy = Math.round((Math.random(10000) * 100) *  (Math.random(10000) * 1000));
+      this.manageZeno(-1);
+      this.manageEnemy();
+    }
+    else{
+      this.puntaje -=1;
+      this.manageZeno(1);
+    }
+  }, 
+  
+  manageEnemy: function() {
     this.imagenEnemy = "/img/characters/enemies/Enemy6.jpg"
     },
     manageZeno: function(mod) {
-      if (this.estadoZeno < 5 && this.estadoZeno > 1){
+      if (this.estadoZeno < 5 && this.estadoZeno > 1 ){
         this.imagenZeno = `/img/characters/Zeno/Zeno${this.estadoZeno + mod}.jpg`;
         this.estadoZeno += mod;
       }

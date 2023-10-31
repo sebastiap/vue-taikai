@@ -65,6 +65,7 @@ Want to contribute? Great!
  * empujar method
  * Show Points
  * Blackout Game Over
+ * Bring Balance to the world
 
 ### Improve Visuals - Visual Content to add
  * Blackout Effect
