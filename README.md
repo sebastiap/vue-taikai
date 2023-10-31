@@ -56,23 +56,25 @@ Want to contribute? Great!
  * Promote the site
 
 ### Add Logic - Game Content
- * Game Intro
- * Apply Techniques
  * More variation in random
  * Energy Bar
  * Improve ZenoState 
  * run away method
  * empujar method
+ * Game Intro
+ * ~~Apply Techniques~~
  * Show Points
  * Blackout Game Over
  * Bring Balance to the world
 
 ### Improve Visuals - Visual Content to add
+ * fichaDatos class
+ * puntaje class
  * Blackout Effect
  * Friends surprise comic square
  * Show beautiful score
  * All in one page
- * Diferent resolution
+ * Diferent resolutions
 
 ### Promote the site 
 * youtube comments

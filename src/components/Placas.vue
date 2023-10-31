@@ -20,54 +20,41 @@
               <div class="ficha-item poder" :key="this.poderactual">
                 Poder Actual : {{ this.poderactual }} 
               </div>
-      </transition>
+        </transition>
         </div>
-        Forma
-        <select class="selectProta" name="forma" id="forma" v-model="formaactual">
-          <option v-for="(item, key) in formaspj" :value="item">
-            {{item.modo}}
-          </option>
-        </select>
+        <div>
+          
+          <select class="selectProta" name="forma" id="forma" v-model="formaactual">
+            <option v-for="(item, key) in formaspj" :value="item">
+              Forma {{item.modo}}
+            </option>
+          </select>
+          <!-- <b v-if="tecnicaspj.length > 1"> Tecnica</b> -->
+          <select v-if="tecnicaspj.length > 1" class="selectProta" name="tecnica" id="tecnica" v-model="tecnicaActual">
+            <option v-for="(item, key) in tecnicaspj" :value="item">
+              {{item.nombre}}
+            </option>
+          </select>
+        </div>
       </div>
       <div id="zeno" v-bind:style="{ backgroundImage: 'url(' + imagenZeno + ')' }" ></div>
     </div>
-    <div>TU PUNTAJE ACTUAL ES DE {{ this.puntaje }} PUNTOS</div>
+    <div class="puntaje">TU PUNTAJE ACTUAL ES DE {{ this.puntaje }} PUNTOS</div>
   <div class="contenedor">
         <aside className="sidebar">
 			    <h3><button v-on:click="luchar(this.poderactual,poderEnemy,null, $event)">LUCHAR</button></h3>
 		    </aside>
         <div className="enemigo">
-          <div className="enemydata">
-
-          <h3>{{ imgenemigo }}</h3>
-          <p> ENEMIGO ACTUAL</p>
-          <p>Nivel de Pelea: {{poderEnemy}}</p>
-          Estado Zeno: {{ this.estadoZeno }}
-          Diferencia de Poder: {{ this.diferenciadepoder }}
-          <img v-bind:src="imagenEnemy" alt="">
-          
-          <!-- <select name="select"  id='pjselect' 
-          onChange={handleChange}
-          // defaultValue={{ label: "Cambiar Personaje", value: 0 }}
-          // value={enemigo}
-          
-          >
-            {personajes.map(pj => <option key={pj.id} value={JSON.stringify(pj)}>{pj.nombre}</option> )}
-          </select>
-        
-
-          <p>Forma Actual: {formaProta}</p>
-          <div className="formas">
-            
-          {misformas.map(forma => 
-            <button key={forma.id} type="button" style={{background:forma.aura}} onClick={() => changeForm(forma.modo,forma.aura)}>{forma.modo}</button>)}
-          </div>
-          </div>
-
-          <img style={{borderColor:formaColor}} src={enemigo.img} 
-          width="250" height="200" 
-          alt="enemigo"/> -->
-
+          <div className="enemydata convertEnemy">
+            <h3>{{ imgenemigo }}</h3>
+            <p> ENEMIGO ACTUAL</p>
+            <p>Nivel de Pelea: {{poderEnemy}}</p>
+            Estado Zeno: {{ this.estadoZeno }}
+            Diferencia de Poder: {{ this.diferenciadepoder }}
+            <!-- <transition name="convertEnemy" mode="out-in"> -->
+            <transition name="convertEnemy" mode="out-in">
+                  <img v-bind:src="imagenEnemy" alt="" :key="imagenEnemy">
+            </transition>
           </div>
         </div>
         <div className="widget-1">
@@ -194,6 +181,13 @@
     transition: all 1s ease-out;
   }
 
+  .puntaje{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-direction: column;
+  }
+
     .slide-fade-enter-active {
     transition: all .3s ease;
     font-weight:normal;
@@ -211,6 +205,29 @@
     font-weight:normal;
     opacity: 0;
   }
+
+  .convertEnemy{
+    transition:
+    width 2s,
+    height 2s,
+    background-color 2s,
+    rotate 2s;
+  }
+
+  .convertEnemy-enter,
+  .convertEnemy-leave-to {
+    transform: translateY(10rem);
+    font-weight:normal;
+    transition: all .8s cubic-bezier(1.0, 0.5, 0.8, 1.0);
+    color:gold;
+    opacity: 0;
+  }
+
+  .convertEnemy-leave-active {
+    transition: all .8s cubic-bezier(1.0, 0.5, 0.8, 1.0);
+    color:black;
+  }
+  
 
   .poder{
     color: v-bind("auracolor");
@@ -543,7 +560,7 @@ margin:0.5%;
   display: flex;
   width: 100%;
   flex-direction: row-reverse;
-  /* align-items: cen; */
+  transition: all 1s ease-out;
   justify-content: space-around;
 }
 
@@ -583,7 +600,7 @@ export default {
       imagenProta:"/img/characters/enemies/Enemy2.jpg",
       imagenEnemy:"/img/characters/enemies/Enemy3.jpg",
       poderEnemy: 9000,
-      tecnicaActual:null,
+      tecnicaActual:"Sin Tecnica",
       energiaActual:1000,
       puntaje:0,
       estadoZeno:3,
@@ -604,9 +621,7 @@ export default {
       var formaspublicas = formas.filter((forma) => forma.raza == "libre");
       var formasdivinas = formas.filter((forma) => forma.ki == "divino");
       var formaspersonales = formas.filter((forma) => forma.user == this.pjactual.nombre);
-      // const result = words.filter((word) => word.length > 6);
-      console.log(this.pjactual.raza);
-      // console.log(pjactual.raza);
+
       var otrasformas = [];
       if (this.pjactual.ki == "divino"){
         otrasformas = otrasformas.concat(formasdivinas);
@@ -622,12 +637,12 @@ export default {
       if (pjactual === undefined) {
         var pjactual = "saiyan";
       }
-      // var posiblestecnicas = tecnicas.filter((tecnica) => tecnica.raza == this.pjactual.raza);
       var tecnicaspublicas = formas.filter((tecnica) => tecnica.pj == "TODOS");
       var tecnicaspersonales = tecnicas.filter((tecnica) => tecnica.pj == this.pjactual.nombre);
+      var tecnicas_pj =[];
+      tecnicas_pj = tecnicaspublicas.concat([{nombre:"Sin Tecnica"}],tecnicaspersonales);
+      this.tecnicaActual = tecnicas_pj[0];
 
-      this.formaactual = formaspublicas[0];
-      var tecnicas_pj = tecnicaspublicas.concat(tecnicaspersonales);
       return tecnicas_pj;
     },
     auracolor(){
@@ -641,7 +656,14 @@ export default {
       }
       else{
         this.imagenProta = "/img/characters/enemies/Enemy4.jpg";
-        return pjactual.id * this.formaactual.id;
+        var techmodifier = 1;
+        if (this.tecnicaActual.nombre === "KAME HAME HA"){
+          techmodifier = 2;
+        }
+        else if (this.tecnicaActual.nombre === "EXPLOSION"){
+          techmodifier = 5;
+        }
+        return pjactual.id * this.formaactual.id * techmodifier;
       }
 
     },
@@ -655,7 +677,14 @@ export default {
     // Si hay muchisima diferencia de poder y matas al rival, Zeno se enoja y mata al jugador.
     event.preventDefault();
     // if (p1 >p2 * 10000) {
-    if (this.diferenciadepoder > 20) {
+    if (this.tecnicaActual.nombre === "MAFUBA"){
+      // Si usas el MAFUBA ganas la pelea de una pero no lo podes usar mas
+      this.puntaje +=20;
+      this.manageZeno(-1);
+      this.poderEnemy = Math.round((Math.random(10000) * 100) *  (Math.random(10000) * 1000));
+      this.manageEnemy();
+    }
+    else if (this.diferenciadepoder > 20) {
       // Si hay mas de 10000 veces la diferencia, Zeno se calienta
       this.puntaje -=300;
       this.poderEnemy = Math.round((Math.random(10000) * 100) *  (Math.random(10000) * 1000));
@@ -687,8 +716,16 @@ export default {
        // Si esta parejo y perdes, a Zeno le emociona y te da 50 puntos aunque pierdas
       this.puntaje +=50;
       this.manageZeno(-1);
-      // this.poderEnemy = Math.round((Math.random(10000) * 100) *  (Math.random(10000) * 1000));
-      // this.manageProta();
+      if (this.tecnicaActual === "ESCUDO"){
+        // Si esta parejo y usas escudo, sobrevivis y ganas la pelea, a Zeno le emociona y te da 150 puntos extra
+        this.puntaje +=150;
+        this.poderEnemy = Math.round((Math.random(10000) * 100) *  (Math.random(10000) * 1000));
+      }
+      // else {
+      //   this.manageProta();
+      // }
+
+  
     }
     else{
       // Si perdes la pelea, Zeno se enoja y te resta 10 puntos
@@ -697,12 +734,27 @@ export default {
     }
   },
      empujar: function (p1,p2,t, event) {
-    // now we have access to the native event
-    event.preventDefault();
+      event.preventDefault();
+
+
     if (p1 >p2) {
       this.puntaje +=1;
       this.poderEnemy = Math.round((Math.random(10000) * 100) *  (Math.random(10000) * 1000));
       this.manageZeno(-1);
+      this.manageEnemy();
+    }
+    else if (this.tecnicaActual.nombre === "PARALISIS" && this.diferenciadepoder > 0.3){
+      // Si usas el PARALISIS y lo empujas funciona barbaro y ganas muchos puntos aunque te gane por bastante
+      this.puntaje +=50;
+      this.manageZeno(-1);
+      this.poderEnemy = Math.round((Math.random(10000) * 100) *  (Math.random(10000) * 1000));
+      this.manageEnemy();
+    }
+    else if (this.tecnicaActual.nombre === "TAIYOKEN" && this.diferenciadepoder > 0.5){
+      // Si usas el TAIYOKEN y lo empujas funciona barbaro y ganas muchos puntos aunque te gane por bastante
+      this.puntaje +=50;
+      this.manageZeno(-1);
+      this.poderEnemy = Math.round((Math.random(10000) * 100) *  (Math.random(10000) * 1000));
       this.manageEnemy();
     }
     else{
@@ -719,6 +771,10 @@ export default {
       this.manageZeno(-1);
       this.manageEnemy();
     }
+    // else if ((this.tecnicaActual.nombre === "TAIYOKEN" || this.tecnicaActual.nombre === "PARALISIS") && this.diferenciadepoder > 0.5){
+    //   // Si usas el TAIYOKEN y lo empujas funciona barbaro y ganas muchos puntos aunque te gane por bastante
+    //   this.manageProta();
+    // }
     else{
       this.puntaje -=1;
       this.manageZeno(1);
@@ -726,7 +782,10 @@ export default {
   }, 
   
   manageEnemy: function() {
-    this.imagenEnemy = "/img/characters/enemies/Enemy6.jpg"
+    var max = 13;
+    var min = 1;
+    var enemyNumber = Math.round(Math.random() * (max - min) + min);
+    this.imagenEnemy = `/img/characters/enemies/Enemy${enemyNumber}.jpg`
     },
     manageZeno: function(mod) {
       if (this.estadoZeno < 5 && this.estadoZeno > 1 ){
