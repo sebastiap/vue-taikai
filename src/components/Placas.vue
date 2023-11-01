@@ -47,9 +47,9 @@
         <div className="enemigo">
           <div className="enemydata convertEnemy">
             <h3>{{ imgenemigo }}</h3>
-            <p> ENEMIGO ACTUAL</p>
+            <p> {{ this.enemyName }}</p>
             <p>Nivel de Pelea: {{poderEnemy}}</p>
-            Estado Zeno: {{ this.estadoZeno }}
+            <!-- Estado Zeno: {{ this.estadoZeno }} -->
             Diferencia de Poder: {{ this.diferenciadepoder }}
             <!-- <transition name="convertEnemy" mode="out-in"> -->
             <transition name="convertEnemy" mode="out-in">
@@ -64,8 +64,7 @@
           <h3><button v-on:click="huir(this.poderactual,poderEnemy,null, $event)">HUIR</button></h3>
         </div>
       </div>
-      <div class="item item-2" id="dialogo">El participante Goku esquiva el primer golpe. Se transforma en Super Saiyayin! Golpea a su rival.
-        Goku asesta el primer golpe. Su rival, Raspberry , apenas puede mantenerse en pie. Zeno-Sama comienza a aburrirse, por lo que Goku considera cambiar de forma para hacer la batalla mas interesante.
+      <div class="item item-2" id="dialogo">{{ this.dialogo }}
 
       </div>
       <!-- <div class="marginator">AHHHH</div> -->
@@ -133,7 +132,7 @@
   #dialogo {
    margin-left: 2rem;
    width: 95%; 
-   height: 10rem; 
+   height: 6.5rem; 
    background: whitesmoke;
    -moz-border-radius: 10px; 
    -webkit-border-radius: 10px; 
@@ -172,7 +171,8 @@
     width: 50rem;
   }
   .fichaDatos{
-    background-color:#55a8fd;
+    background-color:#4f5c6b;
+    border: 1px solid #70757b;
     height: 8rem;
     width: 20rem;
     display: flex;
@@ -208,10 +208,10 @@
 
   .convertEnemy{
     transition:
-    width 2s,
-    height 2s,
-    background-color 2s,
-    rotate 2s;
+    width 1s,
+    height 1s,
+    background-color 1s,
+    rotate 1s;
   }
 
   .convertEnemy-enter,
@@ -226,6 +226,13 @@
   .convertEnemy-leave-active {
     transition: all .8s cubic-bezier(1.0, 0.5, 0.8, 1.0);
     color:black;
+  }
+  .convertEnemy-enter-active {
+    transform: translateY(1rem);
+    font-weight:normal;
+    transition: all 0.1s cubic-bezier(1.0, 0.5, 0.8, 1.0);
+    color:black;
+    opacity: 0;
   }
   
 
@@ -340,11 +347,13 @@
 /* Migrado de Grid Tournament */
 .contenedor {
 	width: 95%;
-	/* max-width: 1000px; */
-  padding: 2rem;
-	margin: 20px auto;
+	height: 70%;
+  /* padding: 1rem; */
+  padding-left: 2rem;
+  padding-right: 2rem;
+	/* margin: 20px auto; */
 	display: grid;
-	grid-gap: 20px;
+	grid-gap: 0.5rem;
 	grid-template-columns: repeat(3, 1fr);
 	grid-template-rows: repeat(4, auto);
   background-color:#322a26;
@@ -426,13 +435,13 @@ margin:0.5%;
 }
 
 .contenedor .sidebar {
-	grid-column: 3 / 4;
+	grid-column: 2 / 4;
 	background: #fAA43D;
 	text-align: center;
 	display: flex;
 	align-items: center;
 	justify-content: center;
-	min-height: 100px;
+	min-height: 50px;
 	grid-area: sidebar;
 }
 
@@ -440,7 +449,7 @@ margin:0.5%;
 .contenedor .widget-2 {
 	background: #55a8fd;
 	color: #fff;
-	height: 100px;
+	height: 50px;
 	text-align: center;
 	display: flex;
 	align-items: center;
@@ -571,13 +580,14 @@ margin:0.5%;
   </style>
 
 <script>
-import {personajes,formas,imgenemigo,options as tecnicas,Luchar,Empujar,Huir} from '../logic/Torneo'
+import {personajes,formas,imgenemigo,options as tecnicas,enemies,Luchar,Empujar,Huir} from '../logic/Torneo'
 
 export default {
   name: "Torneo",
   data () {
     return {
       personajes: personajes,
+      enemies: enemies,
       formas:formas,
       tecnicas:tecnicas,
       pjactual:		{
@@ -600,11 +610,13 @@ export default {
       imagenProta:"/img/characters/enemies/Enemy2.jpg",
       imagenEnemy:"/img/characters/enemies/Enemy3.jpg",
       poderEnemy: 9000,
+      enemyName:"Bonato",
       tecnicaActual:"Sin Tecnica",
       energiaActual:1000,
       puntaje:0,
       estadoZeno:3,
       imagenZeno:"/img/characters/Zeno/Zeno3.jpg",
+      dialogo:"El participante Goku esquiva el primer golpe. Se transforma en Super Saiyayin! Golpea a su rival.Goku asesta el primer golpe. Su rival, Raspberry , apenas puede mantenerse en pie. Zeno-Sama comienza a aburrirse, por lo que Goku considera cambiar de forma para hacer la batalla mas interesante."
       // luchar:Luchar
     }
   },
@@ -784,8 +796,13 @@ export default {
   manageEnemy: function() {
     var max = 13;
     var min = 1;
+    var alias = "";
+    var aliases = ["","","","","XENO ","SUPER ","MAJIN ","OMEGA ","SHIN ", "MIRAI ","DARK ","Z-","CHIBI ","A-","X-"]
     var enemyNumber = Math.round(Math.random() * (max - min) + min);
-    this.imagenEnemy = `/img/characters/enemies/Enemy${enemyNumber}.jpg`
+    var alias = aliases[aliases.length * Math.random() | 0];
+    this.imagenEnemy = `/img/characters/enemies/Enemy${enemyNumber}.jpg`;
+    this.enemyName = alias + enemies[enemies.length * Math.random() | 0].toUpperCase();
+    
     },
     manageZeno: function(mod) {
       if (this.estadoZeno < 5 && this.estadoZeno > 1 ){

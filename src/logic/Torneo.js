@@ -184,6 +184,21 @@ export var	options= [
 		  }
 		  ];
 
+export var enemies = ["Tomato", "Spinach", "Asparagus", "Lettuce", "Jalapenos","artichoke",
+"aubergine","asparagus",
+"broccoflower","broccoli",
+"brussels","cabbage",
+"kohlrabi","Savoy",
+"rebbage","cauliflower",
+"celery","endive",
+"fiddleheads",
+"frisee","greens",
+"arugula","bokchoy",
+"chard","collard",
+"kale","lettuce",
+"mustard",
+"spinach","fennel"];
+
 export function Luchar(poderProta,poderEnemigo) { 
 			this.logtorneo = this.logtorneo + "\n" +  this.lineacomando;
 			if (poderProta > poderEnemigo) {
