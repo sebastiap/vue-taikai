@@ -6,7 +6,8 @@
         <div class="invisible">  {{ auracolor }}</div>
       </div>
       <div class="ficha">
-        <select class="selectProta" name="pj" id="pj" v-model="pjactual">
+        <!-- https://static.wikia.nocookie.net/dragonball/images/0/08/TB_Announcer.png/revision/latest?cb=20210930000456 -->
+        <select class="selectProta" :disabled="!this.enablepj" name="pj" id="pj" v-model="pjactual">
           <option v-for="(item, key) in personajes" :value="item">
             {{item.nombre}}
         </option>
@@ -607,6 +608,7 @@ export default {
 		  aura:"white",
 		  user: 'TODOS' 
 		},
+    enablepj:true,
       auracolor:"white",
       imagenProta:"/img/characters/enemies/Enemy2.jpg",
       imagenEnemy:"/img/characters/enemies/Enemy3.jpg",
@@ -713,7 +715,7 @@ export default {
       // Si hay mas de 1000 veces la diferencia, a Zeno no le gusta pero te da un punto
       this.puntaje +=1;
       this.poderEnemy = Math.round((Math.random(10000) * 100) *  (Math.random(10000) * 1000));
-      // this.manageZeno(-1);
+      this.manageZeno(-1);
       this.manageEnemy();
     }
     else if (this.diferenciadepoder > 5){
@@ -742,6 +744,7 @@ export default {
         this.poderEnemy = Math.round((Math.random(10000) * 100) *  (Math.random(10000) * 1000));
       }
       else {
+        this.manageZeno(1);
         this.manageProta();
       }
     }
@@ -811,7 +814,7 @@ export default {
     this.enemyName = alias + enemies[enemies.length * Math.random() | 0].toUpperCase();
     this.enemyColor = enemyColors[enemyColors.length * Math.random() | 0];
     this.dialogo =  this.dialogo + " Un nuevo rival se acerca! El concursante " + this.enemyName + " se prepara desafiante frente al participante " + this.pjactual.nombre;
-    
+    this.enablepj = false;
     },
     manageZeno: function(mod) {
       if (this.estadoZeno < 5 && this.estadoZeno > 1 ){
@@ -826,6 +829,7 @@ export default {
       if (this.estadoZeno <= 5 ){
           this.personajes = this.personajes.filter(personaje => personaje.nombre != this.pjactual.nombre);
           this.pjactual = this.personajes[0];
+          this.enablepj = true;
       }
       else {
         //GAMEOVER EQUIPO 7
