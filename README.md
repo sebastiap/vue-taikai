@@ -56,32 +56,38 @@ Want to contribute? Great!
  * Promote the site
 
 ### Add Logic - Game Content
- [ ] More variation in random
- [ ] Energy Bar
- [ ] Improve ZenoState 
- [x] run away method
- [x] empujar method
- [ ] Game Intro
- [x] ~~Apply Techniques~~
- [x] ~~Show Points~~
- [ ] Blackout Game Over
- [ ] Bring Balance to the world
+- [ ] Game Intro
+- [ ] More variation in random
+- [ ] Energy Bar
+- [ ] Improve ZenoState 
+- [ ] Result Dialogs
+- [ ] Fallen Characters and Fallen Game Over
+- [x] run away method
+- [x] empujar method
+- [x] ~~Apply Techniques~~
+- [x] ~~Show Points~~
+- [ ] Blackout Game Over
+- [ ] Bring Balance to the world
 
 ### Improve Visuals - Visual Content to add
- [ ] fichaDatos class
- [ ] puntaje class
- [ ] Blackout Effect
- [ ] Friends surprise comic square
- [ ] Enemy Animation
- [ ] Show beautiful score
- [x] All in one page
- [ ] Diferent resolutions
+- [ ] fichaDatos class
+- [ ] puntaje class
+- [ ] Dialogs transition
+- [ ] Blackout Effect
+- [ ] Improve Enemy Animation
+- [x] All in one page
+- [ ] Public surprise comic square
+- [ ] Diferent resolutions
 
 ### Promote the site 
 * youtube comments
 * Make a twitter
 * Add to Gamer portfolio
 
+### Expansion
+* More Characters
+* More techniques
+* Boss Mode
 
 ## Team
 

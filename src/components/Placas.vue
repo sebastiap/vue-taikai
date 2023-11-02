@@ -3,7 +3,7 @@
     <div class="item item-1"></div>
     <div class="item item-3">
       <div id="personaje" v-bind:style="{ backgroundImage: 'url(' + imagenProta + ')' }" >
-        <div class="invisible">  {{ auracolor.auracolor }}</div>
+        <div class="invisible">  {{ auracolor }}</div>
       </div>
       <div class="ficha">
         <select class="selectProta" name="pj" id="pj" v-model="pjactual">
@@ -83,7 +83,7 @@
     overflow-x: hidden;
     height: 100%;
     width: 100%;
-    margin-top: 10rem;
+    margin-top: 9rem;
     padding-bottom: 1rem;
     /* margin-bottom: 1rem; */
     background-color: #E05263;
@@ -157,7 +157,7 @@
     background-color: cadetblue;
     top: 0px;
     width: 99%;
-    height: 10rem;
+    height: 9rem;
     display: flex;
     align-items: center;
     justify-content: flex-start;
@@ -408,8 +408,8 @@
 	overflow: hidden;
 }
 .contenedor .enemigo img {
-border: 10px;
-/* border-color: #fAA43D; */
+border: 0.3rem;
+border-color: v-bind("enemyColor");
 border-style: solid ;
 border-radius: 10px;
 transition: 1s;
@@ -580,7 +580,7 @@ margin:0.5%;
   </style>
 
 <script>
-import {personajes,formas,imgenemigo,options as tecnicas,enemies,Luchar,Empujar,Huir} from '../logic/Torneo'
+import {personajes,formas,imgenemigo,options as tecnicas,enemies,enemyColors,Luchar,Empujar,Huir} from '../logic/Torneo'
 
 export default {
   name: "Torneo",
@@ -588,6 +588,7 @@ export default {
     return {
       personajes: personajes,
       enemies: enemies,
+      enemyColors:enemyColors,
       formas:formas,
       tecnicas:tecnicas,
       pjactual:		{
@@ -611,12 +612,13 @@ export default {
       imagenEnemy:"/img/characters/enemies/Enemy3.jpg",
       poderEnemy: 9000,
       enemyName:"Bonato",
+      enemyColor:"Black",
       tecnicaActual:"Sin Tecnica",
       energiaActual:1000,
       puntaje:0,
       estadoZeno:3,
       imagenZeno:"/img/characters/Zeno/Zeno3.jpg",
-      dialogo:"El participante Goku esquiva el primer golpe. Se transforma en Super Saiyayin! Golpea a su rival.Goku asesta el primer golpe. Su rival, Raspberry , apenas puede mantenerse en pie. Zeno-Sama comienza a aburrirse, por lo que Goku considera cambiar de forma para hacer la batalla mas interesante."
+      dialogo:"Y la campana da inicio al torneo Taikai!"
       // luchar:Luchar
     }
   },
@@ -667,7 +669,8 @@ export default {
         return 1
       }
       else{
-        this.imagenProta = "/img/characters/enemies/Enemy4.jpg";
+        // this.imagenProta = `/img/characters/Playables/Enemy4.jpg`;
+        this.imagenProta = this.pjactual.img;
         var techmodifier = 1;
         if (this.tecnicaActual.nombre === "KAME HAME HA"){
           techmodifier = 2;
@@ -694,6 +697,7 @@ export default {
       this.puntaje +=20;
       this.manageZeno(-1);
       this.poderEnemy = Math.round((Math.random(10000) * 100) *  (Math.random(10000) * 1000));
+      this.dialogo = "El participante " + this.pjactual.nombre + " utiliza una tecnica especial! Acaba de crear un gran remolino que envuelve a su oponente! Lo ha atrapado en un termo! Increible!";
       this.manageEnemy();
     }
     else if (this.diferenciadepoder > 20) {
@@ -701,6 +705,8 @@ export default {
       this.puntaje -=300;
       this.poderEnemy = Math.round((Math.random(10000) * 100) *  (Math.random(10000) * 1000));
       this.manageZeno(1);
+      this.dialogo = "El participante " + this.pjactual.nombre + " aplasta a " +this.enemyName + 
+      " la diferencia de poderes era abismal! Zeno-Sama se muestra molesto...";
       this.manageEnemy();
     }
     else if (this.diferenciadepoder > 10) {
@@ -718,10 +724,12 @@ export default {
       this.manageEnemy();
     }
     else if (p1 >=p2){
-      // Si esta parejoy lo vences, a Zeno le encanta y te da 100 puntos
+      // Si esta parejo y lo vences, a Zeno le encanta y te da 100 puntos
       this.puntaje +=100;
       this.manageZeno(-1);
       this.poderEnemy = Math.round((Math.random(10000) * 100) *  (Math.random(10000) * 1000));
+      this.dialogo = "El participante " + this.pjactual.nombre + " enfrenta a " +this.enemyName + 
+      " la batalla es muy pareja pero finalmente " +this.pjactual.nombre  + "se alza con la victoria!";
       this.manageEnemy();
     }
     else if (this.diferenciadepoder > 0.5){
@@ -733,16 +741,15 @@ export default {
         this.puntaje +=150;
         this.poderEnemy = Math.round((Math.random(10000) * 100) *  (Math.random(10000) * 1000));
       }
-      // else {
-      //   this.manageProta();
-      // }
-
-  
+      else {
+        this.manageProta();
+      }
     }
     else{
       // Si perdes la pelea, Zeno se enoja y te resta 10 puntos
       this.puntaje -=10;
       this.manageZeno(1);
+      this.manageProta();
     }
   },
      empujar: function (p1,p2,t, event) {
@@ -802,12 +809,26 @@ export default {
     var alias = aliases[aliases.length * Math.random() | 0];
     this.imagenEnemy = `/img/characters/enemies/Enemy${enemyNumber}.jpg`;
     this.enemyName = alias + enemies[enemies.length * Math.random() | 0].toUpperCase();
+    this.enemyColor = enemyColors[enemyColors.length * Math.random() | 0];
+    this.dialogo =  this.dialogo + " Un nuevo rival se acerca! El concursante " + this.enemyName + " se prepara desafiante frente al participante " + this.pjactual.nombre;
     
     },
     manageZeno: function(mod) {
       if (this.estadoZeno < 5 && this.estadoZeno > 1 ){
         this.imagenZeno = `/img/characters/Zeno/Zeno${this.estadoZeno + mod}.jpg`;
         this.estadoZeno += mod;
+      }
+      else {
+        //GAMEOVER ZENO
+      }
+    },
+    manageProta: function() {
+      if (this.estadoZeno <= 5 ){
+          this.personajes = this.personajes.filter(personaje => personaje.nombre != this.pjactual.nombre);
+          this.pjactual = this.personajes[0];
+      }
+      else {
+        //GAMEOVER EQUIPO 7
       }
     }
 }
