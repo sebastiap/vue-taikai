@@ -59,14 +59,14 @@ Want to contribute? Great!
 - [ ] Game Intro
 - [ ] More variation in random
 - [ ] Energy Bar
-- [ ] Improve ZenoState 
 - [ ] Result Dialogs
-- [ ] Fallen Characters and Fallen Game Over
+- [x] Improve ZenoState 
+- [x] Fallen Characters and Fallen Game Over
 - [x] run away method
 - [x] empujar method
-- [x] ~~Apply Techniques~~
-- [x] ~~Show Points~~
-- [ ] Blackout Game Over
+- [x] Apply Techniques
+- [x] Show Points
+- [x] Blackout Game Over
 - [ ] Bring Balance to the world
 
 ### Improve Visuals - Visual Content to add
@@ -75,6 +75,9 @@ Want to contribute? Great!
 - [ ] Dialogs transition
 - [ ] Blackout Effect
 - [ ] Improve Enemy Animation
+- [ ] Improve Character Animation
+- [ ] Improve Dialogs
+- [ ] Improve Ending Dialogs
 - [x] All in one page
 - [ ] Public surprise comic square
 - [ ] Diferent resolutions

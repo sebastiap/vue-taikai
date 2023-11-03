@@ -24,7 +24,7 @@
         </transition>
         </div>
         <div>
-          
+          {{ this.estadoZeno }}
           <select class="selectProta" name="forma" id="forma" v-model="formaactual">
             <option v-for="(item, key) in formaspj" :value="item">
               Forma {{item.modo}}
@@ -66,7 +66,19 @@
         </div>
       </div>
       <div class="item item-2" id="dialogo">{{ this.dialogo }}
+        <button v-on:click="GOZ()">Open Modal</button>
 
+<!-- The Modal -->
+<div id="myModal" class="GOZmodal">
+
+  <!-- Modal content -->
+  <div class="modal-content">
+    <!-- <span class="close" v-on="Restart()">&times;</span> -->
+    <p>{{ this.modalMessage }}</p>
+    <button v-on:click="Restart()">Volver a Jugar</button>
+  </div>
+
+</div>
       </div>
       <!-- <div class="marginator">AHHHH</div> -->
     </section>
@@ -339,7 +351,42 @@
     border-top-color: #E05263;
 }
   
+.GOZmodal{
+  display: v-bind("modal"); /* Hidden by default */
+  position: fixed; /* Stay in place */
+  z-index: 1; /* Sit on top */
+  left: 0;
+  top: 0;
+  width: 100%; /* Full width */
+  height: 100%; /* Full height */
+  overflow: auto; /* Enable scroll if needed */
+  background-color: rgb(0,0,0); /* Fallback color */
+  background-color: rgba(0,0,0,0.4); /* Black w/ opacity */
+}
 
+/* Modal Content/Box */
+.modal-content {
+  background-color: #fefefe;
+  margin: 15% auto; /* 15% from the top and centered */
+  padding: 20px;
+  border: 1px solid #888;
+  width: 80%; /* Could be more or less, depending on screen size */
+}
+
+/* The Close Button */
+.close {
+  color: #aaa;
+  float: right;
+  font-size: 28px;
+  font-weight: bold;
+}
+
+.close:hover,
+.close:focus {
+  color: black;
+  text-decoration: none;
+  cursor: pointer;
+}
 
 /*   
   @media (min-width: 1024px) {}
@@ -620,7 +667,10 @@ export default {
       puntaje:0,
       estadoZeno:3,
       imagenZeno:"/img/characters/Zeno/Zeno3.jpg",
-      dialogo:"Y la campana da inicio al torneo Taikai!"
+      dialogo:"Y la campana da inicio al torneo Taikai!",
+      modal:"none",
+      modalMessage:"",
+      modalImg:"",
       // luchar:Luchar
     }
   },
@@ -731,7 +781,7 @@ export default {
       this.manageZeno(-1);
       this.poderEnemy = Math.round((Math.random(10000) * 100) *  (Math.random(10000) * 1000));
       this.dialogo = "El participante " + this.pjactual.nombre + " enfrenta a " +this.enemyName + 
-      " la batalla es muy pareja pero finalmente " +this.pjactual.nombre  + "se alza con la victoria!";
+      " la batalla es muy pareja pero finalmente " +this.pjactual.nombre  + " se alza con la victoria!";
       this.manageEnemy();
     }
     else if (this.diferenciadepoder > 0.5){
@@ -817,25 +867,52 @@ export default {
     this.enablepj = false;
     },
     manageZeno: function(mod) {
-      if (this.estadoZeno < 5 && this.estadoZeno > 1 ){
+      if (this.estadoZeno < 5 && this.estadoZeno >= 1 ){
+        if (this.estadoZeno === 1 && mod === -1) {mod = 0}
         this.imagenZeno = `/img/characters/Zeno/Zeno${this.estadoZeno + mod}.jpg`;
         this.estadoZeno += mod;
       }
       else {
         //GAMEOVER ZENO
+      if (this.estadoZeno === 5)
+       { this.GOZ();}
+      }
+      if (this.puntaje > 1000 ){
+        this.GOV();
       }
     },
     manageProta: function() {
-      if (this.estadoZeno <= 5 ){
+      // this.GOL();
+      if (this.personajes.length > 1){
           this.personajes = this.personajes.filter(personaje => personaje.nombre != this.pjactual.nombre);
           this.pjactual = this.personajes[0];
           this.enablepj = true;
-      }
-      else {
-        //GAMEOVER EQUIPO 7
-      }
+        }
+        else{          
+          this.GOL();
+        }
+      
+    },
+    GOV:function() {
+      this.modal = "block";
+        this.modalMessage = "Tu equipo ha entretenido lo suficiente al dios de todo! El multiverso y todos los seres se han salvado gracias a ti! Quieres jugar otra vez?";
+    },
+    GOL:function() {
+        this.modal = "block";
+        this.modalMessage = "Tu equipo ha sido derrotado y tu universo condenado a la destruccion... Quizas tendras mas suerte en otra linea temporal. Quieres jugar otra vez?";
+    },
+    GOZ:function() {
+        this.modal = "block";
+        this.modalMessage = "Zeno Sama se aburrio y ahora el multiverso no existe mas... Quizas tendras mas suerte en otra linea temporal. Quieres jugar otra vez?";
+    },
+    Restart:function() {
+        this.modal = "none";
+        this.estadoZeno =3;
+        this.imagenZeno = `/img/characters/Zeno/Zeno${this.estadoZeno}.jpg`;
+        this.puntaje = 0;
     }
-}
+},
+
 }
 </script>
   
