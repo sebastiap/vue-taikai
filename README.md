@@ -59,7 +59,7 @@ Want to contribute? Great!
 - [ ] Game Intro
 - [ ] More variation in random
 - [ ] Energy Bar
-- [ ] Result Dialogs
+- [x] Result Dialogs
 - [x] Improve ZenoState 
 - [x] Fallen Characters and Fallen Game Over
 - [x] run away method

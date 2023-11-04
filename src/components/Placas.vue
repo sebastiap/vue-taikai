@@ -1,4 +1,15 @@
 <template>
+  <!-- The Modal -->
+<div id="myModal" class="GOZmodal">
+
+<!-- Modal content -->
+<div class="modal-content">
+  <!-- <span class="close" v-on="Restart()">&times;</span> -->
+  <p>{{ this.modalMessage }}</p>
+  <button v-on:click="Restart()" class="modal-button">Volver a Jugar</button>
+</div>
+
+</div>
   <section class="placa">
     <div class="item item-1"></div>
     <div class="item item-3">
@@ -23,15 +34,14 @@
               </div>
         </transition>
         </div>
-        <div>
-          {{ this.estadoZeno }}
+        <div class="selectContainer">
+          <!-- {{ this.estadoZeno }} -->
           <select class="selectProta" name="forma" id="forma" v-model="formaactual">
             <option v-for="(item, key) in formaspj" :value="item">
               Forma {{item.modo}}
             </option>
           </select>
-          <!-- <b v-if="tecnicaspj.length > 1"> Tecnica</b> -->
-          <select v-if="tecnicaspj.length > 1" class="selectProta" name="tecnica" id="tecnica" v-model="tecnicaActual">
+          <select v-show="tecnicaspj.length > 1" class="selectProta" name="tecnica" id="tecnica" v-model="tecnicaActual">
             <option v-for="(item, key) in tecnicaspj" :value="item">
               {{item.nombre}}
             </option>
@@ -67,18 +77,6 @@
       </div>
       <div class="item item-2" id="dialogo">{{ this.dialogo }}
         <button v-on:click="GOZ()">Open Modal</button>
-
-<!-- The Modal -->
-<div id="myModal" class="GOZmodal">
-
-  <!-- Modal content -->
-  <div class="modal-content">
-    <!-- <span class="close" v-on="Restart()">&times;</span> -->
-    <p>{{ this.modalMessage }}</p>
-    <button v-on:click="Restart()">Volver a Jugar</button>
-  </div>
-
-</div>
       </div>
       <!-- <div class="marginator">AHHHH</div> -->
     </section>
@@ -167,7 +165,9 @@
   .item-3{
     /* Este elemento es la ficha de personaje , Lo posiciono fixed para que siempre este arriba de todo y me siga al scrollear */
     position: fixed;
-    background-color: cadetblue;
+    /* background-color: #5f9ea0; */
+    background: rgb(249,229,127);
+    background: radial-gradient(circle, rgba(249,229,127,1) 0%, rgba(95,158,160,1) 100%);
     top: 0px;
     width: 99%;
     height: 9rem;
@@ -184,7 +184,9 @@
     width: 50rem;
   }
   .fichaDatos{
-    background-color:#4f5c6b;
+    /* background-color:#aebccd; */
+    background: rgb(249,229,127);
+    background: radial-gradient(circle, rgba(249,229,127,1) 0%, rgba(223,152,0,1) 100%);
     border: 1px solid #70757b;
     height: 8rem;
     width: 20rem;
@@ -295,6 +297,10 @@
    background-size:cover;
   }
 
+.selectContainer{
+  width: 10rem;
+}
+  
 .selectProta {
     height: 3rem;
     position: relative;
@@ -352,25 +358,48 @@
 }
   
 .GOZmodal{
+  transition: width 0.1s, height 1.5s,opacity 0.5s linear 0.5s ;
   display: v-bind("modal"); /* Hidden by default */
-  position: fixed; /* Stay in place */
-  z-index: 1; /* Sit on top */
-  left: 0;
+  position: absolute; /* Stay in place */
+  z-index: 10; /* Sit on top */
+  right: 0;
   top: 0;
-  width: 100%; /* Full width */
-  height: 100%; /* Full height */
-  overflow: auto; /* Enable scroll if needed */
-  background-color: rgb(0,0,0); /* Fallback color */
-  background-color: rgba(0,0,0,0.4); /* Black w/ opacity */
+  height: 150%;
+  padding-bottom: 1rem;
+  width: v-bind("modalVH"); /* Full width */
+  height: v-bind("modalVH"); /* Full height */
+  opacity: v-bind("modalOpacity");
+  overflow:hidden; /* Enable scroll if needed */
 }
 
 /* Modal Content/Box */
 .modal-content {
+  /* transition: 20s all; */
+  transition: 10s all;
   background-color: #fefefe;
-  margin: 15% auto; /* 15% from the top and centered */
-  padding: 20px;
+  color:v-bind("modaltext");
+  /* margin: 5% auto; */
+   /* 15% from the top and centered */
+  padding: 2rem;
   border: 1px solid #888;
-  width: 80%; /* Could be more or less, depending on screen size */
+  height: 100%; /* Could be more or less, depending on screen size */
+  width: 100%; 
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+}
+
+.modal-button {
+  transition: 20s all;
+  width: v-bind("modalVH"); /* Full width */
+  height: v-bind("modalVH"); /* Full height */
+  max-width: 6rem;
+  max-height: 3rem;
+  background: rgb(249,229,127);
+  background: radial-gradient(circle, rgba(249,229,127,1) 0%, rgba(223,152,0,1) 100%);
+  color:v-bind("modaltext");
+
 }
 
 /* The Close Button */
@@ -634,6 +663,7 @@ export default {
   name: "Torneo",
   data () {
     return {
+      personajesRst: personajes,
       personajes: personajes,
       enemies: enemies,
       enemyColors:enemyColors,
@@ -668,9 +698,12 @@ export default {
       estadoZeno:3,
       imagenZeno:"/img/characters/Zeno/Zeno3.jpg",
       dialogo:"Y la campana da inicio al torneo Taikai!",
-      modal:"none",
+      modal:"block", //ver si lo sacamos
+      modalVH:"0%",
+      modaltext:"white",
       modalMessage:"",
       modalImg:"",
+      modalOpacity:0,
       // luchar:Luchar
     }
   },
@@ -767,6 +800,7 @@ export default {
       this.poderEnemy = Math.round((Math.random(10000) * 100) *  (Math.random(10000) * 1000));
       this.manageZeno(-1);
       this.manageEnemy();
+      this.dialogo = "El participante " + this.pjactual.nombre + " derrota con facilidad a su oponente. Apenas si ha sido un espectaculo. Una pena.";
     }
     else if (this.diferenciadepoder > 5){
       // Si hay mas de 10 veces la diferencia, a Zeno le gusta y te da 10 puntos
@@ -774,6 +808,10 @@ export default {
       this.manageZeno(-1);
       this.poderEnemy = Math.round((Math.random(10000) * 100) *  (Math.random(10000) * 1000));
       this.manageEnemy();
+      this.dialogo = "El participante " + this.pjactual.nombre + " y "+
+      this.enemyName + "estan dando una tremenda batalla! Increible! La balanza se inclina hacia " + this.pjactual.nombre 
+       + " con un increible golpe knoquea a su rival! Zeno se ve realmente emocionado!";
+
     }
     else if (p1 >=p2){
       // Si esta parejo y lo vences, a Zeno le encanta y te da 100 puntos
@@ -781,7 +819,7 @@ export default {
       this.manageZeno(-1);
       this.poderEnemy = Math.round((Math.random(10000) * 100) *  (Math.random(10000) * 1000));
       this.dialogo = "El participante " + this.pjactual.nombre + " enfrenta a " +this.enemyName + 
-      " la batalla es muy pareja pero finalmente " +this.pjactual.nombre  + " se alza con la victoria!";
+      ". la batalla es muy pareja pero finalmente " +this.pjactual.nombre  + " se alza con la victoria!";
       this.manageEnemy();
     }
     else if (this.diferenciadepoder > 0.5){
@@ -792,14 +830,23 @@ export default {
         // Si esta parejo y usas escudo, sobrevivis y ganas la pelea, a Zeno le emociona y te da 150 puntos extra
         this.puntaje +=150;
         this.poderEnemy = Math.round((Math.random(10000) * 100) *  (Math.random(10000) * 1000));
+        this.dialogo = "El participante " + this.pjactual.nombre + " enfrenta a " +this.enemyName 
+        + ". Ambos estan dando una increible batalla! Increible! Pero la balanza se inclina hacia " + this.enemyName
+       + "quien con un increible golpe ... Esperen! "+ + "utiliza un escudo... ha hecho un contrataque y..."
+       + this.pjactual.nombre + "se alza con la victoria!!! Zeno se ve realmente emocionado!";
       }
       else {
+        this.dialogo = "El participante " + this.pjactual.nombre + " enfrenta a " +this.enemyName 
+        + ". Ambos estan dando una increible batalla! Esta muy parejo! Pero la balanza se inclina hacia " + this.enemyName
+       + "quien con un increible golpe knoquea a su oponente!";
         this.manageZeno(1);
         this.manageProta();
       }
     }
     else{
       // Si perdes la pelea, Zeno se enoja y te resta 10 puntos
+      this.dialogo = "Vaya... el participante " + this.pjactual.nombre + " no tuvo oportunidad contra " +this.enemyName 
+        + ". La diferencia de poderes simplemente era muy grande. Zeno no parece contento con este resultado.";
       this.puntaje -=10;
       this.manageZeno(1);
       this.manageProta();
@@ -902,14 +949,30 @@ export default {
         this.modalMessage = "Tu equipo ha sido derrotado y tu universo condenado a la destruccion... Quizas tendras mas suerte en otra linea temporal. Quieres jugar otra vez?";
     },
     GOZ:function() {
+        // this.enemyColor = "white";
         this.modal = "block";
+        this.modalVH = "100%";
+        this.modalOpacity = 1;
+        // transition custom ?
+        // ver si se puede arreglar esto para que cuando aparezca el texto las letras blancas se vuelvan de color negro y aparezca el boton.
+        this.modaltext = "black";
         this.modalMessage = "Zeno Sama se aburrio y ahora el multiverso no existe mas... Quizas tendras mas suerte en otra linea temporal. Quieres jugar otra vez?";
     },
     Restart:function() {
-        this.modal = "none";
+        // this.modal = "none";
+        this.modalVH = "0%";
+        this.modalOpacity = 0;
+        this.modaltext = "white";
+        this.modalMessage = "";
+        this.modalImg = "";
         this.estadoZeno =3;
         this.imagenZeno = `/img/characters/Zeno/Zeno${this.estadoZeno}.jpg`;
         this.puntaje = 0;
+        this.personajes = this.personajesRst;
+        this.pjactual= this.personajes[0];
+        this.manageEnemy();
+        this.dialogo =  "Y la campana da inicio al torneo Taikai!";
+        this.enablepj = true;
     }
 },
 
