@@ -1,5 +1,15 @@
 <template>
-  <!-- The Modal -->
+  <!-- Intro Modal -->
+<div id="introModal" class="Intromodal">
+<!-- Modal content -->
+  <div class="modal-content">
+    <!-- <span class="close" v-on="Restart()">&times;</span> -->
+    <p>{{ this.modalMessage }}</p>
+    <button v-on:click="Restart()" class="modal-button">Volver a Jugar</button>
+  </div>
+
+</div>
+  <!-- Game Over Modal -->
 <div id="myModal" class="GOZmodal">
 
 <!-- Modal content -->
@@ -358,6 +368,20 @@
 }
   
 .GOZmodal{
+  transition: width 0.1s, height 1.5s,opacity 0.5s linear 0.5s ;
+  display: v-bind("modal"); /* Hidden by default */
+  position: absolute; /* Stay in place */
+  z-index: 10; /* Sit on top */
+  right: 0;
+  top: 0;
+  height: 150%;
+  padding-bottom: 1rem;
+  width: v-bind("modalVH"); /* Full width */
+  height: v-bind("modalVH"); /* Full height */
+  opacity: v-bind("modalOpacity");
+  overflow:hidden; /* Enable scroll if needed */
+}
+.Intromodal{
   transition: width 0.1s, height 1.5s,opacity 0.5s linear 0.5s ;
   display: v-bind("modal"); /* Hidden by default */
   position: absolute; /* Stay in place */
