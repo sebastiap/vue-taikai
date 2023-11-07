@@ -56,7 +56,7 @@ Want to contribute? Great!
  * Promote the site
 
 ### Add Logic - Game Content
-- [ ] Game Intro
+- [x] Game Intro
 - [ ] More variation in random
 - [ ] Energy Bar
 - [x] Result Dialogs

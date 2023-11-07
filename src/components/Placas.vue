@@ -1,14 +1,4 @@
 <template>
-  <!-- Intro Modal -->
-<div id="introModal" class="Intromodal">
-<!-- Modal content -->
-  <div class="modal-content">
-    <!-- <span class="close" v-on="Restart()">&times;</span> -->
-    <p>{{ this.modalMessage }}</p>
-    <button v-on:click="Restart()" class="modal-button">Volver a Jugar</button>
-  </div>
-
-</div>
   <!-- Game Over Modal -->
 <div id="myModal" class="GOZmodal">
 
@@ -90,6 +80,16 @@
       </div>
       <!-- <div class="marginator">AHHHH</div> -->
     </section>
+      <!-- Intro Modal -->
+<div id="introModal" class="Intromodal">
+<!-- Modal content -->
+  <div class="intro-modal-content">
+    <!-- <span class="close" v-on="Restart()">&times;</span> -->
+    <p>{{ this.introModal.modalMessage }}</p>
+    <button v-on:click="iniciar()" class="intro-modal-button">EMPECEMOS!</button>
+  </div>
+
+</div>
   </template>
   
   <style scoped>
@@ -383,20 +383,46 @@
 }
 .Intromodal{
   transition: width 0.1s, height 1.5s,opacity 0.5s linear 0.5s ;
-  display: v-bind("modal"); /* Hidden by default */
+  display: v-bind("introModal.modalDisplay"); /* Hidden by default */
   position: absolute; /* Stay in place */
-  z-index: 10; /* Sit on top */
+  z-index: 20; /* Sit on top */
   right: 0;
   top: 0;
   height: 150%;
   padding-bottom: 1rem;
-  width: v-bind("modalVH"); /* Full width */
-  height: v-bind("modalVH"); /* Full height */
-  opacity: v-bind("modalOpacity");
-  overflow:hidden; /* Enable scroll if needed */
+  width: v-bind("introModal.modalVH"); /* Full width */
+  height: v-bind("introModal.modalVH"); /* Full height */
+  opacity: v-bind("introModal.modalOpacity");
+  /* overflow:hidden; */
 }
 
 /* Modal Content/Box */
+.intro-modal-content {
+  /* transition: 20s all; */
+  transition: 10s all;
+  background-color: #fefefe;
+  /* color:v-bind("modaltext"); */
+  /* margin: 5% auto; */
+   /* 15% from the top and centered */
+  padding: 2rem;
+  border: 1px solid #888;
+  height: 100%; /* Could be more or less, depending on screen size */
+  width: 100%; 
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+}
+
+.intro-modal-button {
+  transition: 20s all;
+  width: 10rem;
+  height: 3rem;
+  background: rgb(249,229,127);
+  background: radial-gradient(circle, rgba(249,229,127,1) 0%, rgba(223,152,0,1) 100%);
+  color:black;
+}
+
 .modal-content {
   /* transition: 20s all; */
   transition: 10s all;
@@ -423,7 +449,6 @@
   background: rgb(249,229,127);
   background: radial-gradient(circle, rgba(249,229,127,1) 0%, rgba(223,152,0,1) 100%);
   color:v-bind("modaltext");
-
 }
 
 /* The Close Button */
@@ -728,6 +753,14 @@ export default {
       modalMessage:"",
       modalImg:"",
       modalOpacity:0,
+      introModal: {
+      modalDisplay:"block", //ver si lo sacamos
+      modalVH:"100%",
+      modaltext:"black",
+      modalMessage:"Pero en esta linea temporal Zeno-Sama no ha quedado conforme con un simple torneo por eliminacion. En su lugar ha decidido que si el torneo no es lo suficiente interesante, lo interrumpira en cualquier momento... Y en ese mismisimo instante acabara con los 12 universos!!! Podran Goku y sus amigos entretenerlo lo suficiente para sobrevivir un dia mas?",
+      modalImg:"",
+      modalOpacity:1,
+      }
       // luchar:Luchar
     }
   },
@@ -796,6 +829,14 @@ export default {
     }
   },
   methods: {
+    iniciar: function(){
+        this.introModal.modalOpacity = "0%";
+        this.modaltext = "white";
+        this.modalMessage = "";
+        this.modalImg = "";
+        setTimeout(() => {  this.introModal.modalDisplay = "none"; }, 2000);
+        
+    },
     luchar: function (p1,p2,t, event) {
     // El jugador gana puntos dependiendo la diferencia de poder entre el personaje actual y el enemigo que aparece
     // Si hay muchisima diferencia de poder y matas al rival, Zeno se enoja y mata al jugador.
