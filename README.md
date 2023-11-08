@@ -58,7 +58,7 @@ Want to contribute? Great!
 ### Add Logic - Game Content
 - [x] Game Intro
 - [ ] More variation in random
-- [ ] Energy Bar
+- [x] Energy Bar
 - [x] Result Dialogs
 - [x] Improve ZenoState 
 - [x] Fallen Characters and Fallen Game Over
@@ -73,9 +73,11 @@ Want to contribute? Great!
 - [ ] fichaDatos class
 - [ ] puntaje class
 - [ ] Dialogs transition
+- [ ] better energy bar
 - [x] Blackout Effect
 - [ ] Improve Enemy Animation
 - [ ] Improve Character Animation
+- [ ] Improve Character change Animation
 - [ ] Improve Dialogs
 - [ ] Improve Ending Dialogs
 - [x] All in one page

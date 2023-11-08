@@ -28,6 +28,7 @@
           <div class="ficha-item">  {{ pjactual.nombre }}</div>
           <div class="ficha-item">  Raza: {{ pjactual.raza }}</div>
           <div class="ficha-item">  Ki: {{ pjactual.ki }}</div>
+          <div class="ficha-item">  Energia: {{ pjactual.energia }}</div>
           <!-- <div class="ficha-item">  {{ formaactual.modo }}</div> -->
         <transition name="slide-fade" mode="out-in">
               <div class="ficha-item poder" :key="this.poderactual">
@@ -89,6 +90,8 @@
     <!-- <span class="close" v-on="Restart()">&times;</span> -->
     <img v-bind:src="introModal.modalImg" alt="">
     <p>{{ this.introModal.modalMessage }}</p>
+    <p><b>COMO JUGAR:</b></p>
+    <p>{{ this.introModal.modalHTPMessage }}</p>
     <button v-on:click="iniciar()" class="intro-modal-button">EMPECEMOS!</button>
   </div>
 
@@ -728,10 +731,11 @@ export default {
       tecnicas:tecnicas,
       pjactual:		{
 		  id: 90,
-		  nombre: 'Goku',
+		  nombre: 'Satan',
 		  raza:'saiyajin',
 		  ki:'divino',
 		  img:"https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRfCQVP-lxNewrbhT5y2M0RdAHRg-aFxdSrpQ&usqp=CAU",
+      energia:0,
 		  vivo: true
 		  },
       formaactual:		{
@@ -767,6 +771,7 @@ export default {
         modalVH:"100%",
         modaltext:"black",
         modalMessage:"Pero en esta linea temporal Zeno-Sama no ha quedado conforme con un simple torneo por eliminacion. En su lugar ha decidido que si el torneo no es lo suficiente interesante, lo interrumpira en cualquier momento... Y en ese mismisimo instante acabara con los 12 universos!!! Podran Goku y sus amigos entretenerlo lo suficiente para sobrevivir un dia mas?",
+        modalHTPMessage:"En la parte superior se encuentra tu personaje. Empezas con Goku pero podes elegir entre varios. En el centro estan los datos de ese personaje y a la derecha podes elegir en que forma vas a pelear. Mientras mas poderosa la forma, mas aumenta tu poder y podes derrotar enemigos mas fuertes! Pero ojo que mientras mas poderosa la tranformacion mas costo energetico tiene!! \n Una vez elegido el setting de arriba, podes elegir la opcion que mas te convenga a traves de los botones 'LUCHAR','EMPUJAR' o 'HUIR'. LUCHAR es basicamente enfrentarte con el enemigo con sus poderes. EMPUJAR es para desechar a un enemigo sin pelear, cuando la diferencia es grande, pero hay que tener cuidado de que no haya mucha diferencia de poderes! HUIR es para cambiar de personaje y solo podras hacerlo si superas a un enemigo por al menos el doble de poder.",
         modalImg:"/img/characters/Playables/chibigoku.png",
         modalOpacity:1,
       }
@@ -843,10 +848,12 @@ export default {
         this.modaltext = "white";
         this.modalMessage = "";
         this.introModal.modalImg = "/img/characters/Playables/chibigoku.png";
+        this.pjactual = this.personajes[0];
         setTimeout(() => {  this.introModal.modalDisplay = "none"; }, 2000);
         
     },
     luchar: function (p1,p2,t, event) {
+      this.pjactual.energia = this.pjactual.energia - this.formaactual.id;
     // El jugador gana puntos dependiendo la diferencia de poder entre el personaje actual y el enemigo que aparece
     // Si hay muchisima diferencia de poder y matas al rival, Zeno se enoja y mata al jugador.
     event.preventDefault();
@@ -958,19 +965,27 @@ export default {
       huir: function (p1,p2,t, event) {
     // now we have access to the native event
     event.preventDefault();
-    if (p1 >p2) {
+    if (p1 >(p2 * 2)) {
       this.puntaje +=1;
-      this.poderEnemy = Math.round((Math.random(10000) * 100) *  (Math.random(10000) * 1000));
-      this.manageZeno(-1);
-      this.manageEnemy();
+      // this.poderEnemy = Math.round((Math.random(10000) * 100) *  (Math.random(10000) * 1000));
+      this.enablepj = true;
+      this.mensa
+      // this.manageZeno(-1);
+      // this.manageEnemy();
+      this.dialogo = "El participante " + this.pjactual.nombre + " logra escapar de " +this.enemyName 
+        + ". Esto no parece agradarle mucho a Zeno, pero esta a la espectativa de quien sera el proximo participante.";
+        //Animacion de combo personajes?
     }
     // else if ((this.tecnicaActual.nombre === "TAIYOKEN" || this.tecnicaActual.nombre === "PARALISIS") && this.diferenciadepoder > 0.5){
     //   // Si usas el TAIYOKEN y lo empujas funciona barbaro y ganas muchos puntos aunque te gane por bastante
     //   this.manageProta();
     // }
     else{
-      this.puntaje -=1;
+      this.puntaje -=10;
       this.manageZeno(1);
+      this.dialogo = "El participante " + this.pjactual.nombre + " es empujado de la plataforma al tratar de escapar de " +this.enemyName 
+        + ". Zeno esta decepcionado por este fallo, esperemos que el proximo participante cambie su humor.";
+      this.manageProta();
     }
   }, 
   
