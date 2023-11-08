@@ -136,8 +136,16 @@ export var	personajes = [
 		  modo: 'MYSTIC',
 		  raza:'Dios',
 		  ki:'mistico',
-		  aura:"#bfbfbf",
-		  user: 'NO'
+		  aura:"#394867",
+		  user: 'Gohan'
+		},
+		{
+		  id: 2500,
+		  modo: 'BESTIA',
+		  raza:'Dios',
+		  ki:'mistico',
+		  aura:"#9BA4B4",
+		  user: 'Gohan'
 		},
 		{
 		  id: 120,
@@ -147,7 +155,7 @@ export var	personajes = [
 		  aura:"silver",
 		  user: 'Krilin'
 		},
-			  {
+		{
 		  id: 3000,
 		  modo: 'UI',
 		  raza:'NO',

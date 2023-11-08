@@ -58,6 +58,7 @@ Want to contribute? Great!
 ### Add Logic - Game Content
 - [x] Game Intro
 - [ ] More variation in random
+- [ ] Filter usable tranformations?
 - [x] Energy Bar
 - [x] Result Dialogs
 - [x] Improve ZenoState 

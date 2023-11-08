@@ -849,16 +849,29 @@ export default {
         this.modalMessage = "";
         this.introModal.modalImg = "/img/characters/Playables/chibigoku.png";
         this.pjactual = this.personajes[0];
+        this.manageEnemy();
+        this.enablepj = true;
         setTimeout(() => {  this.introModal.modalDisplay = "none"; }, 2000);
         
     },
     luchar: function (p1,p2,t, event) {
-      this.pjactual.energia = this.pjactual.energia - this.formaactual.id;
     // El jugador gana puntos dependiendo la diferencia de poder entre el personaje actual y el enemigo que aparece
     // Si hay muchisima diferencia de poder y matas al rival, Zeno se enoja y mata al jugador.
     event.preventDefault();
+
+      // El personaje gasta energia de acuerdo a la tranformacion que usa al pelear
+
+      this.pjactual.energia = this.pjactual.energia - this.formaactual.id;
+
+    // Si no tiene energia suficiente se desmaya personaje gasta energia de acuerdo a la tranformacion que usa al pelear
+    if (this.pjactual.energia < 0){
+      this.dialogo = "El participante " + this.pjactual.nombre + " comienza a luchar pero no puede mantener su transformacion!! Su cuerpo no lo resiste! Se ha desmayado... Zeno esta muy decepcionado de ese fallo.";
+      this.manageProta();
+      this.puntaje -=50;
+    }
+
     // if (p1 >p2 * 10000) {
-    if (this.tecnicaActual.nombre === "MAFUBA"){
+    else if (this.tecnicaActual.nombre === "MAFUBA"){
       // Si usas el MAFUBA ganas la pelea de una pero no lo podes usar mas
       this.puntaje +=20;
       this.manageZeno(-1);
@@ -937,29 +950,48 @@ export default {
       event.preventDefault();
 
 
-    if (p1 >p2) {
-      this.puntaje +=1;
+    if (p1 >p2 && this.diferenciadepoder < 10) {
+      this.puntaje +=50;
       this.poderEnemy = Math.round((Math.random(10000) * 100) *  (Math.random(10000) * 1000));
+      this.dialogo = "Sin ningun inconveniente, el participante " + this.pjactual.nombre + " ha empujado de la plataforma a " +this.enemyName 
+        + ". La diferencia de poderes ha hecho que sea sencillo empujarlo. Zeno no parece contento con este resultado.";
       this.manageZeno(-1);
+      this.manageEnemy();
+    }
+    else if (p1 >p2 && this.diferenciadepoder > 10) {
+      this.puntaje -=50;
+      this.poderEnemy = Math.round((Math.random(10000) * 100) *  (Math.random(10000) * 1000));
+      this.dialogo = "Vaya... el participante " + this.pjactual.nombre + " ha destrozado a " +this.enemyName 
+        + " al tratar de empujarlo. La diferencia de poderes simplemente era muy grande. Zeno no parece contento con este resultado.";
+      this.manageZeno(1);
       this.manageEnemy();
     }
     else if (this.tecnicaActual.nombre === "PARALISIS" && this.diferenciadepoder > 0.3){
       // Si usas el PARALISIS y lo empujas funciona barbaro y ganas muchos puntos aunque te gane por bastante
       this.puntaje +=50;
       this.manageZeno(-1);
-      this.poderEnemy = Math.round((Math.random(10000) * 100) *  (Math.random(10000) * 1000));
+      // this.poderEnemy = Math.round((Math.random(10000) * 100) *  (Math.random(10000) * 1000));
+      this.dialogo = "El participante " + this.pjactual.nombre + " a paralizado a " +this.enemyName 
+        + " con esa tecnica ha sido muy facil empujarlo. Zeno esta contento con esta maniobra";
       this.manageEnemy();
+     
     }
     else if (this.tecnicaActual.nombre === "TAIYOKEN" && this.diferenciadepoder > 0.5){
       // Si usas el TAIYOKEN y lo empujas funciona barbaro y ganas muchos puntos aunque te gane por bastante
       this.puntaje +=50;
       this.manageZeno(-1);
-      this.poderEnemy = Math.round((Math.random(10000) * 100) *  (Math.random(10000) * 1000));
+      // this.poderEnemy = Math.round((Math.random(10000) * 100) *  (Math.random(10000) * 1000));
+      this.dialogo = "El participante " + this.pjactual.nombre + " ha cegado con su tecnica a " +this.enemyName 
+        + " vaya que fue facil empujarlo de la plataforma. Zeno esta contento con esta tactica";
       this.manageEnemy();
+      
     }
     else{
       this.puntaje -=1;
       this.manageZeno(1);
+      this.dialogo = "Vaya... el participante " + this.pjactual.nombre + " no ha podido ni mover a " +this.enemyName 
+        + ". La diferencia de poderes simplemente era muy grande. Zeno no parece contento con este resultado.";
+     
     }
   },
       huir: function (p1,p2,t, event) {
