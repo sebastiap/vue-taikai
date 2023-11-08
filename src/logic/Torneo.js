@@ -202,6 +202,37 @@ export var enemies = ["Tomato", "Spinach", "Asparagus", "Lettuce", "Jalapenos","
 "mustard",
 "spinach","fennel"];
 
+export const descripcionesSaiyanes = [
+	"Conocido por su temperamento explosivo y su habilidad para entrar en un estado de furia ardiente en combate. Su pelo se enciende en llamas cuando desata su poder, aumentando drásticamente su fuerza y velocidad. Sus ataques cargados de energía ardiente son capaces de fundir incluso las defensas más resistentes.",
+	"Su linaje está vinculado a los antiguos dragones divinos. Puede invocar el poder de estos seres legendarios, otorgándole habilidades como controlar el viento y manipular la tierra. Sus ojos brillan con la sabiduría ancestral, y su aura es una amalgama de energía de dragón.",
+	"Ha perfeccionado el arte del tiro con arco. Sus flechas están imbuidas de energía Saiyan, lo que les otorga una velocidad y penetración impresionantes. Puede disparar múltiples flechas en rápida sucesión con una precisión asombrosa, convirtiéndolo en un maestro del combate a distancia.",
+	"Su poder está vinculado a las explosiones estelares. Puede generar ondas de choque de energía estelar y crear supernovas a voluntad. Su aura brillante ilumina el campo de batalla, y su capacidad para controlar la energía de las estrellas lo convierte en una amenaza formidable.",
+	"Tiene el poder de controlar los elementos atmosféricos. Puede convocar tormentas eléctricas y manipular vientos huracanados con facilidad. Su habilidad para controlar el clima lo convierte en un rival peligroso en cualquier entorno, y su resistencia a los elementos naturales es impresionante.",
+  ];
+
+  export const descripcionesLuchadores = [
+	"Capaz de canalizar energía divina a través de su cuerpo. Su presencia irradia una calma inquebrantable, pero cuando libera su poder, su forma se vuelve majestuosa y sus ataques emanan una luz resplandeciente. Utiliza la energía divina para curarse a sí mismo y para realizar devastadores ataques a larga distancia.",
+	"Conocido por su impresionante musculatura y su habilidad para controlar la energía ki de manera excepcional. Su piel resistente le otorga una defensa formidable, mientras que su fuerza bruta lo convierte en un adversario imponente en combate cuerpo a cuerpo. Sus puñetazos son capaces de causar terremotos y ondas de choque.",
+	"Es un maestro en el arte de la ilusión y la manipulación de la percepción. Puede crear proyecciones holográficas y duplicados de sí mismo para confundir a sus oponentes. Su astucia y capacidad para anticipar los movimientos enemigos lo convierten en un rival formidable en el campo de batalla.",
+	"Tiene una conexión profunda con la naturaleza y puede manipular los elementos a su alrededor. Puede convocar tormentas, terremotos y crear barreras defensivas utilizando su energía vital. Su poder está ligado a la flora y fauna, lo que la convierte en una defensora apasionada de la vida y la naturaleza.",
+	"Es un viajero interdimensional del Universo 6, con la capacidad de manipular el espacio y el tiempo a su antojo. Puede desplazarse instantáneamente de un lugar a otro y prever los movimientos de sus oponentes antes de que ocurran. Su conocimiento del espacio-tiempo lo convierte en un enemigo esquivo y desconcertante.",
+	"Es un maestro de la manipulación de la energía del Universo 8. Puede absorber y redirigir la energía de los ataques enemigos, convirtiéndola en su propia fuente de poder. Sus golpes cargados con energía son capaces de perforar las defensas más sólidas y causar daños devastadores.",
+
+  ];
+
+  export const descripcionesAmazonas = [
+	"Es una luchadora elegante y ágil cuyos movimientos están sincronizados con la danza de las estrellas en el cielo. Su gracia en el combate la convierte en una oponente difícil de seguir, y sus ataques están imbuidos de energía estelar, creando un espectáculo deslumbrante en el campo de batalla.",
+	"Tiene la habilidad de convocar espíritus ancestrales para luchar a su lado. Estos espíritus poseen habilidades únicas y complementan su estilo de combate. Puede invocar desde poderosos guerreros hasta criaturas místicas, lo que le da una ventaja estratégica en la batalla.",
+	"Posee la habilidad única de cambiar su forma física durante el combate. Puede adaptarse a cualquier situación, ya sea aumentando su velocidad, resistencia o potencia de ataque. Su versatilidad la convierte en una rival impredecible y difícil de vencer.",
+	"Conocida por su velocidad incomparable. Su cuerpo está envuelto en un aura azul brillante mientras se mueve a una velocidad que parece desafiar la percepción del ojo humano. Su técnica de combate se basa en ataques rápidos y movimientos evasivos, convirtiéndola en un oponente formidable para cualquier rival.",
+	"Es una Saiyan del Universo 22, elegida por las deidades para portar una espada sagrada imbuida con poder divino. Su habilidad con la espada es legendaria, y su energía es una mezcla de ki Saiyan y energía divina. Su presencia en el campo de batalla emana un aura de nobleza y poder indiscutible.",
+	"Es una maestra en el arte de la espada Saiyan. Su espada está forjada con materiales estelares y su hoja brilla con la luz de las estrellas. Combina la velocidad de un Saiyan con la precisión de una espadachina experta, creando un estilo de combate único y letal.",
+	"Posee la rara habilidad de realizar múltiples transformaciones durante la batalla. Puede cambiar entre formas que potencian diferentes aspectos de su poder, como velocidad, fuerza o resistencia. Esta versatilidad la convierte en una adversaria impredecible y desafiante.",
+	"Ha perfeccionado el arte de controlar su ki hasta el punto de alcanzar una calma interna inquebrantable. Su poder está oculto bajo una apariencia tranquila, pero cuando libera su ki, su fuerza es abrumadora. Sus ataques son precisos y calculados, y puede anticipar los movimientos enemigos con facilidad.",
+	"Saiyan de sangre real del Universo 14, con la capacidad de controlar y manipular la electricidad. Puede canalizar rayos y descargas eléctricas a través de sus ataques, convirtiéndola en una amenaza formidable tanto a corta como larga distancia. Su corona de chispas relampagueantes ilumina el campo de batalla.",
+  ]
+  
+
 export var enemyColors = ["black","#659157","#f7ffe0","#faa43d","#55a8fd","#e05263","white"]
 
 export function Luchar(poderProta,poderEnemigo) { 

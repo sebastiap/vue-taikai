@@ -73,7 +73,7 @@ Want to contribute? Great!
 - [ ] fichaDatos class
 - [ ] puntaje class
 - [ ] Dialogs transition
-- [ ] Blackout Effect
+- [x] Blackout Effect
 - [ ] Improve Enemy Animation
 - [ ] Improve Character Animation
 - [ ] Improve Dialogs

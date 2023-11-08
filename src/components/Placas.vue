@@ -5,6 +5,7 @@
 <!-- Modal content -->
 <div class="modal-content">
   <!-- <span class="close" v-on="Restart()">&times;</span> -->
+  <img src="./img/events/chibigoku.png" alt="">
   <p>{{ this.modalMessage }}</p>
   <button v-on:click="Restart()" class="modal-button">Volver a Jugar</button>
 </div>
@@ -58,10 +59,11 @@
         <div className="enemigo">
           <div className="enemydata convertEnemy">
             <h3>{{ imgenemigo }}</h3>
-            <p> {{ this.enemyName }}</p>
+            <!-- <p> {{ this.enemyName }}</p> -->
             <p>Nivel de Pelea: {{poderEnemy}}</p>
             <!-- Estado Zeno: {{ this.estadoZeno }} -->
-            Diferencia de Poder: {{ this.diferenciadepoder }}
+            <!-- <p>Diferencia de Poder: {{ this.diferenciadepoder }}</p> -->
+            <p>{{ this.enemyDesc }}</p>
             <!-- <transition name="convertEnemy" mode="out-in"> -->
             <transition name="convertEnemy" mode="out-in">
                   <img v-bind:src="imagenEnemy" alt="" :key="imagenEnemy">
@@ -85,6 +87,7 @@
 <!-- Modal content -->
   <div class="intro-modal-content">
     <!-- <span class="close" v-on="Restart()">&times;</span> -->
+    <img v-bind:src="introModal.modalImg" alt="">
     <p>{{ this.introModal.modalMessage }}</p>
     <button v-on:click="iniciar()" class="intro-modal-button">EMPECEMOS!</button>
   </div>
@@ -393,7 +396,7 @@
   width: v-bind("introModal.modalVH"); /* Full width */
   height: v-bind("introModal.modalVH"); /* Full height */
   opacity: v-bind("introModal.modalOpacity");
-  /* overflow:hidden; */
+  overflow:hidden;
 }
 
 /* Modal Content/Box */
@@ -660,7 +663,7 @@ margin:0.5%;
 						 	 "footer footer footer";
 	}
 	.contenedor .enemigo {
-		height: auto;
+		  height: auto;
 		  grid-area: enemigo;
 		  display:flex;
 		  flex-direction: row;
@@ -670,6 +673,10 @@ margin:0.5%;
 
 	  .contenedor .enemigo img {
 				width: 45%;
+		  }
+	  .contenedor .enemigo p {
+				margin-left: 1rem;
+				margin-left: 1rem;
 		  }
 	  .contenedor .enemigo .formas{
 			width: max-content;
@@ -696,7 +703,8 @@ margin:0.5%;
   width: 100%;
   flex-direction: row-reverse;
   transition: all 1s ease-out;
-  justify-content: space-around;
+  justify-content: space-between;
+
 }
 
 
@@ -706,7 +714,7 @@ margin:0.5%;
   </style>
 
 <script>
-import {personajes,formas,imgenemigo,options as tecnicas,enemies,enemyColors,Luchar,Empujar,Huir} from '../logic/Torneo'
+import {personajes,formas,imgenemigo,options as tecnicas,enemies,enemyColors,descripcionesLuchadores as enemyDescs, Luchar,Empujar,Huir} from '../logic/Torneo'
 
 export default {
   name: "Torneo",
@@ -740,6 +748,7 @@ export default {
       imagenEnemy:"/img/characters/enemies/Enemy3.jpg",
       poderEnemy: 9000,
       enemyName:"Bonato",
+      enemyDesc:"Un guerrero de clase baja pero mucho potencial.",
       enemyColor:"Black",
       tecnicaActual:"Sin Tecnica",
       energiaActual:1000,
@@ -754,12 +763,12 @@ export default {
       modalImg:"",
       modalOpacity:0,
       introModal: {
-      modalDisplay:"block", //ver si lo sacamos
-      modalVH:"100%",
-      modaltext:"black",
-      modalMessage:"Pero en esta linea temporal Zeno-Sama no ha quedado conforme con un simple torneo por eliminacion. En su lugar ha decidido que si el torneo no es lo suficiente interesante, lo interrumpira en cualquier momento... Y en ese mismisimo instante acabara con los 12 universos!!! Podran Goku y sus amigos entretenerlo lo suficiente para sobrevivir un dia mas?",
-      modalImg:"",
-      modalOpacity:1,
+        modalDisplay:"block", //ver si lo sacamos
+        modalVH:"100%",
+        modaltext:"black",
+        modalMessage:"Pero en esta linea temporal Zeno-Sama no ha quedado conforme con un simple torneo por eliminacion. En su lugar ha decidido que si el torneo no es lo suficiente interesante, lo interrumpira en cualquier momento... Y en ese mismisimo instante acabara con los 12 universos!!! Podran Goku y sus amigos entretenerlo lo suficiente para sobrevivir un dia mas?",
+        modalImg:"/img/characters/Playables/chibigoku.png",
+        modalOpacity:1,
       }
       // luchar:Luchar
     }
@@ -833,7 +842,7 @@ export default {
         this.introModal.modalOpacity = "0%";
         this.modaltext = "white";
         this.modalMessage = "";
-        this.modalImg = "";
+        this.introModal.modalImg = "/img/characters/Playables/chibigoku.png";
         setTimeout(() => {  this.introModal.modalDisplay = "none"; }, 2000);
         
     },
@@ -974,6 +983,7 @@ export default {
     var alias = aliases[aliases.length * Math.random() | 0];
     this.imagenEnemy = `/img/characters/enemies/Enemy${enemyNumber}.jpg`;
     this.enemyName = alias + enemies[enemies.length * Math.random() | 0].toUpperCase();
+    this.enemyDesc = this.enemyName + " - " + enemyDescs[enemyDescs.length * Math.random() | 0];
     this.enemyColor = enemyColors[enemyColors.length * Math.random() | 0];
     this.dialogo =  this.dialogo + " Un nuevo rival se acerca! El concursante " + this.enemyName + " se prepara desafiante frente al participante " + this.pjactual.nombre;
     this.enablepj = false;
