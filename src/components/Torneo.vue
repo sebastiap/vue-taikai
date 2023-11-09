@@ -24,6 +24,7 @@
             {{item.nombre}}
         </option>
         </select>
+        {{ this.tecnicaActual }}
         <div class="fichaDatos">
           <div class="ficha-item">  {{ pjactual.nombre }}</div>
           <div class="ficha-item">  Raza: {{ pjactual.raza }}</div>
@@ -861,7 +862,11 @@ export default {
 
       // El personaje gasta energia de acuerdo a la tranformacion que usa al pelear
 
-      this.pjactual.energia = this.pjactual.energia - this.formaactual.id;
+    this.pjactual.energia = this.pjactual.energia - this.formaactual.id;
+    if (this.tecnicaActual.nombre != "Sin Tecnica")
+    {
+      this.pjactual.energia = this.pjactual.energia - ((this.tecnicaActual.porc/100) * (this.pjactual.max));
+    }
 
     // Si no tiene energia suficiente se desmaya personaje gasta energia de acuerdo a la tranformacion que usa al pelear
     if (this.pjactual.energia < 0){
