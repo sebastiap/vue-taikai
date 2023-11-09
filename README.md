@@ -77,7 +77,10 @@ Want to contribute? Great!
 - [ ] better energy bar
 - [x] Blackout Effect
 - [ ] Improve Enemy Animation
-- [ ] Improve Character Animation
+- [x] ATTACK Animation
+- [x] RUN AWAY Animation
+- [x] PUSH Animation
+- [x] Improve Character Animation
 - [ ] Improve Character change Animation
 - [ ] Improve Dialogs
 - [ ] Improve Ending Dialogs

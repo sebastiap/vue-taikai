@@ -3,13 +3,18 @@
 <div id="myModal" class="GOZmodal">
 
 <!-- Modal content -->
-<div class="modal-content">
-  <!-- <span class="close" v-on="Restart()">&times;</span> -->
-  <img src="./img/events/chibigoku.png" alt="">
-  <p>{{ this.modalMessage }}</p>
-  <button v-on:click="Restart()" class="modal-button">Volver a Jugar</button>
+  <div class="modal-content">
+    <!-- <span class="close" v-on="Restart()">&times;</span> -->
+    <img v-bind:src="modalImg" alt="">
+    <p>{{ this.modalMessage }}</p>
+    <button v-on:click="Restart()" class="modal-button">Volver a Jugar</button>
+  </div>
 </div>
 
+<div id="modalAction" class="modalAction">
+  <div >
+    <img v-bind:src="actionModal.modalImg" alt="">
+  </div>
 </div>
   <section class="placa">
     <div class="item item-1"></div>
@@ -26,7 +31,7 @@
         </select>
         <!-- {{ this.tecnicaActual }} -->
         <div class="fichaDatos">
-          <div class="ficha-item">  {{ pjactual.nombre }}</div>
+          <div class="ficha-item"><b>  {{ pjactual.nombre }}</b></div>
           <div class="ficha-item">  Raza: {{ pjactual.raza }}</div>
           <div class="ficha-item">  Ki: {{ pjactual.ki }}</div>
           <div class="ficha-item">  Energia: {{ pjactual.energia }}</div>
@@ -80,7 +85,7 @@
         </div>
       </div>
       <div class="item item-2" id="dialogo">{{ this.dialogo }}
-        <button v-on:click="GOZ()">Open Modal</button>
+        <button v-on:click="GOL()">Open Modal</button>
       </div>
       <!-- <div class="marginator">AHHHH</div> -->
     </section>
@@ -407,7 +412,8 @@
 .intro-modal-content {
   /* transition: 20s all; */
   transition: 10s all;
-  background-color: #fefefe;
+  background: rgb(247,162,33);
+  background: linear-gradient(0deg, rgba(247,162,33,1) 0%, rgba(54,51,49,1) 100%);
   /* color:v-bind("modaltext"); */
   /* margin: 5% auto; */
    /* 15% from the top and centered */
@@ -422,9 +428,9 @@
 }
 
 
-.intro-modal-content img {
-  width:20rem;
-  height:10rem;
+.intro-modal-content img,.modal-content img {
+  width:30rem;
+  height:15rem;
 }
 
 .intro-modal-button {
@@ -462,6 +468,31 @@
   background: rgb(249,229,127);
   background: radial-gradient(circle, rgba(249,229,127,1) 0%, rgba(223,152,0,1) 100%);
   color:v-bind("modaltext");
+}
+
+
+.modalAction{
+  transition: left 3s, width 0.5s, height 1.5s,opacity 0.3s ease-out; ;
+  /* display: v-bind("actionModal.modalDisplay");   */
+  /* background-color: #659157; */
+  position: absolute; /* Stay in place */
+  z-index: 9; /* Sit on top */
+  left: v-bind("actionModal.modalWidth"); 
+  top: calc(50vh - 5rem);;
+  height: 10rem;
+  width: 15rem;
+  /* width: v-bind("actionWidth");  */
+  padding-bottom: 1rem;
+  opacity: v-bind("actionModal.modalOpacity");
+  overflow:hidden;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+.modalAction img{
+ width: 50%;
+ height: 50%;
+ padding: 3rem;
 }
 
 /* The Close Button */
@@ -781,8 +812,13 @@ export default {
         modalHTPMessage:"En la parte superior se encuentra tu personaje. Empezas con Goku pero podes elegir entre varios. En el centro estan los datos de ese personaje y a la derecha podes elegir en que forma vas a pelear. Mientras mas poderosa la forma, mas aumenta tu poder y podes derrotar enemigos mas fuertes! Pero ojo que mientras mas poderosa la tranformacion mas costo energetico tiene!! \n Una vez elegido el setting de arriba, podes elegir la opcion que mas te convenga a traves de los botones 'LUCHAR','EMPUJAR' o 'HUIR'. LUCHAR es basicamente enfrentarte con el enemigo con sus poderes. EMPUJAR es para desechar a un enemigo sin pelear, cuando la diferencia es grande, pero hay que tener cuidado de que no haya mucha diferencia de poderes! HUIR es para cambiar de personaje y solo podras hacerlo si superas a un enemigo por al menos el doble de poder.",
         modalImg:"/img/events/intro.jpg",
         modalOpacity:1,
+      },
+      actionModal:{
+        modalImg:"",
+        modalWidth:"-1000px",
+        modalOpacity:0,
+        modalDisplay:"none",
       }
-      // luchar:Luchar
     }
   },
 
@@ -854,19 +890,30 @@ export default {
         this.introModal.modalOpacity = "0%";
         this.modaltext = "white";
         this.modalMessage = "";
-        this.introModal.modalImg = "/img/characters/Playables/chibigoku.png";
+        this.modalImg = "/img/characters/Playables/chibigoku.png";
         this.pjactual = this.personajes[0];
         this.manageEnemy();
         this.enablepj = true;
         setTimeout(() => {  this.introModal.modalDisplay = "none"; }, 2000);
         
     },
+    actuar:function (accion) {
+      this.actionModal.modalDisplay = "block";
+      this.actionModal.modalOpacity = "1";
+      this.actionModal.modalWidth = "1500px";
+      this.actionModal.modalImg = accion;
+      // El personaje gasta energia de acuerdo a la tranformacion que usa al pelear
+    setTimeout(() => {  
+      this.actionModal.modalDisplay = "none";
+      this.actionModal.modalOpacity = "0";
+      this.actionModal.modalWidth = "-1000px";
+   }, 3000);
+    },
     luchar: function (p1,p2,t, event) {
     // El jugador gana puntos dependiendo la diferencia de poder entre el personaje actual y el enemigo que aparece
     // Si hay muchisima diferencia de poder y matas al rival, Zeno se enoja y mata al jugador.
     event.preventDefault();
-
-      // El personaje gasta energia de acuerdo a la tranformacion que usa al pelear
+    this.actuar("/img/events/luchar.png");
 
     this.pjactual.energia = this.pjactual.energia - this.formaactual.id;
     if (this.tecnicaActual.nombre != "Sin Tecnica")
@@ -959,7 +1006,7 @@ export default {
   },
      empujar: function (p1,p2,t, event) {
       event.preventDefault();
-
+      this.actuar("/img/events/empujar.png");
 
     if (p1 >p2 && this.diferenciadepoder < 10) {
       this.puntaje +=50;
@@ -1008,6 +1055,7 @@ export default {
       huir: function (p1,p2,t, event) {
     // now we have access to the native event
     event.preventDefault();
+    this.actuar("/img/events/huir.png");
     if (p1 >(p2 * 2)) {
       this.puntaje +=1;
       // this.poderEnemy = Math.round((Math.random(10000) * 100) *  (Math.random(10000) * 1000));
@@ -1074,13 +1122,21 @@ export default {
       
     },
     GOV:function() {
-      this.modal = "block";
+        this.modal = "block";
+        this.modalVH = "100%";
+        this.modalOpacity = 1;
+        this.modaltext = "black";
         this.modalMessage = "Tu equipo ha entretenido lo suficiente al dios de todo! El multiverso y todos los seres se han salvado gracias a ti! Quieres jugar otra vez?";
-    },
+        this.modalImg = "/img/events/ZenoEnding.jpg";
+      },
     GOL:function() {
         this.modal = "block";
+        this.modalVH = "100%";
+        this.modalOpacity = 1;
+        this.modaltext = "black";
         this.modalMessage = "Tu equipo ha sido derrotado y tu universo condenado a la destruccion... Quizas tendras mas suerte en otra linea temporal. Quieres jugar otra vez?";
-    },
+        this.modalImg = "/img/events/ZenoEnding.jpg";
+      },
     GOZ:function() {
         // this.enemyColor = "white";
         this.modal = "block";
@@ -1089,7 +1145,8 @@ export default {
         // transition custom ?
         // ver si se puede arreglar esto para que cuando aparezca el texto las letras blancas se vuelvan de color negro y aparezca el boton.
         this.modaltext = "black";
-        this.modalMessage = "Zeno Sama se aburrio y ahora el multiverso no existe mas... Quizas tendras mas suerte en otra linea temporal. Quieres jugar otra vez?";
+        this.modalMessage = "Zeno Sama ha tenido suficiente y el multiverso comienza a desaparecer en una espiral de desesperacion. no existe mas... Quizas tendras mas suerte en otra linea temporal. Quieres jugar otra vez?";
+        this.modalImg = "/img/events/ZenoEnding.jpg";
     },
     Restart:function() {
         // this.modal = "none";
