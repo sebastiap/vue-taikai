@@ -24,7 +24,7 @@
             {{item.nombre}}
         </option>
         </select>
-        {{ this.tecnicaActual }}
+        <!-- {{ this.tecnicaActual }} -->
         <div class="fichaDatos">
           <div class="ficha-item">  {{ pjactual.nombre }}</div>
           <div class="ficha-item">  Raza: {{ pjactual.raza }}</div>
@@ -411,7 +411,7 @@
   /* color:v-bind("modaltext"); */
   /* margin: 5% auto; */
    /* 15% from the top and centered */
-  padding: 2rem;
+  /* padding: 2rem; */
   border: 1px solid #888;
   height: 100%; /* Could be more or less, depending on screen size */
   width: 100%; 
@@ -419,6 +419,12 @@
   flex-direction: column;
   align-items: center;
   justify-content: center;
+}
+
+
+.intro-modal-content img {
+  width:20rem;
+  height:10rem;
 }
 
 .intro-modal-button {
@@ -771,9 +777,9 @@ export default {
         modalDisplay:"block", //ver si lo sacamos
         modalVH:"100%",
         modaltext:"black",
-        modalMessage:"Pero en esta linea temporal Zeno-Sama no ha quedado conforme con un simple torneo por eliminacion. En su lugar ha decidido que si el torneo no es lo suficiente interesante, lo interrumpira en cualquier momento... Y en ese mismisimo instante acabara con los 12 universos!!! Podran Goku y sus amigos entretenerlo lo suficiente para sobrevivir un dia mas?",
+        modalMessage:"Hace mucho tiempo, el Rey de Todo, quien tenía el control de los dieciocho universos existentes en ese entonces, borra de la existencia a seis de ellos, en un ataque de ira y furia, dejando solo doce universos en la actualidad. \n En la actualidad, Goku le dio la idea de organizar un TORNEO DE FUERZA. \n En la mayoria de las lineas temporales, Zeno no planeaba borrar ningun universo. Pero en esta linea temporal Zeno-Sama no ha quedado conforme con un simple torneo por diversion. En su lugar ha decidido que si el torneo no es lo suficiente interesante, lo interrumpira en cualquier momento... Y en ese mismisimo instante acabara con los 12 universos!!! Podran Goku y sus amigos entretenerlo lo suficiente para sobrevivir un dia mas?",
         modalHTPMessage:"En la parte superior se encuentra tu personaje. Empezas con Goku pero podes elegir entre varios. En el centro estan los datos de ese personaje y a la derecha podes elegir en que forma vas a pelear. Mientras mas poderosa la forma, mas aumenta tu poder y podes derrotar enemigos mas fuertes! Pero ojo que mientras mas poderosa la tranformacion mas costo energetico tiene!! \n Una vez elegido el setting de arriba, podes elegir la opcion que mas te convenga a traves de los botones 'LUCHAR','EMPUJAR' o 'HUIR'. LUCHAR es basicamente enfrentarte con el enemigo con sus poderes. EMPUJAR es para desechar a un enemigo sin pelear, cuando la diferencia es grande, pero hay que tener cuidado de que no haya mucha diferencia de poderes! HUIR es para cambiar de personaje y solo podras hacerlo si superas a un enemigo por al menos el doble de poder.",
-        modalImg:"/img/characters/Playables/chibigoku.png",
+        modalImg:"/img/events/intro.jpg",
         modalOpacity:1,
       }
       // luchar:Luchar
