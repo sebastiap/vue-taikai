@@ -69,8 +69,6 @@ Want to contribute? Great!
 
 ### Add Logic - Game Content
 - [x] Game Intro
-- [ ] More variation in random
-- [ ] Filter usable tranformations?
 - [x] Energy Bar
 - [x] Result Dialogs
 - [x] Improve ZenoState 
@@ -80,24 +78,26 @@ Want to contribute? Great!
 - [x] Apply Techniques
 - [x] Show Points
 - [x] Blackout Game Over
+- [ ] More variation in random
+- [ ] Filter usable tranformations?
 - [ ] Bring Balance to the world
 
 ### Improve Visuals - Visual Content to add
 - [x] fichaDatos class
 - [x] puntaje class
 - [x] Dialogs transition
-- [ ] better energy bar
 - [x] Blackout Effect
-- [ ] Improve Enemy Animation
 - [x] ATTACK Animation
 - [x] RUN AWAY Animation
 - [x] PUSH Animation
 - [x] Improve Character Animation
 - [ ] Improve Character change Animation
 - [ ] Improve Dialogs
+- [ ] Improve Enemy Animation
+- [ ] ~~better energy bar~~
+- [ ] ~~Public surprise comic square~~
 - [x] Improve Ending Dialogs
 - [x] All in one page
-- [ ] ~~Public surprise comic square~~
 - [x] Diferent resolutions
 
 ### Promote the site 
@@ -109,6 +109,7 @@ Want to contribute? Great!
 * More Characters
 * More techniques
 * Boss Mode
+* Card Game
 
 ## Team
 

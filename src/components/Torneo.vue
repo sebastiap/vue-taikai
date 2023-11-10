@@ -97,9 +97,9 @@
   <div class="intro-modal-content">
     <!-- <span class="close" v-on="Restart()">&times;</span> -->
     <img v-bind:src="introModal.modalImg" alt="">
-    <p>{{ this.introModal.modalMessage }}</p>
-    <p><b>COMO JUGAR:</b></p>
-    <p>{{ this.introModal.modalHTPMessage }}</p>
+    <p class="im1">{{ this.introModal.modalMessage }}</p>
+    <p class="im2">COMO JUGAR:</p>
+    <p class="im3">{{ this.introModal.modalHTPMessage }}</p>
     <button v-on:click="iniciar()" class="intro-modal-button">EMPECEMOS!</button>
   </div>
 
@@ -446,7 +446,19 @@
 
 .intro-modal-content p{
   padding: 0.5rem;
+  text-shadow: 1px 0px #5a5a4a;
 }
+/* .intro-modal-content .im2{
+  font-weight: bold;
+  font-size:2rem;
+}
+.intro-modal-content .im3{
+  padding: 2rem;
+  text-shadow: 1px 0px #d1d118;
+} */
+
+
+
 .intro-modal-content img,.modal-content img {
   width:30rem;
   height:15rem;
@@ -636,7 +648,6 @@ margin:0.5%;
 
 .contenedor .widget-1,
 .contenedor .widget-2 {
-	background: #55a8fd;
 	color: #fff;
 	height: 50px;
 	text-align: center;
@@ -647,10 +658,13 @@ margin:0.5%;
 
 .contenedor .widget-1 {
 	grid-area: widget-1;
+  background: #55a8fd;
 }
 
 .contenedor .widget-2 {
+  background: v-bind("enablerun");
 	grid-area: widget-2;
+  transition: background 2s;
 }
 .contenedor .widget-1:hover,.contenedor .widget-2:hover {
 	border: 1px solid;
@@ -918,6 +932,7 @@ export default {
 		  user: 'TODOS' 
 		},
     enablepj:true,
+    enablerun:"#55a8fd",
       auracolor:"white",
       imagenProta:"/img/characters/enemies/Enemy2.jpg",
       imagenEnemy:"/img/characters/enemies/Enemy3.jpg",
@@ -1035,7 +1050,9 @@ export default {
         this.modalImg = "/img/characters/Playables/chibigoku.png";
         this.pjactual = this.personajes[0];
         this.manageEnemy();
+        this.poderEnemy = Math.round((Math.random(10000) * 100) *  (Math.random(10000) * 1000));
         this.enablepj = true;
+        this.enablerun = "#55a8fd";
         setTimeout(() => {  this.introModal.modalDisplay = "none"; }, 2000);
         
     },
@@ -1060,6 +1077,7 @@ export default {
     // Si hay muchisima diferencia de poder y matas al rival, Zeno se enoja y mata al jugador.
     event.preventDefault();
     this.manageEnergy();
+    this.enablerun = "#a5b6c8";
 
     this.pjactual.energia = this.pjactual.energia - this.formaactual.id;
     if (this.tecnicaActual.nombre != "Sin Tecnica")
@@ -1071,6 +1089,7 @@ export default {
     // Si no tiene energia suficiente se desmaya personaje gasta energia de acuerdo a la tranformacion que usa al pelear
     if (this.pjactual.energia < 0){
       this.actuar("/img/events/fallo.png");
+      this.enablerun="#55a8fd";
       this.dialogo = "El participante " + this.pjactual.nombre + " comienza a luchar pero no puede mantener su transformacion!! Su cuerpo no lo resiste! Se ha desmayado... Zeno esta muy decepcionado de ese fallo.";
       this.manageProta();
       this.results.puntaje -=50;
@@ -1099,7 +1118,7 @@ export default {
     else if (this.diferenciadepoder > 10) {
       this.actuar("/img/events/lucharST.png");
       // Si hay mas de 1000 veces la diferencia, a Zeno no le gusta pero te da un punto
-      this.results.puntaje +=1;
+      this.results.puntaje +=10;
       this.poderEnemy = Math.round((Math.random(10000) * 100) *  (Math.random(10000) * 1000));
       this.manageZeno(-1);
       this.manageEnemy();
@@ -1108,7 +1127,7 @@ export default {
     else if (this.diferenciadepoder > 5){
       this.actuar("/img/events/lucharST.png");
       // Si hay mas de 10 veces la diferencia, a Zeno le gusta y te da 10 puntos
-      this.results.puntaje +=10;
+      this.results.puntaje +=50;
       this.manageZeno(-1);
       this.poderEnemy = Math.round((Math.random(10000) * 100) *  (Math.random(10000) * 1000));
       this.manageEnemy();
@@ -1143,6 +1162,7 @@ export default {
        + this.pjactual.nombre + "se alza con la victoria!!! Zeno se ve realmente emocionado!";
       }
       else {
+        this.enablerun="#55a8fd";
         this.dialogo = "El participante " + this.pjactual.nombre + " enfrenta a " +this.enemyName 
         + ". Ambos estan dando una increible batalla! Esta muy parejo! Pero la balanza se inclina hacia " + this.enemyName
        + "quien con un increible golpe knoquea a su oponente!";
@@ -1151,6 +1171,7 @@ export default {
       }
     }
     else{
+      this.enablerun="#55a8fd";
       this.actuar("/img/events/fallo.png");
       // Si perdes la pelea, Zeno se enoja y te resta 10 puntos
       this.dialogo = "Vaya... el participante " + this.pjactual.nombre + " no tuvo oportunidad contra " +this.enemyName 
@@ -1162,8 +1183,15 @@ export default {
   },
      empujar: function (p1,p2,t, event) {
       event.preventDefault();
+      this.pjactual.energia = this.pjactual.energia - (this.formaactual.id/2);
+      if (this.tecnicaActual.nombre != "Sin Tecnica")
+      {
+        this.actuar("/img/events/luchar.png");
+        this.pjactual.energia = this.pjactual.energia - ((this.tecnicaActual.porc/100) * (this.pjactual.max));
+      }
       this.manageEnergy();
       this.actuar("/img/events/empujar.png");
+      this.enablerun = "#a5b6c8";
 
     if (p1 >p2 && this.diferenciadepoder < 10) {
       this.results.puntaje +=50;
@@ -1203,7 +1231,7 @@ export default {
     }
     else{
       this.actuar("/img/events/fallo.png");
-      this.results.puntaje -=1;
+      this.results.puntaje -=10;
       this.manageZeno(1);
       this.manageProta();
       this.dialogo = "Vaya... el participante " + this.pjactual.nombre + " no ha podido ni mover a " +this.enemyName 
@@ -1217,20 +1245,26 @@ export default {
     this.manageEnergy();
     if (p1 >(p2 * 2)) {
       this.actuar("/img/events/huir.png");
-      this.results.puntaje +=1;
+      this.results.puntaje +=10;
       // this.poderEnemy = Math.round((Math.random(10000) * 100) *  (Math.random(10000) * 1000));
       this.enablepj = true;
-      this.mensa
-      // this.manageZeno(-1);
-      // this.manageEnemy();
+      this.enablerun = "#55a8fd";
       this.dialogo = "El participante " + this.pjactual.nombre + " logra escapar de " +this.enemyName 
         + ". Esto no parece agradarle mucho a Zeno, pero esta a la espectativa de quien sera el proximo participante.";
         //Animacion de combo personajes?
     }
-    // else if ((this.tecnicaActual.nombre === "TAIYOKEN" || this.tecnicaActual.nombre === "PARALISIS") && this.diferenciadepoder > 0.5){
-    //   // Si usas el TAIYOKEN y lo empujas funciona barbaro y ganas muchos puntos aunque te gane por bastante
-    //   this.manageProta();
-    // }
+    else if ((this.tecnicaActual.nombre === "TAIYOKEN" || this.tecnicaActual.nombre === "PARALISIS") && this.diferenciadepoder > 0.5){
+      // Si usas el TAIYOKEN y lo empujas funciona barbaro y ganas muchos puntos aunque te gane por bastante
+
+      this.actuar("/img/events/luchar.png");
+      this.pjactual.energia = this.pjactual.energia - ((this.tecnicaActual.porc/100) * (this.pjactual.max));
+      this.dialogo = "El participante " + this.pjactual.nombre + " usa una tecnica especial para tratar de escapar de " +this.enemyName 
+        + ". Ha sido efectiva! Ha escapado con exito y Zeno se emociona con semejante tactica!.";
+      this.enablepj = true;
+      this.enablerun = "#55a8fd";
+      this.results.puntaje +=50;
+      this.manageZeno(-1);
+    }
     else{
       this.actuar("/img/events/fallo.png");
       this.results.puntaje -=10;

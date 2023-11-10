@@ -209,7 +209,7 @@ export var	personajes = [
 export var imgenemigo= "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRKKbl87oT29ufSZv3iW4JrpBbm2K9GFcn7lf2zP7eJ62yGxEZhig";
 export var	options= [
 		  {nombre: 'TAIYOKEN', pj: 'Krilin' , usos:3, porc:30}, // ciega, sirve para empujar y huir
-		  {nombre: 'ESCUDO', pj: 'TODOS', usos:2, porc:40}, // convierte un estuviste cerca en una victoria
+		  {nombre: 'ESCUDO', pj: 'Gohan', usos:2, porc:40}, // convierte un estuviste cerca en una victoria
 		  {nombre: 'PARALISIS', pj: 'Roshi', usos:2, porc:40},// paraliza , sirve para empujar 100/100?
 		  {nombre: 'EXPLOSION', pj: 'Vegeta', usos:1, porc:70}, //multiplica el nivelpelea x 5
 		  {nombre: 'MAFUBA', pj: 'Roshi', usos:1 , porc:70}, // Gana de una contra cualquier enemigo
