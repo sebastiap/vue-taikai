@@ -22,7 +22,7 @@
     <div class="item item-1"></div>
     <div class="item item-3">
       <div id="personaje" v-bind:style="{ backgroundImage: 'url(' + imagenProta + ')' }" >
-        <div class="invisible">  {{ auracolor }}</div>
+        <div class="invisible">  {{ auracolor.nombre }}</div>
       </div>
       <div class="ficha">
         <!-- https://static.wikia.nocookie.net/dragonball/images/0/08/TB_Announcer.png/revision/latest?cb=20210930000456 -->
@@ -751,22 +751,62 @@ margin:0.5%;
   color:black;
 }
 
-
-
-
-
 }
 
 /* laptop */
 @media screen and (max-width: 768px){
+
+  .item-1{
+    display: none;
+  }
+
+  .item-3{
+    width: 100%;
+  }
+  .item-3 #personaje{ 
+    width: 10vh;
+    height: 10vh;
+    color: white;
+  }
+  .item-3 .selectForma{
+    width: 10vh;
+  }
+  .item-3 .selectProta{
+    width: 15vh;
+  }
+
+  .selectContainer{
+    width: 20vh;
+  }
+
+  #zeno{
+    width: 25vh;
+    height: 15vh;
+  }
+
+  .contenedor .enemigo {
+    height: 20vh;
+    padding-bottom: 2vh;
+}
+  .contenedor .enemigo .enemydata img {
+    width: 15vh;
+}
+ .enemydata{
+  display: flex;
+  align-items: center;
+ }
+ .enemydata .NvlPelea{
+  margin-top: 0;
+ }
+ .enemydata .NvlPelea p{
+  margin: 0;
+ }
+
+
 	.contenedor {
 		grid-template-areas: "header header header"
-    						 "protagonista protagonista protagonista "
               	"enemigo enemigo enemigo"
-			 				 "sidebar sidebar sidebar"
-						 	 "widget-1 widget-1 widget-2"
-						 	 "contenido contenido contenido"
-						 	 "footer footer footer";
+						 	 "widget-1 widget-2 sidebar"
 	}
 }
 
@@ -774,11 +814,8 @@ margin:0.5%;
 @media screen and (max-width: 600px){
 	.contenedor {
 		grid-template-areas: "header header header"
-    						 "protagonista protagonista protagonista "
              				 "enemigo enemigo enemigo"
 						 	 "sidebar widget-1 widget-2"
-						 	 "contenido contenido contenido"
-						 	 "footer footer footer";
 	}
 	.contenedor .enemigo {
 		  height: auto;
@@ -788,6 +825,11 @@ margin:0.5%;
 		  justify-content:space-between;
 		  overflow: hidden;
 	  }
+
+    .enemydata p{
+    display: none;
+  }
+
 
 	  .contenedor .enemigo img {
 				width: 45%;
@@ -833,7 +875,7 @@ margin:0.5%;
 }
 .enemydata .NvlPelea{
   border: 0.5em dotted v-bind("enemyColor");
-  margin-top: 2rem;
+  /* margin-top: 2rem; */
   display: flex;
   align-items: center;
   justify-content: center;

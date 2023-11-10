@@ -98,7 +98,7 @@ Want to contribute? Great!
 - [x] Improve Ending Dialogs
 - [x] All in one page
 - [ ] ~~Public surprise comic square~~
-- [ ] Diferent resolutions
+- [x] Diferent resolutions
 
 ### Promote the site 
 * youtube comments
