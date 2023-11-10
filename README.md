@@ -21,10 +21,22 @@ Here is a working live demo :
 ## Mobile support
 
 ## Concepts 
+
+### Array copied by value and reference :
+
+ * https://midu.dev/como-clonar-un-array-en-javascript/
  
 ### CSS Positioning 
 
  * https://www.youtube.com/watch?v=MxEtxo_AaZ4&list=WL&index=174
+
+### CSS calc
+
+ * https://css-tricks.com/a-complete-guide-to-calc-in-css/
+
+### CSS gradient
+
+ * https://cssgradient.io/
 
 ## [Usage](https://iharsh234.github.io/WebApp/) 
 
@@ -71,9 +83,9 @@ Want to contribute? Great!
 - [ ] Bring Balance to the world
 
 ### Improve Visuals - Visual Content to add
-- [ ] fichaDatos class
-- [ ] puntaje class
-- [ ] Dialogs transition
+- [x] fichaDatos class
+- [x] puntaje class
+- [x] Dialogs transition
 - [ ] better energy bar
 - [x] Blackout Effect
 - [ ] Improve Enemy Animation
@@ -83,9 +95,9 @@ Want to contribute? Great!
 - [x] Improve Character Animation
 - [ ] Improve Character change Animation
 - [ ] Improve Dialogs
-- [ ] Improve Ending Dialogs
+- [x] Improve Ending Dialogs
 - [x] All in one page
-- [ ] Public surprise comic square
+- [ ] ~~Public surprise comic square~~
 - [ ] Diferent resolutions
 
 ### Promote the site 

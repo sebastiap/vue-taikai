@@ -1,4 +1,4 @@
-<template>
+<template>this.results.derrotados
   <!-- Game Over Modal -->
 <div id="myModal" class="GOZmodal">
 
@@ -7,6 +7,8 @@
     <!-- <span class="close" v-on="Restart()">&times;</span> -->
     <img v-bind:src="modalImg" alt="">
     <p>{{ this.modalMessage }}</p>
+    <p>PUNTAJE: {{ this.results.puntaje }}</p>
+    <p>ENEMIGOS DERROTADOS: {{ this.results.derrotados }}</p>
     <button v-on:click="Restart()" class="modal-button">Volver a Jugar</button>
   </div>
 </div>
@@ -31,7 +33,7 @@
         </select>
         <!-- {{ this.tecnicaActual }} -->
         <div class="fichaDatos">
-          <div class="ficha-item"><b>  {{ pjactual.nombre }}</b></div>
+          <div class="ficha-item nombrepj"><b>  {{ pjactual.nombre }}</b></div>
           <div class="ficha-item">  Raza: {{ pjactual.raza }}</div>
           <div class="ficha-item">  Ki: {{ pjactual.ki }}</div>
           <div class="ficha-item">  Energia: {{ pjactual.energia }}</div>
@@ -58,16 +60,16 @@
       </div>
       <div id="zeno" v-bind:style="{ backgroundImage: 'url(' + imagenZeno + ')' }" ></div>
     </div>
-    <div class="puntaje">TU PUNTAJE ACTUAL ES DE {{ this.puntaje }} PUNTOS</div>
+    <div class="puntaje">TU PUNTAJE ACTUAL ES DE {{ this.results.puntaje }} PUNTOS</div>
   <div class="contenedor">
-        <aside className="sidebar">
-			    <h3><button v-on:click="luchar(this.poderactual,poderEnemy,null, $event)">LUCHAR</button></h3>
+        <aside className="sidebar"  v-on:click="luchar(this.poderactual,poderEnemy,null, $event)">
+			    <h1>LUCHAR</h1>
 		    </aside>
         <div className="enemigo">
           <div className="enemydata convertEnemy">
             <h3>{{ imgenemigo }}</h3>
             <!-- <p> {{ this.enemyName }}</p> -->
-            <p>Nivel de Pelea: {{poderEnemy}}</p>
+            <p className="NvlPelea">Nivel de Pelea: {{poderEnemy}}</p>
             <!-- Estado Zeno: {{ this.estadoZeno }} -->
             <!-- <p>Diferencia de Poder: {{ this.diferenciadepoder }}</p> -->
             <p>{{ this.enemyDesc }}</p>
@@ -77,15 +79,15 @@
             </transition>
           </div>
         </div>
-        <div className="widget-1">
-          <h3><button v-on:click="empujar(this.poderactual,poderEnemy,null, $event)">EMPUJAR</button></h3>
+        <div className="widget-1" button v-on:click="empujar(this.poderactual,poderEnemy,null, $event)">
+          <h3>EMPUJAR</h3>
         </div>
-        <div className="widget-2">
-          <h3><button v-on:click="huir(this.poderactual,poderEnemy,null, $event)">HUIR</button></h3>
+        <div className="widget-2" v-on:click="huir(this.poderactual,poderEnemy,null, $event)">
+          <h3>HUIR</h3>
         </div>
       </div>
       <div class="item item-2" id="dialogo">{{ this.dialogo }}
-        <button v-on:click="GOL()">Open Modal</button>
+        <!-- <button v-on:click="GOL()">Open Modal</button> -->
       </div>
       <!-- <div class="marginator">AHHHH</div> -->
     </section>
@@ -106,6 +108,9 @@
   
   <style scoped>
 
+*{
+  font-family:"Lucida Console";
+}
   .marginator {
     margin-bottom: 100rem;
   }
@@ -116,7 +121,7 @@
     overflow-x: hidden;
     height: 100%;
     width: 100%;
-    margin-top: 9rem;
+    margin-top: 7.5rem;
     padding-bottom: 1rem;
     /* margin-bottom: 1rem; */
     background-color: #E05263;
@@ -164,12 +169,14 @@
 
   #dialogo {
    margin-left: 2rem;
-   width: 95%; 
-   height: 6.5rem; 
    background: whitesmoke;
    -moz-border-radius: 10px; 
    -webkit-border-radius: 10px; 
    border-radius: 10px;
+   transition: color 1s, all 1s ease-out;
+   color:v-bind("actionModal.dialogColor");
+   width:v-bind("actionModal.dialogWidth");
+   height: 6.5rem; 
 
 }
 #dialogo:before {
@@ -205,6 +212,10 @@
     flex-direction: row;
     width: 50rem;
   }
+
+  .nombrepj{
+    font-size:2rem;
+  }
   .fichaDatos{
     /* background-color:#aebccd; */
     background: rgb(249,229,127);
@@ -223,6 +234,10 @@
     justify-content: center;
     align-items: center;
     flex-direction: column;
+    font-family: 'Franklin Gothic Medium', 'Arial Narrow', Arial, sans-serif;
+    font-style: italic;
+    font-size: 1.3rem;
+    color:rgb(119, 30, 30);
   }
 
     .slide-fade-enter-active {
@@ -392,6 +407,7 @@
   height: v-bind("modalVH"); /* Full height */
   opacity: v-bind("modalOpacity");
   overflow:hidden; /* Enable scroll if needed */
+  font-size:1.5rem;
 }
 .Intromodal{
   transition: width 0.1s, height 1.5s,opacity 0.5s linear 0.5s ;
@@ -400,7 +416,6 @@
   z-index: 20; /* Sit on top */
   right: 0;
   top: 0;
-  height: 150%;
   padding-bottom: 1rem;
   width: v-bind("introModal.modalVH"); /* Full width */
   height: v-bind("introModal.modalVH"); /* Full height */
@@ -415,7 +430,6 @@
   background: rgb(247,162,33);
   background: linear-gradient(0deg, rgba(247,162,33,1) 0%, rgba(54,51,49,1) 100%);
   /* color:v-bind("modaltext"); */
-  /* margin: 5% auto; */
    /* 15% from the top and centered */
   /* padding: 2rem; */
   border: 1px solid #888;
@@ -427,7 +441,9 @@
   justify-content: center;
 }
 
-
+.intro-modal-content p{
+  padding: 0.5rem;
+}
 .intro-modal-content img,.modal-content img {
   width:30rem;
   height:15rem;
@@ -744,8 +760,22 @@ margin:0.5%;
   width: 100%;
   flex-direction: row-reverse;
   transition: all 1s ease-out;
-  justify-content: space-between;
+  justify-content: center;
+  align-content: center;
 
+}
+.enemydata p{
+  padding: 0.5rem;
+  margin-left: 0.5rem;
+  height: max-content;
+
+}
+.enemydata .NvlPelea{
+  border: 0.5em dotted v-bind("enemyColor");
+  margin-top: 2rem;
+  display: flex;
+  align-items: center;
+  justify-content: center;
 }
 
 
@@ -755,14 +785,14 @@ margin:0.5%;
   </style>
 
 <script>
-import {personajes,formas,imgenemigo,options as tecnicas,enemies,enemyColors,descripcionesLuchadores as enemyDescs, Luchar,Empujar,Huir} from '../logic/Torneo'
+import {personajes as pjs,formas,imgenemigo,options as tecnicas,enemies,enemyColors,descripcionesLuchadores as enemyDescs, Luchar,Empujar,Huir} from '../logic/Torneo'
 
 export default {
   name: "Torneo",
   data () {
     return {
-      personajesRst: personajes,
-      personajes: personajes,
+      personajesRst: JSON.parse(JSON.stringify(pjs)),
+      personajes: JSON.parse(JSON.stringify(pjs)),
       enemies: enemies,
       enemyColors:enemyColors,
       formas:formas,
@@ -794,7 +824,13 @@ export default {
       enemyColor:"Black",
       tecnicaActual:"Sin Tecnica",
       energiaActual:1000,
-      puntaje:0,
+
+      results:{
+        derrotados:-1,
+        puntaje:0,
+        perfects:0
+      },
+
       estadoZeno:3,
       imagenZeno:"/img/characters/Zeno/Zeno3.jpg",
       dialogo:"Y la campana da inicio al torneo Taikai!",
@@ -818,6 +854,8 @@ export default {
         modalWidth:"-1000px",
         modalOpacity:0,
         modalDisplay:"none",
+        dialogColor:"black",
+        dialogWidth:"45%"
       }
     }
   },
@@ -902,12 +940,16 @@ export default {
       this.actionModal.modalOpacity = "1";
       this.actionModal.modalWidth = "1500px";
       this.actionModal.modalImg = accion;
+      this.actionModal.dialogColor = "whitesmoke";
+      this.actionModal.dialogWidth = "30%";
       // El personaje gasta energia de acuerdo a la tranformacion que usa al pelear
     setTimeout(() => {  
       this.actionModal.modalDisplay = "none";
       this.actionModal.modalOpacity = "0";
       this.actionModal.modalWidth = "-1000px";
-   }, 3000);
+      this.actionModal.dialogColor = "black";
+      this.actionModal.dialogWidth = "95%";
+   }, 2000);
     },
     luchar: function (p1,p2,t, event) {
     // El jugador gana puntos dependiendo la diferencia de poder entre el personaje actual y el enemigo que aparece
@@ -925,13 +967,13 @@ export default {
     if (this.pjactual.energia < 0){
       this.dialogo = "El participante " + this.pjactual.nombre + " comienza a luchar pero no puede mantener su transformacion!! Su cuerpo no lo resiste! Se ha desmayado... Zeno esta muy decepcionado de ese fallo.";
       this.manageProta();
-      this.puntaje -=50;
+      this.results.puntaje -=50;
     }
 
     // if (p1 >p2 * 10000) {
     else if (this.tecnicaActual.nombre === "MAFUBA"){
       // Si usas el MAFUBA ganas la pelea de una pero no lo podes usar mas
-      this.puntaje +=20;
+      this.results.puntaje +=20;
       this.manageZeno(-1);
       this.poderEnemy = Math.round((Math.random(10000) * 100) *  (Math.random(10000) * 1000));
       this.dialogo = "El participante " + this.pjactual.nombre + " utiliza una tecnica especial! Acaba de crear un gran remolino que envuelve a su oponente! Lo ha atrapado en un termo! Increible!";
@@ -939,7 +981,7 @@ export default {
     }
     else if (this.diferenciadepoder > 20) {
       // Si hay mas de 10000 veces la diferencia, Zeno se calienta
-      this.puntaje -=300;
+      this.results.puntaje -=300;
       this.poderEnemy = Math.round((Math.random(10000) * 100) *  (Math.random(10000) * 1000));
       this.manageZeno(1);
       this.dialogo = "El participante " + this.pjactual.nombre + " aplasta a " +this.enemyName + 
@@ -948,7 +990,7 @@ export default {
     }
     else if (this.diferenciadepoder > 10) {
       // Si hay mas de 1000 veces la diferencia, a Zeno no le gusta pero te da un punto
-      this.puntaje +=1;
+      this.results.puntaje +=1;
       this.poderEnemy = Math.round((Math.random(10000) * 100) *  (Math.random(10000) * 1000));
       this.manageZeno(-1);
       this.manageEnemy();
@@ -956,31 +998,32 @@ export default {
     }
     else if (this.diferenciadepoder > 5){
       // Si hay mas de 10 veces la diferencia, a Zeno le gusta y te da 10 puntos
-      this.puntaje +=10;
+      this.results.puntaje +=10;
       this.manageZeno(-1);
       this.poderEnemy = Math.round((Math.random(10000) * 100) *  (Math.random(10000) * 1000));
       this.manageEnemy();
       this.dialogo = "El participante " + this.pjactual.nombre + " y "+
-      this.enemyName + "estan dando una tremenda batalla! Increible! La balanza se inclina hacia " + this.pjactual.nombre 
+      this.enemyName + " estan dando una tremenda batalla! Increible! La balanza se inclina hacia " + this.pjactual.nombre 
        + " con un increible golpe knoquea a su rival! Zeno se ve realmente emocionado!";
 
     }
     else if (p1 >=p2){
       // Si esta parejo y lo vences, a Zeno le encanta y te da 100 puntos
-      this.puntaje +=100;
+      this.results.puntaje +=100;
       this.manageZeno(-1);
       this.poderEnemy = Math.round((Math.random(10000) * 100) *  (Math.random(10000) * 1000));
       this.dialogo = "El participante " + this.pjactual.nombre + " enfrenta a " +this.enemyName + 
       ". la batalla es muy pareja pero finalmente " +this.pjactual.nombre  + " se alza con la victoria!";
       this.manageEnemy();
+      this.results.perfects +=1;
     }
     else if (this.diferenciadepoder > 0.5){
        // Si esta parejo y perdes, a Zeno le emociona y te da 50 puntos aunque pierdas
-      this.puntaje +=50;
+      this.results.puntaje +=50;
       this.manageZeno(-1);
       if (this.tecnicaActual === "ESCUDO"){
         // Si esta parejo y usas escudo, sobrevivis y ganas la pelea, a Zeno le emociona y te da 150 puntos extra
-        this.puntaje +=150;
+        this.results.puntaje +=150;
         this.poderEnemy = Math.round((Math.random(10000) * 100) *  (Math.random(10000) * 1000));
         this.dialogo = "El participante " + this.pjactual.nombre + " enfrenta a " +this.enemyName 
         + ". Ambos estan dando una increible batalla! Increible! Pero la balanza se inclina hacia " + this.enemyName
@@ -999,7 +1042,7 @@ export default {
       // Si perdes la pelea, Zeno se enoja y te resta 10 puntos
       this.dialogo = "Vaya... el participante " + this.pjactual.nombre + " no tuvo oportunidad contra " +this.enemyName 
         + ". La diferencia de poderes simplemente era muy grande. Zeno no parece contento con este resultado.";
-      this.puntaje -=10;
+      this.results.puntaje -=10;
       this.manageZeno(1);
       this.manageProta();
     }
@@ -1009,7 +1052,7 @@ export default {
       this.actuar("/img/events/empujar.png");
 
     if (p1 >p2 && this.diferenciadepoder < 10) {
-      this.puntaje +=50;
+      this.results.puntaje +=50;
       this.poderEnemy = Math.round((Math.random(10000) * 100) *  (Math.random(10000) * 1000));
       this.dialogo = "Sin ningun inconveniente, el participante " + this.pjactual.nombre + " ha empujado de la plataforma a " +this.enemyName 
         + ". La diferencia de poderes ha hecho que sea sencillo empujarlo. Zeno no parece contento con este resultado.";
@@ -1017,7 +1060,7 @@ export default {
       this.manageEnemy();
     }
     else if (p1 >p2 && this.diferenciadepoder > 10) {
-      this.puntaje -=50;
+      this.results.puntaje -=50;
       this.poderEnemy = Math.round((Math.random(10000) * 100) *  (Math.random(10000) * 1000));
       this.dialogo = "Vaya... el participante " + this.pjactual.nombre + " ha destrozado a " +this.enemyName 
         + " al tratar de empujarlo. La diferencia de poderes simplemente era muy grande. Zeno no parece contento con este resultado.";
@@ -1026,7 +1069,7 @@ export default {
     }
     else if (this.tecnicaActual.nombre === "PARALISIS" && this.diferenciadepoder > 0.3){
       // Si usas el PARALISIS y lo empujas funciona barbaro y ganas muchos puntos aunque te gane por bastante
-      this.puntaje +=50;
+      this.results.puntaje +=50;
       this.manageZeno(-1);
       // this.poderEnemy = Math.round((Math.random(10000) * 100) *  (Math.random(10000) * 1000));
       this.dialogo = "El participante " + this.pjactual.nombre + " a paralizado a " +this.enemyName 
@@ -1036,7 +1079,7 @@ export default {
     }
     else if (this.tecnicaActual.nombre === "TAIYOKEN" && this.diferenciadepoder > 0.5){
       // Si usas el TAIYOKEN y lo empujas funciona barbaro y ganas muchos puntos aunque te gane por bastante
-      this.puntaje +=50;
+      this.results.puntaje +=50;
       this.manageZeno(-1);
       // this.poderEnemy = Math.round((Math.random(10000) * 100) *  (Math.random(10000) * 1000));
       this.dialogo = "El participante " + this.pjactual.nombre + " ha cegado con su tecnica a " +this.enemyName 
@@ -1045,8 +1088,10 @@ export default {
       
     }
     else{
-      this.puntaje -=1;
+      this.actuar("/img/events/fallo.png");
+      this.results.puntaje -=1;
       this.manageZeno(1);
+      this.manageProta();
       this.dialogo = "Vaya... el participante " + this.pjactual.nombre + " no ha podido ni mover a " +this.enemyName 
         + ". La diferencia de poderes simplemente era muy grande. Zeno no parece contento con este resultado.";
      
@@ -1055,9 +1100,9 @@ export default {
       huir: function (p1,p2,t, event) {
     // now we have access to the native event
     event.preventDefault();
-    this.actuar("/img/events/huir.png");
     if (p1 >(p2 * 2)) {
-      this.puntaje +=1;
+      this.actuar("/img/events/huir.png");
+      this.results.puntaje +=1;
       // this.poderEnemy = Math.round((Math.random(10000) * 100) *  (Math.random(10000) * 1000));
       this.enablepj = true;
       this.mensa
@@ -1072,7 +1117,8 @@ export default {
     //   this.manageProta();
     // }
     else{
-      this.puntaje -=10;
+      this.actuar("/img/events/fallo.png");
+      this.results.puntaje -=10;
       this.manageZeno(1);
       this.dialogo = "El participante " + this.pjactual.nombre + " es empujado de la plataforma al tratar de escapar de " +this.enemyName 
         + ". Zeno esta decepcionado por este fallo, esperemos que el proximo participante cambie su humor.";
@@ -1093,19 +1139,21 @@ export default {
     this.enemyColor = enemyColors[enemyColors.length * Math.random() | 0];
     this.dialogo =  this.dialogo + " Un nuevo rival se acerca! El concursante " + this.enemyName + " se prepara desafiante frente al participante " + this.pjactual.nombre;
     this.enablepj = false;
+    this.results.derrotados +=1;
     },
     manageZeno: function(mod) {
-      if (this.estadoZeno < 5 && this.estadoZeno >= 1 ){
+        //GAMEOVER ZENO
+      if (this.estadoZeno === 5 && mod === 1)
+       { this.GOZ();}
+
+      if (this.estadoZeno <= 5 && this.estadoZeno >= 1 ){
         if (this.estadoZeno === 1 && mod === -1) {mod = 0}
+        if (this.estadoZeno === 5 && mod === 1) {mod = 0}
         this.imagenZeno = `/img/characters/Zeno/Zeno${this.estadoZeno + mod}.jpg`;
         this.estadoZeno += mod;
       }
-      else {
-        //GAMEOVER ZENO
-      if (this.estadoZeno === 5)
-       { this.GOZ();}
-      }
-      if (this.puntaje > 1000 ){
+
+      if (this.results.puntaje > 1000 ){
         this.GOV();
       }
     },
@@ -1126,16 +1174,17 @@ export default {
         this.modalVH = "100%";
         this.modalOpacity = 1;
         this.modaltext = "black";
-        this.modalMessage = "Tu equipo ha entretenido lo suficiente al dios de todo! El multiverso y todos los seres se han salvado gracias a ti! Quieres jugar otra vez?";
-        this.modalImg = "/img/events/ZenoEnding.jpg";
+        this.modalMessage = "Tu equipo ha entretenido lo suficiente al dios de todo! Gracias a tu esfuerzo el multiverso y todos los seres se han salvado! Felicidades Campeon!!";
+        let modifier = Math.round(Math.random() * (4 - 1) + 1)
+        this.modalImg = `/img/events/win${modifier}.jpg`;
       },
     GOL:function() {
         this.modal = "block";
         this.modalVH = "100%";
         this.modalOpacity = 1;
         this.modaltext = "black";
-        this.modalMessage = "Tu equipo ha sido derrotado y tu universo condenado a la destruccion... Quizas tendras mas suerte en otra linea temporal. Quieres jugar otra vez?";
-        this.modalImg = "/img/events/ZenoEnding.jpg";
+        this.modalMessage = "Tu equipo ha sido derrotado y tu universo  condenado a la destruccion... Los habitantes de tu mundo observan poco a poco como todo desaparece en grandes destellos resplandecientes.        Quizas tendras mas suerte en otra linea temporal.";
+        this.modalImg = "/img/events/LoseEnding.jpg";
       },
     GOZ:function() {
         // this.enemyColor = "white";
@@ -1145,7 +1194,7 @@ export default {
         // transition custom ?
         // ver si se puede arreglar esto para que cuando aparezca el texto las letras blancas se vuelvan de color negro y aparezca el boton.
         this.modaltext = "black";
-        this.modalMessage = "Zeno Sama ha tenido suficiente y el multiverso comienza a desaparecer en una espiral de desesperacion. no existe mas... Quizas tendras mas suerte en otra linea temporal. Quieres jugar otra vez?";
+        this.modalMessage = "Zeno Sama ha tenido suficiente y el multiverso comienza a desaparecer en una espiral de desesperacion. no existe mas... Quizas tendras mas suerte en otra linea temporal. ";
         this.modalImg = "/img/events/ZenoEnding.jpg";
     },
     Restart:function() {
@@ -1157,8 +1206,11 @@ export default {
         this.modalImg = "";
         this.estadoZeno =3;
         this.imagenZeno = `/img/characters/Zeno/Zeno${this.estadoZeno}.jpg`;
-        this.puntaje = 0;
-        this.personajes = this.personajesRst;
+        this.results.puntaje = 0;
+        this.results.derrotados =-1;
+        this.results.perfects =0;
+        // Uso esto tanto aca como en la asignacion inicial para evitar que asigne la referencia y no el valor
+        this.personajes = JSON.parse(JSON.stringify(this.personajesRst));
         this.pjactual= this.personajes[0];
         this.manageEnemy();
         this.dialogo =  "Y la campana da inicio al torneo Taikai!";
