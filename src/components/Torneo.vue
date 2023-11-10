@@ -87,7 +87,9 @@
         </div>
       </div>
       <div class="item item-2" id="dialogo">{{ this.dialogo }}
-        <!-- <button v-on:click="GOL()">Open Modal</button> -->
+        <button v-on:click="GOL()">GOL</button>
+        <button v-on:click="GOZ()">GOZ</button>
+        <button v-on:click="GOV()">GOV</button>
       </div>
       <!-- <div class="marginator">AHHHH</div> -->
     </section>
@@ -1352,10 +1354,8 @@ export default {
         this.modal = "block";
         this.modalVH = "100%";
         this.modalOpacity = 1;
-        // transition custom ?
-        // ver si se puede arreglar esto para que cuando aparezca el texto las letras blancas se vuelvan de color negro y aparezca el boton.
         this.modaltext = "black";
-        this.modalMessage = "Zeno Sama ha tenido suficiente y el multiverso comienza a desaparecer en una espiral de desesperacion. no existe mas... Quizas tendras mas suerte en otra linea temporal. ";
+        this.modalMessage = "Zeno Sama ha tenido suficiente y el multiverso comienza a desaparecer en una espiral de desesperacion. Todo lo que conoces pronto no existe mas... Quizas tendras mas suerte en otra linea temporal. ";
         this.modalImg = "/img/events/ZenoEnding.jpg";
     },
     Restart:function() {

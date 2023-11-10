@@ -78,8 +78,8 @@ Want to contribute? Great!
 - [x] Apply Techniques
 - [x] Show Points
 - [x] Blackout Game Over
+- [ ] Remove Comments
 - [ ] More variation in random
-- [ ] Filter usable tranformations?
 - [ ] Bring Balance to the world
 
 ### Improve Visuals - Visual Content to add
@@ -92,13 +92,12 @@ Want to contribute? Great!
 - [x] PUSH Animation
 - [x] Improve Character Animation
 - [ ] Improve Character change Animation
-- [ ] Improve Dialogs
 - [ ] Improve Enemy Animation
-- [ ] ~~better energy bar~~
-- [ ] ~~Public surprise comic square~~
+- [ ] Improve Dialogs
 - [x] Improve Ending Dialogs
 - [x] All in one page
 - [x] Diferent resolutions
+- [ ] try in different devices
 
 ### Promote the site 
 * youtube comments
@@ -106,10 +105,16 @@ Want to contribute? Great!
 * Add to Gamer portfolio
 
 ### Expansion
+* better energy bar
+* Filter usable tranformations?
+* Unlimited/Arcade Mode
+* Public surprise when a special action happens
 * More Characters
 * More techniques
 * Boss Mode
 * Card Game
+* Unlockeable Characters & Techniques
+* Setting the team before playing (Each character has a cost and you have a limited amount of point to make the team)
 
 ## Team
 
