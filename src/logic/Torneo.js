@@ -31,7 +31,7 @@ export var	personajes = [
 		  vivo: true
 		},
 		{
-		  id: 30,
+		  id: 50,
 		  nombre: 'Krilin',
 		  raza:'humano',
 		  ki:'normal',
@@ -86,10 +86,10 @@ export var	personajes = [
 		{
 		  id: 20,
 		  modo: 'KAIOKEN',
-		  raza:'libre',
+		  raza:'NO',
 		  ki:'NO',
 		  aura:"red",
-		  user: 'TODOS'
+		  user: 'Goku'
 		},
 		{
 		  id: 50,
@@ -165,11 +165,19 @@ export var	personajes = [
 		},
 		{
 		  id: 3000,
-		  modo: 'UI',
+		  modo: 'ULTRA INSTINTO',
 		  raza:'NO',
 		  ki:'NO',
 		  aura:"silver",
 		  user: 'Goku'
+		},
+		{
+		  id: 3001,
+		  modo: 'MEGA INSTINTO',
+		  raza:'NO',
+		  ki:'NO',
+		  aura:"#865686",
+		  user: 'Vegeta'
 		},
 			  {
 		  id: 101,

@@ -177,6 +177,7 @@
    color:v-bind("actionModal.dialogColor");
    width:v-bind("actionModal.dialogWidth");
    height: 6.5rem; 
+   grid-area: dialogo;
 
 }
 #dialogo:before {
@@ -290,6 +291,7 @@
 
   .poder{
     color: v-bind("auracolor");
+    background-color: #000;
     font-weight: bold;
   }
 
@@ -332,6 +334,7 @@
    margin-left: 1rem;
    background-image: v-bind("imagenZeno");
    background-size:cover;
+   transition: all 0.5s ease-in-out;
   }
 
 .selectContainer{
@@ -416,7 +419,7 @@
   z-index: 20; /* Sit on top */
   right: 0;
   top: 0;
-  padding-bottom: 1rem;
+  /* padding-bottom: 1rem; */
   width: v-bind("introModal.modalVH"); /* Full width */
   height: v-bind("introModal.modalVH"); /* Full height */
   opacity: v-bind("introModal.modalOpacity");
@@ -678,22 +681,80 @@ margin:0.5%;
 
 /* notebook */
 @media screen and (max-width: 992px){
+
+  .item-3{
+    width: 100%;
+  }
+  .item-3 .selectForma{
+    width: 10vh;
+  }
+  .item-3 .selectProta{
+    width: 15vh;
+  }
+
+  .selectContainer{
+    width: 15vh;
+  }
+
+  .contenedor .enemigo{
+    height: 25vh;
+    padding-bottom: 2vh;
+    margin-bottom: 2vh;
+  }
+
+  .ficha{
+    width: 70vh;
+  }
+  .fichaDatos{
+    width: 25vh;
+  }
+
+
 	.contenedor {
 		grid-template-areas: "header header header"
 							 "protagonista protagonista protagonista "
 							 "widget-1 widget-2 sidebar"
 							 "enemigo enemigo enemigo"
-							 "contenido contenido contenido"
-							 "footer footer footer";
 	}
 	.contenedor .enemigo img {
 		width: 40%;
   
 	}
-	/* .contenedor .enemigo .formas button {
-	width: 50%;
-	height:auto;
-	} */
+
+  .Intromodal{
+    height: 100vh;; /* Full height */
+    padding-bottom: 0;
+    margin: 0;
+  }
+  .intro-modal-content{
+    height:100vh;
+    font-size: 0.8rem;
+    padding: 0;
+    margin: 0;
+  }
+
+  .intro-modal-content p{
+  padding: 0.1rem;
+}
+
+.intro-modal-content img,.modal-content img {
+  width:20rem;
+  height:10rem;
+}
+
+.intro-modal-button {
+  transition: 20s all;
+  width: 20rem;
+  height: 3rem;
+  background: rgb(249,229,127);
+  background: radial-gradient(circle, rgba(249,229,127,1) 0%, rgba(223,152,0,1) 100%);
+  color:black;
+}
+
+
+
+
+
 }
 
 /* laptop */
@@ -861,9 +922,9 @@ export default {
   },
 
   computed: {
-    personaje(){
-    return personajes[0];
-    },
+    // personaje(){
+    // return personajes[0];
+    // },
     formaspj(){
       if (pjactual === undefined) {
         var pjactual = "saiyan";
@@ -882,6 +943,7 @@ export default {
       this.formaactual = formaspublicas[0];
       var todaslasformas = formaspublicas.concat(posiblesformas,formaspersonales,otrasformas);
       console.log(todaslasformas);
+      todaslasformas = todaslasformas.sort((a, b) => a.id - b.id);
       return todaslasformas;
     },
     tecnicaspj(){
@@ -955,16 +1017,18 @@ export default {
     // El jugador gana puntos dependiendo la diferencia de poder entre el personaje actual y el enemigo que aparece
     // Si hay muchisima diferencia de poder y matas al rival, Zeno se enoja y mata al jugador.
     event.preventDefault();
-    this.actuar("/img/events/luchar.png");
+    this.manageEnergy();
 
     this.pjactual.energia = this.pjactual.energia - this.formaactual.id;
     if (this.tecnicaActual.nombre != "Sin Tecnica")
     {
+      this.actuar("/img/events/luchar.png");
       this.pjactual.energia = this.pjactual.energia - ((this.tecnicaActual.porc/100) * (this.pjactual.max));
     }
 
     // Si no tiene energia suficiente se desmaya personaje gasta energia de acuerdo a la tranformacion que usa al pelear
     if (this.pjactual.energia < 0){
+      this.actuar("/img/events/fallo.png");
       this.dialogo = "El participante " + this.pjactual.nombre + " comienza a luchar pero no puede mantener su transformacion!! Su cuerpo no lo resiste! Se ha desmayado... Zeno esta muy decepcionado de ese fallo.";
       this.manageProta();
       this.results.puntaje -=50;
@@ -973,6 +1037,7 @@ export default {
     // if (p1 >p2 * 10000) {
     else if (this.tecnicaActual.nombre === "MAFUBA"){
       // Si usas el MAFUBA ganas la pelea de una pero no lo podes usar mas
+      this.actuar("/img/events/luchar.png");
       this.results.puntaje +=20;
       this.manageZeno(-1);
       this.poderEnemy = Math.round((Math.random(10000) * 100) *  (Math.random(10000) * 1000));
@@ -980,6 +1045,7 @@ export default {
       this.manageEnemy();
     }
     else if (this.diferenciadepoder > 20) {
+      this.actuar("/img/events/lucharST.png");
       // Si hay mas de 10000 veces la diferencia, Zeno se calienta
       this.results.puntaje -=300;
       this.poderEnemy = Math.round((Math.random(10000) * 100) *  (Math.random(10000) * 1000));
@@ -989,6 +1055,7 @@ export default {
       this.manageEnemy();
     }
     else if (this.diferenciadepoder > 10) {
+      this.actuar("/img/events/lucharST.png");
       // Si hay mas de 1000 veces la diferencia, a Zeno no le gusta pero te da un punto
       this.results.puntaje +=1;
       this.poderEnemy = Math.round((Math.random(10000) * 100) *  (Math.random(10000) * 1000));
@@ -997,6 +1064,7 @@ export default {
       this.dialogo = "El participante " + this.pjactual.nombre + " derrota con facilidad a su oponente. Apenas si ha sido un espectaculo. Una pena.";
     }
     else if (this.diferenciadepoder > 5){
+      this.actuar("/img/events/lucharST.png");
       // Si hay mas de 10 veces la diferencia, a Zeno le gusta y te da 10 puntos
       this.results.puntaje +=10;
       this.manageZeno(-1);
@@ -1008,6 +1076,7 @@ export default {
 
     }
     else if (p1 >=p2){
+      this.actuar("/img/events/lucharST.png");
       // Si esta parejo y lo vences, a Zeno le encanta y te da 100 puntos
       this.results.puntaje +=100;
       this.manageZeno(-1);
@@ -1018,6 +1087,7 @@ export default {
       this.results.perfects +=1;
     }
     else if (this.diferenciadepoder > 0.5){
+      this.actuar("/img/events/lucharST.png");
        // Si esta parejo y perdes, a Zeno le emociona y te da 50 puntos aunque pierdas
       this.results.puntaje +=50;
       this.manageZeno(-1);
@@ -1039,6 +1109,7 @@ export default {
       }
     }
     else{
+      this.actuar("/img/events/fallo.png");
       // Si perdes la pelea, Zeno se enoja y te resta 10 puntos
       this.dialogo = "Vaya... el participante " + this.pjactual.nombre + " no tuvo oportunidad contra " +this.enemyName 
         + ". La diferencia de poderes simplemente era muy grande. Zeno no parece contento con este resultado.";
@@ -1049,6 +1120,7 @@ export default {
   },
      empujar: function (p1,p2,t, event) {
       event.preventDefault();
+      this.manageEnergy();
       this.actuar("/img/events/empujar.png");
 
     if (p1 >p2 && this.diferenciadepoder < 10) {
@@ -1100,6 +1172,7 @@ export default {
       huir: function (p1,p2,t, event) {
     // now we have access to the native event
     event.preventDefault();
+    this.manageEnergy();
     if (p1 >(p2 * 2)) {
       this.actuar("/img/events/huir.png");
       this.results.puntaje +=1;
@@ -1168,6 +1241,18 @@ export default {
           this.GOL();
         }
       
+    },
+    manageEnergy: function() {
+      let personajesbanca = this.personajes.filter(personaje => personaje.nombre != this.pjactual.nombre);
+      personajesbanca.map((personaje) => {
+        if (personaje.energia < personaje.max){
+          personaje.energia += personaje.max/10;
+          if (personaje.energia > personaje.max){
+            personaje.energia = personaje.max;
+          }
+      }
+    });
+
     },
     GOV:function() {
         this.modal = "block";
