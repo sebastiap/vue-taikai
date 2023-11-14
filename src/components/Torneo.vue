@@ -113,9 +113,9 @@
 *{
   font-family:"Lucida Console";
 }
-  .marginator {
+  /* .marginator {
     margin-bottom: 100rem;
-  }
+  } */
   .placa{
     position: relative;
     top: 0;
@@ -178,7 +178,9 @@
    transition: color 1s, all 1s ease-out;
    color:v-bind("actionModal.dialogColor");
    width:v-bind("actionModal.dialogWidth");
-   height: 6.5rem; 
+   height: 25vh; 
+   min-height: 6.5rem; 
+   margin-top: 1rem;
    grid-area: dialogo;
 
 }
@@ -697,6 +699,9 @@ margin:0.5%;
 
 /* notebook */
 @media screen and (max-width: 992px){
+  #dialogo{
+    height: 6.5rem; 
+  }
 
   .item-3{
     width: 100%;
