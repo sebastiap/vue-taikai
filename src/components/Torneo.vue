@@ -1056,6 +1056,14 @@ export default {
         modalDisplay:"none",
         dialogColor:"black",
         dialogWidth:"45%"
+      },
+      actionSound:{
+        aura:new Audio('/sounds/aura.mp3'),
+        surprise:new Audio('/sounds/surprise.mp3'),
+        punch1:new Audio('/sounds/punch1.mp3'),
+        punch2:new Audio('/sounds/punch2.mp3'),
+        kiblast:new Audio('/sounds/kiblast.mp3'),
+        fly:new Audio('/sounds/fly.mp3'),
       }
     }
   },
@@ -1110,6 +1118,9 @@ export default {
         // this.imagenProta = `/img/characters/Playables/Enemy4.jpg`;
         this.imagenProta = this.pjactual.img;
         var techmodifier = 1;
+        if (this.formaactual.id  != 1 ){
+          this.actionSound.aura.play();
+        }
         if (this.tecnicaActual.nombre === "KAME HAME HA"){
           techmodifier = 2;
         }
@@ -1136,6 +1147,7 @@ export default {
         this.enablepj = true;
         this.enablerun = "#55a8fd";
         setTimeout(() => {  this.introModal.modalDisplay = "none"; }, 2000);
+        this.actionSound.surprise.play();
         
     },
     actuar:function (accion) {
@@ -1160,6 +1172,7 @@ export default {
     event.preventDefault();
     this.manageEnergy();
     this.enablerun = "#a5b6c8";
+    this.actionSound.punch2.play();
 
     this.pjactual.energia = this.pjactual.energia - this.formaactual.id;
     if (this.tecnicaActual.nombre != "Sin Tecnica")
@@ -1277,6 +1290,7 @@ export default {
 
     if (p1 >p2 && this.diferenciadepoder < 10) {
       this.results.puntaje +=50;
+      this.actionSound.kiblast.play();
       this.poderEnemy = Math.round((Math.random(10000) * 100) *  (Math.random(10000) * 1000));
       this.dialogo = "Sin ningun inconveniente, el participante " + this.pjactual.nombre + " ha empujado de la plataforma a " +this.enemyName 
         + ". La diferencia de poderes ha hecho que sea sencillo empujarlo. Zeno no parece contento con este resultado.";
@@ -1285,6 +1299,7 @@ export default {
     }
     else if (p1 >p2 && this.diferenciadepoder > 10) {
       this.results.puntaje -=50;
+      this.actionSound.kiblast.play();
       this.poderEnemy = Math.round((Math.random(10000) * 100) *  (Math.random(10000) * 1000));
       this.dialogo = "Vaya... el participante " + this.pjactual.nombre + " ha destrozado a " +this.enemyName 
         + " al tratar de empujarlo. La diferencia de poderes simplemente era muy grande. Zeno no parece contento con este resultado.";
@@ -1295,6 +1310,7 @@ export default {
       // Si usas el PARALISIS y lo empujas funciona barbaro y ganas muchos puntos aunque te gane por bastante
       this.results.puntaje +=50;
       this.manageZeno(-1);
+      this.actionSound.punch1.play();
       // this.poderEnemy = Math.round((Math.random(10000) * 100) *  (Math.random(10000) * 1000));
       this.dialogo = "El participante " + this.pjactual.nombre + " a paralizado a " +this.enemyName 
         + " con esa tecnica ha sido muy facil empujarlo. Zeno esta contento con esta maniobra";
@@ -1304,6 +1320,7 @@ export default {
     else if (this.tecnicaActual.nombre === "TAIYOKEN" && this.diferenciadepoder > 0.5){
       // Si usas el TAIYOKEN y lo empujas funciona barbaro y ganas muchos puntos aunque te gane por bastante
       this.results.puntaje +=50;
+      this.actionSound.punch1.play();
       this.manageZeno(-1);
       // this.poderEnemy = Math.round((Math.random(10000) * 100) *  (Math.random(10000) * 1000));
       this.dialogo = "El participante " + this.pjactual.nombre + " ha cegado con su tecnica a " +this.enemyName 
@@ -1313,6 +1330,7 @@ export default {
     }
     else{
       this.actuar("/img/events/fallo.png");
+      this.actionSound.punch2.play();
       this.results.puntaje -=10;
       this.manageZeno(1);
       this.manageProta();
@@ -1327,6 +1345,7 @@ export default {
     this.manageEnergy();
     if (p1 >(p2 * 2)) {
       this.actuar("/img/events/huir.png");
+      this.actionSound.fly.play();
       this.results.puntaje +=10;
       // this.poderEnemy = Math.round((Math.random(10000) * 100) *  (Math.random(10000) * 1000));
       this.enablepj = true;
@@ -1339,6 +1358,7 @@ export default {
       // Si usas el TAIYOKEN y lo empujas funciona barbaro y ganas muchos puntos aunque te gane por bastante
 
       this.actuar("/img/events/luchar.png");
+      this.actionSound.punch1.play();
       this.pjactual.energia = this.pjactual.energia - ((this.tecnicaActual.porc/100) * (this.pjactual.max));
       this.dialogo = "El participante " + this.pjactual.nombre + " usa una tecnica especial para tratar de escapar de " +this.enemyName 
         + ". Ha sido efectiva! Ha escapado con exito y Zeno se emociona con semejante tactica!.";
@@ -1349,6 +1369,7 @@ export default {
     }
     else{
       this.actuar("/img/events/fallo.png");
+      this.actionSound.punch2.play();
       this.results.puntaje -=10;
       this.manageZeno(1);
       this.dialogo = "El participante " + this.pjactual.nombre + " es empujado de la plataforma al tratar de escapar de " +this.enemyName 

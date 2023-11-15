@@ -97,6 +97,7 @@ Want to contribute? Great!
 - [x] Improve Ending Dialogs
 - [x] All in one page
 - [x] Diferent resolutions
+- [ ] CSS vars
 - [x] try in different devices
 
 ### Promote the site 
@@ -111,6 +112,7 @@ Want to contribute? Great!
 * Public surprise when a special action happens
 * More Characters
 * More techniques
+* Amazon Enemys
 * Boss Mode
 * Card Game
 * Unlockeable Characters & Techniques
