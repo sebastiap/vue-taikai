@@ -1,10 +1,7 @@
 <template>this.results.derrotados
   <!-- Game Over Modal -->
 <div id="myModal" class="GOZmodal">
-
-<!-- Modal content -->
   <div class="modal-content">
-    <!-- <span class="close" v-on="Restart()">&times;</span> -->
     <img v-bind:src="modalImg" alt="">
     <p>{{ this.modalMessage }}</p>
     <p>PUNTAJE: {{ this.results.puntaje }}</p>
@@ -25,19 +22,16 @@
         <div class="invisible">  {{ auracolor.nombre }}</div>
       </div>
       <div class="ficha">
-        <!-- https://static.wikia.nocookie.net/dragonball/images/0/08/TB_Announcer.png/revision/latest?cb=20210930000456 -->
         <select class="selectProta" :disabled="!this.enablepj" name="pj" id="pj" v-model="pjactual">
           <option v-for="(item, key) in personajes" :value="item">
             {{item.nombre}}
         </option>
         </select>
-        <!-- {{ this.tecnicaActual }} -->
         <div class="fichaDatos">
           <div class="ficha-item nombrepj"><b>  {{ pjactual.nombre }}</b></div>
           <div class="ficha-item extra">  Raza: {{ pjactual.raza }}</div>
           <div class="ficha-item extra">  Ki: {{ pjactual.ki }}</div>
           <div class="ficha-item">  Energia: {{ pjactual.energia }}</div>
-          <!-- <div class="ficha-item">  {{ formaactual.modo }}</div> -->
         <transition name="slide-fade" mode="out-in">
               <div class="ficha-item poder" :key="this.poderactual">
                 Poder Actual : {{ this.poderactual }} 
@@ -45,7 +39,6 @@
         </transition>
         </div>
         <div class="selectContainer">
-          <!-- {{ this.estadoZeno }} -->
           <select class="selectProta" name="forma" id="forma" v-model="formaactual">
             <option v-for="(item, key) in formaspj" :value="item">
               Forma {{item.modo}}
@@ -62,42 +55,32 @@
     </div>
     <div class="puntaje">TU PUNTAJE ACTUAL ES DE {{ this.results.puntaje }} PUNTOS</div>
   <div class="contenedor">
-        <aside className="sidebar"  v-on:click="luchar(this.poderactual,poderEnemy,null, $event)">
+        <aside className="sidebar"  v-on:click="luchar(this.poderactual,poderEnemy, $event)">
 			    <h1>LUCHAR</h1>
 		    </aside>
         <div className="enemigo">
           <div className="enemydata convertEnemy">
             <h3>{{ imgenemigo }}</h3>
-            <!-- <p> {{ this.enemyName }}</p> -->
             <p className="NvlPelea">Nivel de Pelea: {{poderEnemy}}</p>
-            <!-- Estado Zeno: {{ this.estadoZeno }} -->
-            <!-- <p>Diferencia de Poder: {{ this.diferenciadepoder }}</p> -->
             <p>{{ this.enemyDesc }}</p>
-            <!-- <transition name="convertEnemy" mode="out-in"> -->
             <transition name="convertEnemy" mode="out-in">
                   <img v-bind:src="imagenEnemy" alt="" :key="imagenEnemy">
             </transition>
           </div>
         </div>
-        <div className="widget-1" button v-on:click="empujar(this.poderactual,poderEnemy,null, $event)">
+        <div className="widget-1" button v-on:click="empujar(this.poderactual,poderEnemy, $event)">
           <h3>EMPUJAR</h3>
         </div>
-        <div className="widget-2" v-on:click="huir(this.poderactual,poderEnemy,null, $event)">
+        <div className="widget-2" v-on:click="huir(this.poderactual,poderEnemy, $event)">
           <h3>HUIR</h3>
         </div>
       </div>
       <div class="item item-2" id="dialogo">{{ this.dialogo }}
-        <!-- <button v-on:click="GOL()">GOL</button>
-        <button v-on:click="GOZ()">GOZ</button>
-        <button v-on:click="GOV()">GOV</button> -->
       </div>
-      <!-- <div class="marginator">AHHHH</div> -->
     </section>
-      <!-- Intro Modal -->
+<!-- Intro Modal -->
 <div id="introModal" class="Intromodal">
-<!-- Modal content -->
   <div class="intro-modal-content">
-    <!-- <span class="close" v-on="Restart()">&times;</span> -->
     <img v-bind:src="introModal.modalImg" alt="">
     <p class="im1">{{ this.introModal.modalMessage }}</p>
     <p class="im2">COMO JUGAR:</p>
@@ -109,13 +92,14 @@
   </template>
   
   <style scoped>
+:root {
+  --black-color:#12203E;
+}
+
 
 *{
   font-family:"Lucida Console";
 }
-  /* .marginator {
-    margin-bottom: 100rem;
-  } */
   .placa{
     position: relative;
     top: 0;
@@ -125,7 +109,6 @@
     width: 100%;
     margin-top: 7.5rem;
     padding-bottom: 1rem;
-    /* margin-bottom: 1rem; */
     background-color: #E05263;
   }
   .container {
@@ -199,7 +182,6 @@
   .item-3{
     /* Este elemento es la ficha de personaje , Lo posiciono fixed para que siempre este arriba de todo y me siga al scrollear */
     position: fixed;
-    /* background-color: #5f9ea0; */
     background: rgb(249,229,127);
     background: radial-gradient(circle, rgba(249,229,127,1) 0%, rgba(95,158,160,1) 100%);
     top: 0px;
@@ -222,7 +204,6 @@
     font-size:2rem;
   }
   .fichaDatos{
-    /* background-color:#aebccd; */
     background: rgb(249,229,127);
     background: radial-gradient(circle, rgba(249,229,127,1) 0%, rgba(223,152,0,1) 100%);
     border: 1px solid #70757b;
@@ -275,7 +256,7 @@
   .convertEnemy-leave-to {
     transform: translateY(10rem);
     font-weight:normal;
-    transition: all .8s cubic-bezier(1.0, 0.5, 0.8, 1.0);
+    transition: all 2s cubic-bezier(1.0, 0.5, 0.8, 1.0);
     color:gold;
     opacity: 0;
   }
@@ -297,17 +278,6 @@
     color: v-bind("auracolor");
     background-color: #000;
     font-weight: bold;
-  }
-
-  .item-4{
-    /* Este elemento es la ficha de personaje , Lo posiciono fixed para que siempre este arriba de todo y me siga al scrollear */
-    position: sticky;
-    background-color: palevioletred;
-    bottom: 5rem;
-    display: flex;
-    align-items: center;
-    justify-content: flex-start;
-    z-index:2;
   }
 
   #personaje{
@@ -338,7 +308,7 @@
    margin-left: 1rem;
    background-image: v-bind("imagenZeno");
    background-size:cover;
-   transition: all 0.5s ease-in-out;
+   transition: all 1s ease-in-out;
   }
 
 .selectContainer{
@@ -403,44 +373,38 @@
   
 .GOZmodal{
   transition: width 0.1s, height 1.5s,opacity 0.5s linear 0.5s ;
-  display: v-bind("modal"); /* Hidden by default */
-  position: absolute; /* Stay in place */
+  display: v-bind("modal"); 
+  position: absolute; 
   z-index: 10; /* Sit on top */
   right: 0;
   top: 0;
   height: 150%;
   padding-bottom: 1rem;
-  width: v-bind("modalVH"); /* Full width */
-  height: v-bind("modalVH"); /* Full height */
+  width: v-bind("modalVH"); 
+  height: v-bind("modalVH"); 
   opacity: v-bind("modalOpacity");
-  overflow:hidden; /* Enable scroll if needed */
+  overflow:hidden; 
   font-size:1.5rem;
 }
 .Intromodal{
   transition: width 0.1s, height 1.5s,opacity 0.5s linear 0.5s ;
-  display: v-bind("introModal.modalDisplay"); /* Hidden by default */
-  position: absolute; /* Stay in place */
-  z-index: 20; /* Sit on top */
+  display: v-bind("introModal.modalDisplay"); 
+  position: absolute; 
+  z-index: 20; 
   right: 0;
   top: 0;
-  /* padding-bottom: 1rem; */
-  width: v-bind("introModal.modalVH"); /* Full width */
-  height: v-bind("introModal.modalVH"); /* Full height */
+  width: v-bind("introModal.modalVH"); 
+  height: v-bind("introModal.modalVH"); 
   opacity: v-bind("introModal.modalOpacity");
   overflow:hidden;
 }
 
-/* Modal Content/Box */
 .intro-modal-content {
-  /* transition: 20s all; */
   transition: 10s all;
   background: rgb(247,162,33);
   background: linear-gradient(0deg, rgba(247,162,33,1) 0%, rgba(54,51,49,1) 100%);
-  /* color:v-bind("modaltext"); */
-   /* 15% from the top and centered */
-  /* padding: 2rem; */
   border: 1px solid #888;
-  height: 100%; /* Could be more or less, depending on screen size */
+  height: 100%;
   width: 100%; 
   display: flex;
   flex-direction: column;
@@ -452,15 +416,6 @@
   padding: 0.5rem;
   text-shadow: 1px 0px #5a5a4a;
 }
-/* .intro-modal-content .im2{
-  font-weight: bold;
-  font-size:2rem;
-}
-.intro-modal-content .im3{
-  padding: 2rem;
-  text-shadow: 1px 0px #d1d118;
-} */
-
 
 
 .intro-modal-content img,.modal-content img {
@@ -478,15 +433,12 @@
 }
 
 .modal-content {
-  /* transition: 20s all; */
   transition: 10s all;
   background-color: #fefefe;
   color:v-bind("modaltext");
-  /* margin: 5% auto; */
-   /* 15% from the top and centered */
   padding: 2rem;
   border: 1px solid #888;
-  height: 100%; /* Could be more or less, depending on screen size */
+  height: 100%;
   width: 100%; 
   display: flex;
   flex-direction: column;
@@ -496,8 +448,8 @@
 
 .modal-button {
   transition: 20s all;
-  width: v-bind("modalVH"); /* Full width */
-  height: v-bind("modalVH"); /* Full height */
+  width: v-bind("modalVH");
+  height: v-bind("modalVH"); 
   max-width: 6rem;
   max-height: 3rem;
   background: rgb(249,229,127);
@@ -507,16 +459,13 @@
 
 
 .modalAction{
-  transition: left 3s, width 0.5s, height 1.5s,opacity 0.3s ease-out; ;
-  /* display: v-bind("actionModal.modalDisplay");   */
-  /* background-color: #659157; */
-  position: absolute; /* Stay in place */
-  z-index: 9; /* Sit on top */
+  transition: left 2s, width 0.5s, height 1.5s,opacity 0.3s ease-out; ;
+  position: absolute; 
+  z-index: 9; 
   left: v-bind("actionModal.modalWidth"); 
   top: calc(50vh - 5rem);;
   height: 10rem;
   width: 15rem;
-  /* width: v-bind("actionWidth");  */
   padding-bottom: 1rem;
   opacity: v-bind("actionModal.modalOpacity");
   overflow:hidden;
@@ -530,20 +479,6 @@
  padding: 3rem;
 }
 
-/* The Close Button */
-.close {
-  color: #aaa;
-  float: right;
-  font-size: 28px;
-  font-weight: bold;
-}
-
-.close:hover,
-.close:focus {
-  color: black;
-  text-decoration: none;
-  cursor: pointer;
-}
 
 /*   
   @media (min-width: 1024px) {}
@@ -553,10 +488,8 @@
 .contenedor {
 	width: 95%;
 	height: 70%;
-  /* padding: 1rem; */
   padding-left: 2rem;
   padding-right: 2rem;
-	/* margin: 20px auto; */
 	display: grid;
 	grid-gap: 0.5rem;
 	grid-template-columns: repeat(3, 1fr);
@@ -584,7 +517,7 @@
 }
 
 .contenedor .header {
-	background: #12203E;
+	background: var(--black-color);
 	color: #fff;
 	grid-area: header;
 }
@@ -674,7 +607,7 @@ margin:0.5%;
 	border: 1px solid;
 	border-color: #000;
 	padding: 15px;
-	box-shadow: 2px 5px #12203E;
+	box-shadow: 2px 5px var(--black-color);
 	transition:  0.5;
 	transform: translateY(-7px);
 	
@@ -691,7 +624,7 @@ margin:0.5%;
 }
 
 .contenedor .footer {
-	background: #12203E;
+	background: var(--black-color);
 	color: #fff;
 	grid-area: footer;
 	text-align:right;
@@ -714,7 +647,6 @@ margin:0.5%;
 }
 .enemydata .NvlPelea{
   border: 0.5em dotted v-bind("enemyColor");
-  /* margin-top: 2rem; */
   display: flex;
   align-items: center;
   justify-content: center;
@@ -766,7 +698,7 @@ margin:0.5%;
 	}
 
   .Intromodal{
-    height: 100vh;; /* Full height */
+    height: 100vh;
     padding-bottom: 0;
     margin: 0;
   }
@@ -868,9 +800,6 @@ margin:0.5%;
         height: 10vh;
         width: 20vh;
       }
-      /* .fichaDatos .extra{
-        display: none;
-      } */
 
       #zeno{
         height: 10vh;
@@ -921,10 +850,6 @@ margin:0.5%;
 		.contenedor .enemigo .formas button{
 			width: 280%;
 			height: auto;
-			/* border-radius: 4px; */
-			/* border-color: #fff; */
-			/* align-self: center; */
-			/* margin:0.5%; */
 			
 			}
       
@@ -966,7 +891,6 @@ width: fit-content;
 }
 .placa{
   height:80vh;
-  /* width: max-content; */
 }
 
 #dialogo{
@@ -1051,7 +975,7 @@ export default {
       },
       actionModal:{
         modalImg:"",
-        modalWidth:"-1000px",
+        modalWidth:"-100px",
         modalOpacity:0,
         modalDisplay:"none",
         dialogColor:"black",
@@ -1153,7 +1077,7 @@ export default {
     actuar:function (accion) {
       this.actionModal.modalDisplay = "block";
       this.actionModal.modalOpacity = "1";
-      this.actionModal.modalWidth = "1500px";
+      this.actionModal.modalWidth = "100vh";
       this.actionModal.modalImg = accion;
       this.actionModal.dialogColor = "whitesmoke";
       this.actionModal.dialogWidth = "30%";
@@ -1161,12 +1085,12 @@ export default {
     setTimeout(() => {  
       this.actionModal.modalDisplay = "none";
       this.actionModal.modalOpacity = "0";
-      this.actionModal.modalWidth = "-1000px";
+      this.actionModal.modalWidth = "-100px";
       this.actionModal.dialogColor = "black";
       this.actionModal.dialogWidth = "95%";
    }, 2000);
     },
-    luchar: function (p1,p2,t, event) {
+    luchar: function (p1,p2, event) {
     // El jugador gana puntos dependiendo la diferencia de poder entre el personaje actual y el enemigo que aparece
     // Si hay muchisima diferencia de poder y matas al rival, Zeno se enoja y mata al jugador.
     event.preventDefault();
@@ -1190,7 +1114,6 @@ export default {
       this.results.puntaje -=50;
     }
 
-    // if (p1 >p2 * 10000) {
     else if (this.tecnicaActual.nombre === "MAFUBA"){
       // Si usas el MAFUBA ganas la pelea de una pero no lo podes usar mas
       this.actuar("/img/events/luchar.png");
@@ -1202,7 +1125,6 @@ export default {
     }
     else if (this.diferenciadepoder > 20) {
       this.actuar("/img/events/lucharST.png");
-      // Si hay mas de 10000 veces la diferencia, Zeno se calienta
       this.results.puntaje -=300;
       this.poderEnemy = Math.round((Math.random(10000) * 100) *  (Math.random(10000) * 1000));
       this.manageZeno(1);
@@ -1212,7 +1134,6 @@ export default {
     }
     else if (this.diferenciadepoder > 10) {
       this.actuar("/img/events/lucharST.png");
-      // Si hay mas de 1000 veces la diferencia, a Zeno no le gusta pero te da un punto
       this.results.puntaje +=10;
       this.poderEnemy = Math.round((Math.random(10000) * 100) *  (Math.random(10000) * 1000));
       this.manageZeno(-1);
@@ -1221,7 +1142,6 @@ export default {
     }
     else if (this.diferenciadepoder > 5){
       this.actuar("/img/events/lucharST.png");
-      // Si hay mas de 10 veces la diferencia, a Zeno le gusta y te da 10 puntos
       this.results.puntaje +=50;
       this.manageZeno(-1);
       this.poderEnemy = Math.round((Math.random(10000) * 100) *  (Math.random(10000) * 1000));
@@ -1233,12 +1153,11 @@ export default {
     }
     else if (p1 >=p2){
       this.actuar("/img/events/lucharST.png");
-      // Si esta parejo y lo vences, a Zeno le encanta y te da 100 puntos
       this.results.puntaje +=100;
       this.manageZeno(-1);
       this.poderEnemy = Math.round((Math.random(10000) * 100) *  (Math.random(10000) * 1000));
       this.dialogo = "El participante " + this.pjactual.nombre + " enfrenta a " +this.enemyName + 
-      ". la batalla es muy pareja pero finalmente " +this.pjactual.nombre  + " se alza con la victoria!";
+      ". La batalla es muy pareja pero finalmente " +this.pjactual.nombre  + " se alza con la victoria!";
       this.manageEnemy();
       this.results.perfects +=1;
     }
@@ -1252,13 +1171,13 @@ export default {
         this.results.puntaje +=150;
         this.poderEnemy = Math.round((Math.random(10000) * 100) *  (Math.random(10000) * 1000));
         this.dialogo = "El participante " + this.pjactual.nombre + " enfrenta a " +this.enemyName 
-        + ". Ambos estan dando una increible batalla! Increible! Pero la balanza se inclina hacia " + this.enemyName
-       + "quien con un increible golpe ... Esperen! "+ + "utiliza un escudo... ha hecho un contrataque y..."
+        + ". Ambos estan dando una increible batalla! Impresionante! Parece que la balanza se inclina hacia " + this.enemyName
+       + "quien con un increible golpe ... Esperen! "+ this.pjactual.nombre + " utiliza un escudo... ha hecho un contrataque y..."
        + this.pjactual.nombre + "se alza con la victoria!!! Zeno se ve realmente emocionado!";
       }
       else {
         this.enablerun="#55a8fd";
-        this.dialogo = "El participante " + this.pjactual.nombre + " enfrenta a " +this.enemyName 
+        this.dialogo = "El participante " + this.pjactual.nombre + " enfrenta con todas sus fuerzas a " +this.enemyName 
         + ". Ambos estan dando una increible batalla! Esta muy parejo! Pero la balanza se inclina hacia " + this.enemyName
        + "quien con un increible golpe knoquea a su oponente!";
         this.manageZeno(1);
@@ -1276,7 +1195,7 @@ export default {
       this.manageProta();
     }
   },
-     empujar: function (p1,p2,t, event) {
+     empujar: function (p1,p2, event) {
       event.preventDefault();
       this.pjactual.energia = this.pjactual.energia - (this.formaactual.id/2);
       if (this.tecnicaActual.nombre != "Sin Tecnica")
@@ -1312,7 +1231,7 @@ export default {
       this.manageZeno(-1);
       this.actionSound.punch1.play();
       // this.poderEnemy = Math.round((Math.random(10000) * 100) *  (Math.random(10000) * 1000));
-      this.dialogo = "El participante " + this.pjactual.nombre + " a paralizado a " +this.enemyName 
+      this.dialogo = "El participante " + this.pjactual.nombre + " ha paralizado a " +this.enemyName 
         + " con esa tecnica ha sido muy facil empujarlo. Zeno esta contento con esta maniobra";
       this.manageEnemy();
      
@@ -1339,8 +1258,7 @@ export default {
      
     }
   },
-      huir: function (p1,p2,t, event) {
-    // now we have access to the native event
+      huir: function (p1,p2, event) {
     event.preventDefault();
     this.manageEnergy();
     if (p1 >(p2 * 2)) {
@@ -1351,7 +1269,7 @@ export default {
       this.enablepj = true;
       this.enablerun = "#55a8fd";
       this.dialogo = "El participante " + this.pjactual.nombre + " logra escapar de " +this.enemyName 
-        + ". Esto no parece agradarle mucho a Zeno, pero esta a la espectativa de quien sera el proximo participante.";
+        + ". Esto no parece agradarle mucho a Zeno, pero esta a la expectativa de quien sera el proximo participante.";
         //Animacion de combo personajes?
     }
     else if ((this.tecnicaActual.nombre === "TAIYOKEN" || this.tecnicaActual.nombre === "PARALISIS") && this.diferenciadepoder > 0.5){

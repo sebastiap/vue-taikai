@@ -78,7 +78,7 @@ Want to contribute? Great!
 - [x] Apply Techniques
 - [x] Show Points
 - [x] Blackout Game Over
-- [ ] Remove Comments
+- [x] Remove Comments
 - [ ] More variation in random
 - [ ] Bring Balance to the world
 
@@ -91,27 +91,30 @@ Want to contribute? Great!
 - [x] RUN AWAY Animation
 - [x] PUSH Animation
 - [x] Improve Character Animation
-- [ ] Improve Character change Animation
-- [ ] Improve Enemy Animation
-- [ ] Improve Dialogs
+- [x] Improve Character change Animation
+- [x] Improve Enemy Animation
+- [x] Improve Dialogs
+- [x] Audio Effects
 - [x] Improve Ending Dialogs
 - [x] All in one page
 - [x] Diferent resolutions
-- [ ] CSS vars
+- [x] CSS vars
 - [x] try in different devices
 
 ### Promote the site 
 * youtube comments
 * Make a twitter
 * Add to Gamer portfolio
+* Board Game version
 
 ### Expansion
-* better energy bar
+* Better energy bar
 * Filter usable tranformations?
 * Unlimited/Arcade Mode
 * Public surprise when a special action happens
 * More Characters
-* More techniques
+* More techniques 
+* Sounds,graphics and animation for techniques
 * Amazon Enemys
 * Boss Mode
 * Card Game
