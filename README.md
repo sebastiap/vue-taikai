@@ -97,7 +97,7 @@ Want to contribute? Great!
 - [x] Improve Ending Dialogs
 - [x] All in one page
 - [x] Diferent resolutions
-- [ ] try in different devices
+- [x] try in different devices
 
 ### Promote the site 
 * youtube comments

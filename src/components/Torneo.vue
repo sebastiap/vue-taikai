@@ -34,8 +34,8 @@
         <!-- {{ this.tecnicaActual }} -->
         <div class="fichaDatos">
           <div class="ficha-item nombrepj"><b>  {{ pjactual.nombre }}</b></div>
-          <div class="ficha-item">  Raza: {{ pjactual.raza }}</div>
-          <div class="ficha-item">  Ki: {{ pjactual.ki }}</div>
+          <div class="ficha-item extra">  Raza: {{ pjactual.raza }}</div>
+          <div class="ficha-item extra">  Ki: {{ pjactual.ki }}</div>
           <div class="ficha-item">  Energia: {{ pjactual.energia }}</div>
           <!-- <div class="ficha-item">  {{ formaactual.modo }}</div> -->
         <transition name="slide-fade" mode="out-in">
@@ -87,9 +87,9 @@
         </div>
       </div>
       <div class="item item-2" id="dialogo">{{ this.dialogo }}
-        <button v-on:click="GOL()">GOL</button>
+        <!-- <button v-on:click="GOL()">GOL</button>
         <button v-on:click="GOZ()">GOZ</button>
-        <button v-on:click="GOV()">GOV</button>
+        <button v-on:click="GOV()">GOV</button> -->
       </div>
       <!-- <div class="marginator">AHHHH</div> -->
     </section>
@@ -697,6 +697,29 @@ margin:0.5%;
 	text-align:right;
 }
 
+.enemydata{
+  display: flex;
+  width: 100%;
+  flex-direction: row-reverse;
+  transition: all 1s ease-out;
+  justify-content: center;
+  align-content: center;
+
+}
+.enemydata p{
+  padding: 0.5rem;
+  margin-left: 0.5rem;
+  height: max-content;
+
+}
+.enemydata .NvlPelea{
+  border: 0.5em dotted v-bind("enemyColor");
+  /* margin-top: 2rem; */
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
 /* notebook */
 @media screen and (max-width: 992px){
   #dialogo{
@@ -772,6 +795,9 @@ margin:0.5%;
   color:black;
 }
 
+
+
+
 }
 
 /* laptop */
@@ -829,6 +855,30 @@ margin:0.5%;
               	"enemigo enemigo enemigo"
 						 	 "widget-1 widget-2 sidebar"
 	}
+
+
+  .ficha{
+        width: fit-content;
+      }
+      .item-3 .selectProta,.item-3 .selectContainer{
+        width:13vh;
+      }
+      
+      .fichaDatos{
+        height: 10vh;
+        width: 20vh;
+      }
+      /* .fichaDatos .extra{
+        display: none;
+      } */
+
+      #zeno{
+        height: 10vh;
+        width: 20vh;
+      }
+      
+
+
 }
 
 /* mobile */
@@ -877,31 +927,56 @@ margin:0.5%;
 			/* margin:0.5%; */
 			
 			}
+      
+      .ficha{
+        width: fit-content;
+      }
+      .item-3 .selectProta,.item-3 .selectContainer{
+        width:7vh;
+      }
+      
+      .fichaDatos{
+        width: 10vh;
+      }
+      .fichaDatos .extra{
+        display: none;
+      }
+    }
+
+@media screen and (max-width: 425px){
+
+.ficha{
+width: fit-content;
+}
+.item-3 .selectProta,.item-3 .selectContainer{
+  width:7vh;
 }
 
-.enemydata{
-  display: flex;
-  width: 100%;
-  flex-direction: row-reverse;
-  transition: all 1s ease-out;
-  justify-content: center;
-  align-content: center;
-
-}
-.enemydata p{
-  padding: 0.5rem;
-  margin-left: 0.5rem;
-  height: max-content;
-
-}
-.enemydata .NvlPelea{
-  border: 0.5em dotted v-bind("enemyColor");
-  /* margin-top: 2rem; */
-  display: flex;
-  align-items: center;
-  justify-content: center;
+.fichaDatos{
+  width: 10vh;
 }
 
+.fichaDatos .extra{
+  display: none;
+}
+#zeno{
+  width: 10vh;
+  height: 5vh;
+
+}
+.placa{
+  height:80vh;
+  /* width: max-content; */
+}
+
+#dialogo{
+  width:90%;
+}
+.contenedor{
+  width:90%;
+}
+
+}
 
 
 
