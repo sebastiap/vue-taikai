@@ -79,7 +79,7 @@ Want to contribute? Great!
 - [x] Show Points
 - [x] Blackout Game Over
 - [x] Remove Comments
-- [ ] More variation in random
+- [x] More variation in random
 - [ ] Bring Balance to the world
 
 ### Improve Visuals - Visual Content to add

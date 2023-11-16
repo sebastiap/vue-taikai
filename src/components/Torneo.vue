@@ -912,6 +912,9 @@ import {personajes as pjs,formas,imgenemigo,options as tecnicas,enemies,enemyCol
 
 export default {
   name: "Torneo",
+  mounted() {
+    this.intro();
+  },
   data () {
     return {
       personajesRst: JSON.parse(JSON.stringify(pjs)),
@@ -988,11 +991,18 @@ export default {
         punch2:new Audio('/sounds/punch2.mp3'),
         kiblast:new Audio('/sounds/kiblast.mp3'),
         fly:new Audio('/sounds/fly.mp3'),
+      },
+      actionMusic:{
+        intro:new Audio('/music/intro.mp3'),
+        win:new Audio('/music/win.mp3'),
+        final:new Audio('/music/final.mp3'),
+        intro2:new Audio('/music/intro2.mp3'),
+        tension:new Audio('/music/tension.mp3'),
+        ultrainstinct:new Audio('/music/ultrainstinct.mp3'),
       }
     }
   },
-
-  computed: {
+    computed: {
     // personaje(){
     // return personajes[0];
     // },
@@ -1060,7 +1070,11 @@ export default {
     }
   },
   methods: {
+    intro: function(){
+      this.actionMusic.intro.play();
+    },
     iniciar: function(){
+        this.actionMusic.intro.pause();
         this.introModal.modalOpacity = "0%";
         this.modaltext = "white";
         this.modalMessage = "";
@@ -1119,14 +1133,12 @@ export default {
       this.actuar("/img/events/luchar.png");
       this.results.puntaje +=20;
       this.manageZeno(-1);
-      this.poderEnemy = Math.round((Math.random(10000) * 100) *  (Math.random(10000) * 1000));
       this.dialogo = "El participante " + this.pjactual.nombre + " utiliza una tecnica especial! Acaba de crear un gran remolino que envuelve a su oponente! Lo ha atrapado en un termo! Increible!";
       this.manageEnemy();
     }
     else if (this.diferenciadepoder > 20) {
       this.actuar("/img/events/lucharST.png");
       this.results.puntaje -=300;
-      this.poderEnemy = Math.round((Math.random(10000) * 100) *  (Math.random(10000) * 1000));
       this.manageZeno(1);
       this.dialogo = "El participante " + this.pjactual.nombre + " aplasta a " +this.enemyName + 
       " la diferencia de poderes era abismal! Zeno-Sama se muestra molesto...";
@@ -1135,27 +1147,25 @@ export default {
     else if (this.diferenciadepoder > 10) {
       this.actuar("/img/events/lucharST.png");
       this.results.puntaje +=10;
-      this.poderEnemy = Math.round((Math.random(10000) * 100) *  (Math.random(10000) * 1000));
       this.manageZeno(-1);
-      this.manageEnemy();
       this.dialogo = "El participante " + this.pjactual.nombre + " derrota con facilidad a su oponente. Apenas si ha sido un espectaculo. Una pena.";
+      this.manageEnemy();
     }
     else if (this.diferenciadepoder > 5){
       this.actuar("/img/events/lucharST.png");
       this.results.puntaje +=50;
       this.manageZeno(-1);
-      this.poderEnemy = Math.round((Math.random(10000) * 100) *  (Math.random(10000) * 1000));
-      this.manageEnemy();
       this.dialogo = "El participante " + this.pjactual.nombre + " y "+
       this.enemyName + " estan dando una tremenda batalla! Increible! La balanza se inclina hacia " + this.pjactual.nombre 
-       + " con un increible golpe knoquea a su rival! Zeno se ve realmente emocionado!";
+      + " con un increible golpe knoquea a su rival! Zeno se ve realmente emocionado!";
+      this.manageEnemy();
 
     }
     else if (p1 >=p2){
       this.actuar("/img/events/lucharST.png");
       this.results.puntaje +=100;
       this.manageZeno(-1);
-      this.poderEnemy = Math.round((Math.random(10000) * 100) *  (Math.random(10000) * 1000));
+
       this.dialogo = "El participante " + this.pjactual.nombre + " enfrenta a " +this.enemyName + 
       ". La batalla es muy pareja pero finalmente " +this.pjactual.nombre  + " se alza con la victoria!";
       this.manageEnemy();
@@ -1169,11 +1179,11 @@ export default {
       if (this.tecnicaActual === "ESCUDO"){
         // Si esta parejo y usas escudo, sobrevivis y ganas la pelea, a Zeno le emociona y te da 150 puntos extra
         this.results.puntaje +=150;
-        this.poderEnemy = Math.round((Math.random(10000) * 100) *  (Math.random(10000) * 1000));
         this.dialogo = "El participante " + this.pjactual.nombre + " enfrenta a " +this.enemyName 
         + ". Ambos estan dando una increible batalla! Impresionante! Parece que la balanza se inclina hacia " + this.enemyName
-       + "quien con un increible golpe ... Esperen! "+ this.pjactual.nombre + " utiliza un escudo... ha hecho un contrataque y..."
-       + this.pjactual.nombre + "se alza con la victoria!!! Zeno se ve realmente emocionado!";
+        + "quien con un increible golpe ... Esperen! "+ this.pjactual.nombre + " utiliza un escudo... ha hecho un contrataque y..."
+        + this.pjactual.nombre + "se alza con la victoria!!! Zeno se ve realmente emocionado!";
+        this.manageEnemy();
       }
       else {
         this.enablerun="#55a8fd";
@@ -1210,7 +1220,6 @@ export default {
     if (p1 >p2 && this.diferenciadepoder < 10) {
       this.results.puntaje +=50;
       this.actionSound.kiblast.play();
-      this.poderEnemy = Math.round((Math.random(10000) * 100) *  (Math.random(10000) * 1000));
       this.dialogo = "Sin ningun inconveniente, el participante " + this.pjactual.nombre + " ha empujado de la plataforma a " +this.enemyName 
         + ". La diferencia de poderes ha hecho que sea sencillo empujarlo. Zeno no parece contento con este resultado.";
       this.manageZeno(-1);
@@ -1219,7 +1228,6 @@ export default {
     else if (p1 >p2 && this.diferenciadepoder > 10) {
       this.results.puntaje -=50;
       this.actionSound.kiblast.play();
-      this.poderEnemy = Math.round((Math.random(10000) * 100) *  (Math.random(10000) * 1000));
       this.dialogo = "Vaya... el participante " + this.pjactual.nombre + " ha destrozado a " +this.enemyName 
         + " al tratar de empujarlo. La diferencia de poderes simplemente era muy grande. Zeno no parece contento con este resultado.";
       this.manageZeno(1);
@@ -1230,7 +1238,6 @@ export default {
       this.results.puntaje +=50;
       this.manageZeno(-1);
       this.actionSound.punch1.play();
-      // this.poderEnemy = Math.round((Math.random(10000) * 100) *  (Math.random(10000) * 1000));
       this.dialogo = "El participante " + this.pjactual.nombre + " ha paralizado a " +this.enemyName 
         + " con esa tecnica ha sido muy facil empujarlo. Zeno esta contento con esta maniobra";
       this.manageEnemy();
@@ -1241,7 +1248,6 @@ export default {
       this.results.puntaje +=50;
       this.actionSound.punch1.play();
       this.manageZeno(-1);
-      // this.poderEnemy = Math.round((Math.random(10000) * 100) *  (Math.random(10000) * 1000));
       this.dialogo = "El participante " + this.pjactual.nombre + " ha cegado con su tecnica a " +this.enemyName 
         + " vaya que fue facil empujarlo de la plataforma. Zeno esta contento con esta tactica";
       this.manageEnemy();
@@ -1265,12 +1271,10 @@ export default {
       this.actuar("/img/events/huir.png");
       this.actionSound.fly.play();
       this.results.puntaje +=10;
-      // this.poderEnemy = Math.round((Math.random(10000) * 100) *  (Math.random(10000) * 1000));
       this.enablepj = true;
       this.enablerun = "#55a8fd";
       this.dialogo = "El participante " + this.pjactual.nombre + " logra escapar de " +this.enemyName 
         + ". Esto no parece agradarle mucho a Zeno, pero esta a la expectativa de quien sera el proximo participante.";
-        //Animacion de combo personajes?
     }
     else if ((this.tecnicaActual.nombre === "TAIYOKEN" || this.tecnicaActual.nombre === "PARALISIS") && this.diferenciadepoder > 0.5){
       // Si usas el TAIYOKEN y lo empujas funciona barbaro y ganas muchos puntos aunque te gane por bastante
@@ -1307,6 +1311,7 @@ export default {
     this.enemyName = alias + enemies[enemies.length * Math.random() | 0].toUpperCase();
     this.enemyDesc = this.enemyName + " - " + enemyDescs[enemyDescs.length * Math.random() | 0];
     this.enemyColor = enemyColors[enemyColors.length * Math.random() | 0];
+    this.poderEnemy =  Math.round(Math.random() * (99999 - 10) + 10);
     this.dialogo =  this.dialogo + " Un nuevo rival se acerca! El concursante " + this.enemyName + " se prepara desafiante frente al participante " + this.pjactual.nombre;
     this.enablepj = false;
     this.results.derrotados +=1;
@@ -1323,7 +1328,7 @@ export default {
         this.estadoZeno += mod;
       }
 
-      if (this.results.puntaje > 1000 ){
+      if (this.results.puntaje > 10 ){
         this.GOV();
       }
     },
@@ -1352,6 +1357,7 @@ export default {
 
     },
     GOV:function() {
+        this.actionMusic.win.play();
         this.modal = "block";
         this.modalVH = "100%";
         this.modalOpacity = 1;
@@ -1361,6 +1367,7 @@ export default {
         this.modalImg = `/img/events/win${modifier}.jpg`;
       },
     GOL:function() {
+      this.actionMusic.final.play();
         this.modal = "block";
         this.modalVH = "100%";
         this.modalOpacity = 1;
@@ -1369,7 +1376,7 @@ export default {
         this.modalImg = "/img/events/LoseEnding.jpg";
       },
     GOZ:function() {
-        // this.enemyColor = "white";
+        this.actionMusic.final.play();
         this.modal = "block";
         this.modalVH = "100%";
         this.modalOpacity = 1;
@@ -1378,7 +1385,11 @@ export default {
         this.modalImg = "/img/events/ZenoEnding.jpg";
     },
     Restart:function() {
-        // this.modal = "none";
+        this.actionMusic.final.pause();
+        this.actionMusic.final.currentTime = 0;
+        this.actionMusic.win.pause();
+        this.actionMusic.win.currentTime = 0;
+        this.actionSound.surprise.play();
         this.modalVH = "0%";
         this.modalOpacity = 0;
         this.modaltext = "white";
