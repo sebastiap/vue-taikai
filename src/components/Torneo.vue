@@ -878,6 +878,10 @@ margin:0.5%;
       .fichaDatos .extra{
         display: none;
       }
+
+      .contenedor .enemigo .enemyName{
+    margin: 0;
+  }
     }
 
 @media screen and (max-width: 425px){
