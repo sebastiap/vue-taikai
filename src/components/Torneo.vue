@@ -513,7 +513,7 @@
 .contenedor .enemigo,
 .contenedor .footer {
 	background: #fff;
-	padding: 20px;
+	padding: 1em;
 	border-radius: 4px;
 }
 
@@ -913,7 +913,18 @@ width: fit-content;
   width:90%;
 }
 .contenedor{
-  width:90%;
+  width:90vw;
+  padding: 0.1rem;
+}
+.contenedor > div{
+  padding: 0;
+}
+.enemigo{
+  width:82vw;
+  padding: 0;
+}
+.enemigo .enemydata{
+  width:fit-content;
 }
 
 }
