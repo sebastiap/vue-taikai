@@ -126,19 +126,19 @@ Want to contribute? Great!
 [![Sebastian Picardi](https://avatars.githubusercontent.com/u/36540321?v=4)](https://github.com/sebastiap)  
 Sebastian Picardi
 
-## Recommended IDE Setup
+## Recommended IDE Setup for this project
 
 [VSCode](https://code.visualstudio.com/) + [Volar](https://marketplace.visualstudio.com/items?itemName=Vue.volar) (and disable Vetur) + [Auto Close Tag](https://marketplace.visualstudio.com/items?itemName=Autoclosetag).
-
-## Customize configuration
-
-See [Vite Configuration Reference](https://vitejs.dev/config/).
 
 ## Problem Solved
 
 * How do I add CSS animations when updating a value with vue.js? 
 Used by poderactual
 https://stackoverflow.com/questions/42537359/how-do-i-add-css-animations-when-updating-a-value-with-vue-js
+
+* How do I pass an array of values to another without passing the reference? This avoid the problem of updating every reference.
+Used by personajes
+this.personajes = JSON.parse(JSON.stringify(this.personajesRst));
 
 ## Project Setup
 

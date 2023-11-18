@@ -1213,91 +1213,114 @@ export default {
         this.actuar("/img/events/luchar.png");
         this.pjactual.energia = this.pjactual.energia - ((this.tecnicaActual.porc/100) * (this.pjactual.max));
       }
-      this.manageEnergy();
-      this.actuar("/img/events/empujar.png");
-      this.enablerun = "#a5b6c8";
 
-    if (p1 >p2 && this.diferenciadepoder < 10) {
-      this.results.puntaje +=50;
-      this.actionSound.kiblast.play();
-      this.dialogo = "Sin ningun inconveniente, el participante " + this.pjactual.nombre + " ha empujado de la plataforma a " +this.enemyName 
-        + ". La diferencia de poderes ha hecho que sea sencillo empujarlo. Zeno no parece contento con este resultado.";
-      this.manageZeno(-1);
-      this.manageEnemy();
-    }
-    else if (p1 >p2 && this.diferenciadepoder > 10) {
-      this.results.puntaje -=50;
-      this.actionSound.kiblast.play();
-      this.dialogo = "Vaya... el participante " + this.pjactual.nombre + " ha destrozado a " +this.enemyName 
-        + " al tratar de empujarlo. La diferencia de poderes simplemente era muy grande. Zeno no parece contento con este resultado.";
-      this.manageZeno(1);
-      this.manageEnemy();
-    }
-    else if (this.tecnicaActual.nombre === "PARALISIS" && this.diferenciadepoder > 0.3){
-      // Si usas el PARALISIS y lo empujas funciona barbaro y ganas muchos puntos aunque te gane por bastante
-      this.results.puntaje +=50;
-      this.manageZeno(-1);
-      this.actionSound.punch1.play();
-      this.dialogo = "El participante " + this.pjactual.nombre + " ha paralizado a " +this.enemyName 
-        + " con esa tecnica ha sido muy facil empujarlo. Zeno esta contento con esta maniobra";
-      this.manageEnemy();
-     
-    }
-    else if (this.tecnicaActual.nombre === "TAIYOKEN" && this.diferenciadepoder > 0.5){
-      // Si usas el TAIYOKEN y lo empujas funciona barbaro y ganas muchos puntos aunque te gane por bastante
-      this.results.puntaje +=50;
-      this.actionSound.punch1.play();
-      this.manageZeno(-1);
-      this.dialogo = "El participante " + this.pjactual.nombre + " ha cegado con su tecnica a " +this.enemyName 
-        + " vaya que fue facil empujarlo de la plataforma. Zeno esta contento con esta tactica";
-      this.manageEnemy();
-      
-    }
-    else{
+      if (this.pjactual.energia < 0){
       this.actuar("/img/events/fallo.png");
       this.actionSound.punch2.play();
-      this.results.puntaje -=10;
-      this.manageZeno(1);
+      this.enablerun="#55a8fd";
+      this.dialogo = "El participante " + this.pjactual.nombre + " intenta a empujar a su rival pero se queda sin energia!! Apenas si lo ha movido... Su enemigo aprovecha esta oportunidad y lo saca de la plataforma... Zeno esta muy decepcionado de ese fallo.";
       this.manageProta();
-      this.dialogo = "Vaya... el participante " + this.pjactual.nombre + " no ha podido ni mover a " +this.enemyName 
-        + ". La diferencia de poderes simplemente era muy grande. Zeno no parece contento con este resultado.";
-     
-    }
+      this.results.puntaje -=50;
+      }
+      else {
+        this.manageEnergy();
+        this.actuar("/img/events/empujar.png");
+        this.enablerun = "#a5b6c8";
+
+
+
+        if (p1 >p2 && this.diferenciadepoder < 10) {
+          this.results.puntaje +=50;
+          this.actionSound.kiblast.play();
+          this.dialogo = "Sin ningun inconveniente, el participante " + this.pjactual.nombre + " ha empujado de la plataforma a " +this.enemyName 
+            + ". La diferencia de poderes ha hecho que sea sencillo empujarlo. Zeno no parece contento con este resultado.";
+          this.manageZeno(-1);
+          this.manageEnemy();
+        }
+        else if (p1 >p2 && this.diferenciadepoder > 10) {
+          this.results.puntaje -=50;
+          this.actionSound.kiblast.play();
+          this.dialogo = "Vaya... el participante " + this.pjactual.nombre + " ha destrozado a " +this.enemyName 
+            + " al tratar de empujarlo. La diferencia de poderes simplemente era muy grande. Zeno no parece contento con este resultado.";
+          this.manageZeno(1);
+          this.manageEnemy();
+        }
+        else if (this.tecnicaActual.nombre === "PARALISIS" && this.diferenciadepoder > 0.3){
+          // Si usas el PARALISIS y lo empujas funciona barbaro y ganas muchos puntos aunque te gane por bastante
+          this.results.puntaje +=50;
+          this.manageZeno(-1);
+          this.actionSound.punch1.play();
+          this.dialogo = "El participante " + this.pjactual.nombre + " ha paralizado a " +this.enemyName 
+            + " con esa tecnica ha sido muy facil empujarlo. Zeno esta contento con esta maniobra";
+          this.manageEnemy();
+        
+        }
+        else if (this.tecnicaActual.nombre === "TAIYOKEN" && this.diferenciadepoder > 0.5){
+          // Si usas el TAIYOKEN y lo empujas funciona barbaro y ganas muchos puntos aunque te gane por bastante
+          this.results.puntaje +=50;
+          this.actionSound.punch1.play();
+          this.manageZeno(-1);
+          this.dialogo = "El participante " + this.pjactual.nombre + " ha cegado con su tecnica a " +this.enemyName 
+            + " vaya que fue facil empujarlo de la plataforma. Zeno esta contento con esta tactica";
+          this.manageEnemy();
+          
+        }
+        else{
+          this.actuar("/img/events/fallo.png");
+          this.actionSound.punch2.play();
+          this.results.puntaje -=10;
+          this.manageZeno(1);
+          this.manageProta();
+          this.dialogo = "Vaya... el participante " + this.pjactual.nombre + " no ha podido ni mover a " +this.enemyName 
+            + ". La diferencia de poderes simplemente era muy grande. Zeno no parece contento con este resultado.";
+        
+        }
+      }
   },
       huir: function (p1,p2, event) {
-    event.preventDefault();
-    this.manageEnergy();
-    if (p1 >(p2 * 2)) {
-      this.actuar("/img/events/huir.png");
-      this.actionSound.fly.play();
-      this.results.puntaje +=10;
-      this.enablepj = true;
-      this.enablerun = "#55a8fd";
-      this.dialogo = "El participante " + this.pjactual.nombre + " logra escapar de " +this.enemyName 
-        + ". Esto no parece agradarle mucho a Zeno, pero esta a la expectativa de quien sera el proximo participante.";
-    }
-    else if ((this.tecnicaActual.nombre === "TAIYOKEN" || this.tecnicaActual.nombre === "PARALISIS") && this.diferenciadepoder > 0.5){
-      // Si usas el TAIYOKEN y lo empujas funciona barbaro y ganas muchos puntos aunque te gane por bastante
-
-      this.actuar("/img/events/luchar.png");
-      this.actionSound.punch1.play();
-      this.pjactual.energia = this.pjactual.energia - ((this.tecnicaActual.porc/100) * (this.pjactual.max));
-      this.dialogo = "El participante " + this.pjactual.nombre + " usa una tecnica especial para tratar de escapar de " +this.enemyName 
-        + ". Ha sido efectiva! Ha escapado con exito y Zeno se emociona con semejante tactica!.";
-      this.enablepj = true;
-      this.enablerun = "#55a8fd";
-      this.results.puntaje +=50;
-      this.manageZeno(-1);
-    }
-    else{
+      event.preventDefault();
+      this.manageEnergy();
+      this.pjactual.energia = this.pjactual.energia - (this.formaactual.id/2);
+      if (this.pjactual.energia < 0){
       this.actuar("/img/events/fallo.png");
       this.actionSound.punch2.play();
-      this.results.puntaje -=10;
-      this.manageZeno(1);
-      this.dialogo = "El participante " + this.pjactual.nombre + " es empujado de la plataforma al tratar de escapar de " +this.enemyName 
-        + ". Zeno esta decepcionado por este fallo, esperemos que el proximo participante cambie su humor.";
+      this.enablerun="#55a8fd";
+      this.dialogo = "El participante " + this.pjactual.nombre + " intenta a huir pero se queda sin energia!! Su enemigo lo alcanza y lo saca de la plataforma... Zeno esta muy decepcionado de ese fallo.";
       this.manageProta();
-    }
+      this.results.puntaje -=50;
+      }
+
+      else if (p1 >(p2 * 2)) {
+        this.actuar("/img/events/huir.png");
+        this.actionSound.fly.play();
+        this.results.puntaje +=10;
+        this.enablepj = true;
+        this.enablerun = "#55a8fd";
+        this.dialogo = "El participante " + this.pjactual.nombre + " logra escapar de " +this.enemyName 
+          + ". Esto no parece agradarle mucho a Zeno, pero esta a la expectativa de quien sera el proximo participante.";
+      }
+      else if ((this.tecnicaActual.nombre === "TAIYOKEN" || this.tecnicaActual.nombre === "PARALISIS") && this.diferenciadepoder > 0.5){
+        // Si usas el TAIYOKEN y lo empujas funciona barbaro y ganas muchos puntos aunque te gane por bastante
+
+        this.actuar("/img/events/luchar.png");
+        this.actionSound.punch1.play();
+        this.pjactual.energia = this.pjactual.energia - ((this.tecnicaActual.porc/100) * (this.pjactual.max));
+        this.dialogo = "El participante " + this.pjactual.nombre + " usa una tecnica especial para tratar de escapar de " +this.enemyName 
+          + ". Ha sido efectiva! Ha escapado con exito y Zeno se emociona con semejante tactica!.";
+        this.enablepj = true;
+        this.enablerun = "#55a8fd";
+        this.results.puntaje +=50;
+        this.manageZeno(-1);
+      }
+      else{
+        this.actuar("/img/events/fallo.png");
+        this.actionSound.punch2.play();
+        this.results.puntaje -=10;
+        this.manageZeno(1);
+        this.dialogo = "El participante " + this.pjactual.nombre + " es empujado de la plataforma al tratar de escapar de " +this.enemyName 
+          + ". Zeno esta decepcionado por este fallo, esperemos que el proximo participante cambie su humor.";
+        this.manageProta();
+      }
   }, 
   
   manageEnemy: function() {
@@ -1328,12 +1351,11 @@ export default {
         this.estadoZeno += mod;
       }
 
-      if (this.results.puntaje > 10 ){
+      if (this.results.puntaje > 1000 ){
         this.GOV();
       }
     },
     manageProta: function() {
-      // this.GOL();
       if (this.personajes.length > 1){
           this.personajes = this.personajes.filter(personaje => personaje.nombre != this.pjactual.nombre);
           this.pjactual = this.personajes[0];
