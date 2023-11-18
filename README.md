@@ -12,13 +12,7 @@
 
 ## Demo
 Here is a working live demo :  
-
-
-## Site
-
-### Landing Page
-
-## Mobile support
+https://scintillating-maamoul-ff980a.netlify.app/
 
 ## Concepts 
 
@@ -34,9 +28,15 @@ Here is a working live demo :
 
  * https://css-tricks.com/a-complete-guide-to-calc-in-css/
 
+## Tools
+
 ### CSS gradient
 
  * https://cssgradient.io/
+
+### Favicon Generator
+
+ * https://favicon.io/
 
 ## [Usage](https://iharsh234.github.io/WebApp/) 
 
