@@ -59,6 +59,7 @@
 			    <h1>LUCHAR</h1>
 		    </aside>
         <div className="enemigo">
+          <p class="enemyName">{{ this.enemyName }}</p>
           <div className="enemydata convertEnemy">
             <h3>{{ imgenemigo }}</h3>
             <p className="NvlPelea">Nivel de Pelea: {{poderEnemy}}</p>
@@ -553,6 +554,16 @@ border-radius: 10px;
 transition: 1s;
   }
 
+.contenedor .enemigo .enemyName{
+	  display:flex;
+	  justify-content:center;
+	  align-items:center;
+    font-size: large;
+    background: v-bind("enemyColor");
+    margin: 1rem;
+    height: fit-content;
+    text-align: center;
+  }
 .contenedor .enemigo .formas{
 	  display:flex;
 	  flex-direction: row;
@@ -785,7 +796,8 @@ margin:0.5%;
 	.contenedor {
 		grid-template-areas: "header header header"
               	"enemigo enemigo enemigo"
-						 	 "widget-1 widget-2 sidebar"
+						 	 "widget-1 widget-2 sidebar";
+    max-height:80vh;
 	}
 
 
@@ -805,7 +817,7 @@ margin:0.5%;
         height: 10vh;
         width: 20vh;
       }
-      
+
 
 
 }
@@ -912,9 +924,11 @@ import {personajes as pjs,formas,imgenemigo,options as tecnicas,enemies,enemyCol
 
 export default {
   name: "Torneo",
-  mounted() {
-    this.intro();
-  },
+  mounted: function () {
+  this.$nextTick(function () {
+this.intro()
+  })
+},
   data () {
     return {
       personajesRst: JSON.parse(JSON.stringify(pjs)),
@@ -1340,7 +1354,6 @@ export default {
     this.results.derrotados +=1;
     },
     manageZeno: function(mod) {
-        //GAMEOVER ZENO
       if (this.estadoZeno === 5 && mod === 1)
        { this.GOZ();}
 
