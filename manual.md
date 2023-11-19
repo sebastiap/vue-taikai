@@ -56,21 +56,21 @@ Al igual que con las tranformaciones, cada personaje cuenta con sus propias tecn
 
 En la parte superior se encuentra tu personaje. 
 
-![Untitled](Vue-Taikai%208b4e6e37917b43dd82f211300fd7dfdf/Untitled.png)
+![Untitled](/manual/Untitled.png)
 
 Empezas con Goku pero podes elegir entre varios.  De momento Vegeta,Gohan,Krillin, Roshi y Broly.
 
-![Untitled](Vue-Taikai%208b4e6e37917b43dd82f211300fd7dfdf/Untitled%201.png)
+![Untitled](/manual/Untitled%201.png)
 
 En el centro estan los datos de ese personaje 
 
-![Untitled](Vue-Taikai%208b4e6e37917b43dd82f211300fd7dfdf/Untitled%202.png)
+![Untitled](/manual/Untitled%202.png)
 
 A la derecha podes elegir en que forma vas a pelear y si el personaje tiene alguna, aparecera tambien un campo para elegir la tecnica a aplicar.
 
 Mientras mas poderosa la forma, mas aumenta tu poder y podes derrotar enemigos mas fuertes! Pero ojo que **mientras mas poderosa la tranformacion mas costo energetico tiene!!** Ademas, usar **una tecnica costara energia adicional…**
 
-![Untitled](Vue-Taikai%208b4e6e37917b43dd82f211300fd7dfdf/Untitled%203.png)
+![Untitled](/manual/Untitled%203.png)
 
 Una vez elegido el setting de arriba, deberas prestar atencion al **nivel de pelea de tu enemigo y compararlo con el tuyo.** podes elegir la opcion que mas te convenga a traves de los botones '**LUCHAR','EMPUJAR'** o '**HUIR**'. LUCHAR es basicamente enfrentarte con el enemigo con sus poderes. EMPUJAR es para desechar a un enemigo sin pelear, cuando la diferencia es grande, pero hay que tener cuidado de que no haya mucha diferencia de poderes! HUIR es para cambiar de personaje y solo podras hacerlo si superas a un enemigo por al menos el doble de poder.
 
@@ -96,7 +96,7 @@ Huir es la opcion , a elegir si estas con poca energia o necesitas de cambiar de
 
 ## La Ira de Zeno Sama
 
-![Untitled](Vue-Taikai%208b4e6e37917b43dd82f211300fd7dfdf/Untitled%204.png)
+![Untitled](/manual/Untitled%204.png)
 
 Zeno Sama, el dios del todo, tiene poca paciencia para los errores y se pondra de mal humor si cometes demasiados.
 
@@ -104,13 +104,13 @@ Si ganas un combate bastante parejo, usas una tecnica especial para huir o empuj
 
 Zeno Sama se mantendra contento y podras seguir luchando para llegar a un mayor puntaje.
 
-![Untitled](Vue-Taikai%208b4e6e37917b43dd82f211300fd7dfdf/Untitled%205.png)
+![Untitled](/manual/Untitled%205.png)
 
 En cambio si pierdes tu combate, fallas al tratar de huir o empujar o de alguna manera lo decepcionas, Zeno Sama se enojara y si cometes demasiados errores finalmente detendra el torneo.
 
 **Importante: Ganar un combate con demasiada ventaja tambien enfurece a Zeno Sama por considerarlo aburrido!**
 
-![Untitled](Vue-Taikai%208b4e6e37917b43dd82f211300fd7dfdf/Untitled%206.png)
+![Untitled](/manual/Untitled%206.png)
 
 ## Finales Posibles
 
