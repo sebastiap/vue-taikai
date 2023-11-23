@@ -28,6 +28,10 @@ https://scintillating-maamoul-ff980a.netlify.app/
 
  * https://css-tricks.com/a-complete-guide-to-calc-in-css/
 
+### CSS Relative units
+
+ * https://www.freecodecamp.org/espanol/news/aprende-unidades-de-medidad-css-em-rem-vh-y-vw-con-ejemplos-de-codigos/
+
 ## Tools
 
 ### CSS gradient
@@ -80,7 +84,7 @@ Want to contribute? Great!
 - [x] Blackout Game Over
 - [x] Remove Comments
 - [x] More variation in random
-- [ ] Bring Balance to the world
+- [x] Bring Balance to the world
 
 ### Improve Visuals - Visual Content to add
 - [x] fichaDatos class
@@ -156,4 +160,17 @@ npm run dev
 
 ```sh
 npm run build
+```
+
+## Docker Build
+
+### Building the image
+
+```sh
+ docker build -t vue-taikai .
+```
+### Running the image
+
+```sh
+ docker run -it -p 8080:8080 --rm --name vue-taikai vue-taikai
 ```
