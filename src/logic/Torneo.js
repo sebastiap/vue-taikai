@@ -263,7 +263,7 @@ export const descripcionesSaiyanes = [
   ]
   
 
-export var enemyColors = ["black","#659157","#f7ffe0","#faa43d","#55a8fd","#e05263","white"]
+export var enemyColors = ["grey","#659157","#f7ffe0","#faa43d","#55a8fd","#e05263","white"]
 
 export function Luchar(poderProta,poderEnemigo) { 
 			this.logtorneo = this.logtorneo + "\n" +  this.lineacomando;

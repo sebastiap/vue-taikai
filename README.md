@@ -144,6 +144,11 @@ https://stackoverflow.com/questions/42537359/how-do-i-add-css-animations-when-up
 Used by personajes
 this.personajes = JSON.parse(JSON.stringify(this.personajesRst));
 
+## Aditional features
+
+### Automatic deployment
+I added a file named tasks.json to automate the deployment when we open the folder.
+
 ## Project Setup
 
 ```sh
@@ -163,7 +168,7 @@ npm run build
 ```
 
 ## Docker Build
-
+* https://es.vuejs.org/v2/cookbook/dockerize-vuejs-app
 ### Building the image
 
 ```sh
