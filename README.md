@@ -14,6 +14,9 @@
 Here is a working live demo :  
 https://scintillating-maamoul-ff980a.netlify.app/
 
+### How to play
+You can try a most challenging experience by simple playing and understanding while you try the app or you can read the [manual](manual.md)
+
 ## Concepts 
 
 ### Array copied by value and reference :
