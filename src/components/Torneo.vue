@@ -88,7 +88,7 @@
     <p class="im2">COMO JUGAR:</p>
     <button  v-on:click="explicarJugar()" class="intro-modal-button but2">COMO JUGAR</button>
     <p class="im3">{{ this.introModal.modalHTPMessage }}</p>
-    <button v-on:click="iniciar()" class="intro-modal-button">EMPECEMOS!</button>
+    <button v-on:click="iniciar()" class="intro-modal-button but3">EMPECEMOS!</button>
   </div>
 
 </div>
@@ -877,6 +877,16 @@ margin:0.5%;
       .contenedor .enemigo .enemyName{
     margin: 0;
   }
+
+  .but1, .but2{
+    margin-top: 3rem;
+    margin-bottom: 3rem;
+  }
+  .but3{
+    margin-top: 3rem;
+    margin-bottom: 6rem;
+  }
+
     }
 
 @media screen and (max-width: 425px){
@@ -954,6 +964,42 @@ margin-bottom: 1rem;
   .modal-content {
     width: auto;
 }
+
+
+.intro-modal-content{
+  width: 100%;
+  /*height: fit-content;*/
+  height: 120vh;
+  }
+  .intro-modal-content .but1,.intro-modal-content .but2{
+  display:block;
+  padding-bottom: 1rem;
+  margin-top: 1rem;
+  height: 20vh;
+  background: radial-gradient(circle, #4CAF50 0%, #009688 100%);;
+  }
+
+  .intro-modal-content .im1{
+  display:v-bind(modalStory);
+  transition: all .3s ease;
+  transform: scale();
+  color: snow;
+  }
+  .intro-modal-content .im2{
+  display:none;
+
+  }
+
+  .intro-modal-content .im3{
+  display:v-bind(modalHowTo);
+  transition: all .5s ease;
+  }
+  /*
+  .but3{
+    margin-top: 1rem;
+    margin-bottom: 6rem;
+  }
+  */
 }
 @media screen and (max-width: 375px){
   #personaje {
@@ -984,7 +1030,7 @@ margin-bottom: 1rem;
 display:block ;
 }
 
-
+/*
 .intro-modal-content{
   width: 100%;
   }
@@ -1011,7 +1057,7 @@ display:block ;
   display:v-bind(modalHowTo);
   transition: all .5s ease;
   }
-
+*/
 }
 @media screen and (max-width:320px) {
   .Intromodal{
