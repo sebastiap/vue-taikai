@@ -12,11 +12,12 @@ COPY package*.json ./
 # instalar dependencias del proyecto
 RUN npm install
 
-# copiar los archivos y carpetas del proyecto al directorio de trabajo actual (es decir, la carpeta 'app')
+# copiar los archivos del directorio donde esta el dockerfile y carpetas del proyecto al directorio de trabajo actual (es decir, la carpeta 'app' en la imagen)
 COPY . .
 
 # construir aplicación para producción minificada
 RUN npm run build
 
 EXPOSE 8080
+#Especifica los comando que queremos que corra
 CMD [ "http-server", "dist" ]

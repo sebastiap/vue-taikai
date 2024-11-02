@@ -84,7 +84,9 @@
   <div class="intro-modal-content">
     <img v-bind:src="introModal.modalImg" alt="">
     <p class="im1">{{ this.introModal.modalMessage }}</p>
+    <button v-on:click="historiar()" class="intro-modal-button but1">MOSTRAR HISTORIA</button>
     <p class="im2">COMO JUGAR:</p>
+    <button  v-on:click="explicarJugar()" class="intro-modal-button but2">COMO JUGAR</button>
     <p class="im3">{{ this.introModal.modalHTPMessage }}</p>
     <button v-on:click="iniciar()" class="intro-modal-button">EMPECEMOS!</button>
   </div>
@@ -418,6 +420,9 @@
   text-shadow: 1px 0px #5a5a4a;
 }
 
+.intro-modal-content .but1,.intro-modal-content .but2{
+  display:none;
+  }
 
 .intro-modal-content img,.modal-content img {
   width:30rem;
@@ -708,17 +713,7 @@ margin:0.5%;
   
 	}
 
-  .Intromodal{
-    height: 100vh;
-    padding-bottom: 0;
-    margin: 0;
-  }
-  .intro-modal-content{
-    height:100vh;
-    font-size: 0.8rem;
-    padding: 0;
-    margin: 0;
-  }
+
 
   .intro-modal-content p{
   padding: 0.1rem;
@@ -890,7 +885,7 @@ margin:0.5%;
 width: fit-content;
 }
 .item-3 .selectProta,.item-3 .selectContainer{
-  width:7vh;
+  width:9vh;
 }
 
 .fichaDatos{
@@ -900,6 +895,17 @@ width: fit-content;
 .fichaDatos .extra{
   display: none;
 }
+
+.nombrepj{
+  font-size:1.3rem;
+  color: navy;
+}
+
+#forma, #tecnica{
+height: fit-content;
+width:14.5vh;
+}
+
 #zeno{
   width: 10vh;
   height: 5vh;
@@ -911,6 +917,7 @@ width: fit-content;
 
 #dialogo{
   width:90%;
+  height: fit-content;
 }
 .contenedor{
   width:90vw;
@@ -927,15 +934,108 @@ width: fit-content;
   width:fit-content;
 }
 
+#personaje {
+    margin:0;
+  }
+
+  .item-3 {
+margin: 0;
+padding: 0;
+display: grid;
+grid-template-columns: 25% 75%;
+gap: 0.5rem;
+padding-bottom: 0.1rem;
+margin-bottom: 1rem;
+}
+.Intromodal{
+    height: 150vh;
+  }
+
+  .modal-content {
+    width: auto;
+}
+}
+@media screen and (max-width: 375px){
+  #personaje {
+    margin:0;
+  }
+
+  #forma, #tecnica{
+  height: fit-content;
+  width:8.5vh;
+}
+
+  #zeno{
+   margin: 0;
+}
+
+.placa{
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+.contenedor{
+  width: auto;
+  padding: 0.2rem;
+}
+
+.contenedor .enemigo{
+display:block ;
 }
 
 
+.intro-modal-content{
+  width: 100%;
+  }
+  .intro-modal-content .but1,.intro-modal-content .but2{
+  display:block;
+  padding-bottom: 1rem;
+  margin-top: 1rem;
+  height: 20vh;
+  background: radial-gradient(circle, #4CAF50 0%, #009688 100%);;
+  }
+
+  .intro-modal-content .im1{
+  display:v-bind(modalStory);
+  transition: all .3s ease;
+  transform: scale();
+  color: snow;
+  }
+  .intro-modal-content .im2{
+  display:none;
+
+  }
+
+  .intro-modal-content .im3{
+  display:v-bind(modalHowTo);
+  transition: all .5s ease;
+  }
+
+}
+@media screen and (max-width:320px) {
+  .Intromodal{
+    height: 150vh;
+    padding-bottom: 0;
+    margin: 0;
+  }
+  .intro-modal-content{
+    height:120vh;
+    width: 100%;
+    font-size: 0.8rem;
+    padding: 0;
+    margin: 0;
+  }
+  .placa{
+    border:  1px solid #000 1px solid;
+}
+}
 
 
   </style>
 
 <script>
-import {personajes as pjs,formas,imgenemigo,options as tecnicas,enemies,enemyColors,descripcionesLuchadores as enemyDescs, Luchar,Empujar,Huir} from '../logic/Torneo'
+import {personajes as pjs,formas,imgenemigo,options as tecnicas,enemies,enemyColors,descripcionesLuchadores as enemyDescs} from '../logic/Torneo'
 
 export default {
   name: "Torneo",
@@ -996,6 +1096,8 @@ this.intro()
       modalMessage:"",
       modalImg:"",
       modalOpacity:0,
+      modalHowTo:"none",
+      modalStory:"none",
       introModal: {
         modalDisplay:"block", //ver si lo sacamos
         modalVH:"100%",
@@ -1101,6 +1203,23 @@ this.intro()
   methods: {
     intro: function(){
       this.actionMusic.intro.play();
+    },
+    historiar: function(){
+      if (this.modalStory == "none"){
+        this.modalStory = "block";
+      }
+      else {
+        this.modalStory = "none";
+      }
+      
+    },
+    explicarJugar: function(){
+      if (this.modalHowTo == "none"){
+        this.modalHowTo = "block";
+      }
+      else {
+        this.modalHowTo = "none";
+      }
     },
     iniciar: function(){
         this.actionMusic.intro.pause();
