@@ -2,11 +2,11 @@
 
 ## Objetivo del Juego
 
-Para ganar el juego, debemos vencer a los enemigoque nos enfrenten, tratando de **vencerlos con la menor diferencia de poder entre nuestro personaje y el enemigo**. Mientras menor sea la diferencia de poderes , mas pareja fue la batalla y mas puntos nos dara. Necesitaremos **1000 puntos** para que Zeno Sama quede satisfecho y perdone al universo.
+Para ganar el juego, debemos vencer a los enemigo que nos enfrenten, tratando de **vencerlos con la menor diferencia de poder entre nuestro personaje y el enemigo**. Mientras menor sea la diferencia de poderes , mas pareja fue la batalla y mas puntos nos dara. Necesitaremos **1000 puntos** para que Zeno Sama quede satisfecho y perdone al universo.
 
 Perder un combate, no solo nos quitara puntos si no **que perderemos a nuestro personaje!**
 
-OBS: Como se ve en la tabla de aqui , ganar por mucha diferencia tambien restara puntos.
+***Importante: Como se ve en la tabla de aqui , ganar por mucha diferencia tambien restara puntos.***
 
 | Accion | Diferencia de Poder | Condicion Especial | Puntaje |
 | --- | --- | --- | --- |
@@ -104,13 +104,13 @@ Si ganas un combate bastante parejo, usas una tecnica especial para huir o empuj
 
 Zeno Sama se mantendra contento y podras seguir luchando para llegar a un mayor puntaje.
 
-![Untitled](public/src/manual/zenoImgC.png)
+![Untitled](public/manual/zenoImgC.png)
 
 En cambio si pierdes tu combate, fallas al tratar de huir o empujar o de alguna manera lo decepcionas, Zeno Sama se enojara y si cometes demasiados errores finalmente detendra el torneo.
 
 **Importante: Ganar un combate con demasiada ventaja tambien enfurece a Zeno Sama por considerarlo aburrido!**
 
-![Untitled](public/src/manual/zenoImgE.png)
+![Untitled](public/manual/zenoImgE.png)
 
 ## Finales Posibles
 
